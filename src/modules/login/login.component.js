@@ -11,6 +11,26 @@ class Login extends React.Component {
         };
     }
 
+    controls() {
+        return (
+            <div className="controls">
+                <ul>
+                    <li>
+                        <label>Username</label>
+                        <input type="text" />
+                    </li>
+                    <li>
+                        <label>Password</label>
+                        <input type="password" />
+                    </li>
+                    <li><span><BsCheckBox size="18" /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
+                    <li><button className="primary">Login</button></li>
+                    <li className="sign-up">Don't have an account? <a href="http://#">Sign up</a></li>
+                </ul>
+                {this.externalControls()}
+            </div>)
+    }
+
     externalControls() {
         return (
             <div className="external-auth">
@@ -25,22 +45,7 @@ class Login extends React.Component {
             <div className="login">
                 <h3>Welcome to</h3>
                 <h1>Swachh Digital</h1>
-                <div className="controls">
-                    <ul>
-                        <li>
-                            <label>Username</label>
-                            <input type="text" />
-                        </li>
-                        <li>
-                            <label>Password</label>
-                            <input type="password" />
-                        </li>
-                        <li><span><BsCheckBox size="18" /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
-                        <li><button className="primary">Login</button></li>
-                        <li className="sign-up">Don't have an account? <a href="http://#">Sign up</a></li>
-                    </ul>
-                    {this.externalControls()}
-                </div>
+                {this.controls()}
             </div>
         );
     }
