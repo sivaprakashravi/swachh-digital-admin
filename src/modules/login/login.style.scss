@@ -1,9 +1,9 @@
-@import './../../scss/definitions/variables.scss';
+@import "./../../scss/definitions/variables.scss";
 .login {
   margin: 10px;
-  margin-top: 80px;
+  margin-top: 50px;
   h1 {
-      color: $primary;
+    color: $primary;
   }
   label {
     display: block;
@@ -20,41 +20,59 @@
       border-bottom-color: $primary;
     }
   }
-  ul {
+  div.controls {
     position: absolute;
     top: calc(50% - 10px);
     left: calc(50% - 10px);
     transform: translate(-50%, -50%);
     width: calc(100% - 20px);
     margin: 10px;
-    li {
-      display: block;
-      margin-bottom: 10px;
-      span {
-        font-size: 0.8rem;
-        color: $lbl-grey;
-        label {
-          display: inline-block;
-          vertical-align: super;
-          margin-left: 3px;
+    .external-auth {
+      button {
+        padding: 5px;
+        margin-top: 20px;
+        border: 1px solid $border-grey;
+        border-radius: 5px;
+        width: calc(50% - 5px);
+        display: inline-block;
+        &:first-child {
+          margin-right: 5px;
+        }
+        &:last-child {
+          margin-left: 5px;
         }
       }
-      span,
-      a {
-        font-weight: bold;
-      }
-      a.fp {
-        float: right;
-        font-size: 0.8rem;
-      }
-      button {
-        width: 100%;
-        margin-top: 25px;
-        padding: 15px;
-      }
-      &.sign-up {
-        text-align: center;
-        margin-top: 25px;
+    }
+    ul {
+      li {
+        display: block;
+        margin-bottom: 10px;
+        span {
+          font-size: 0.8rem;
+          color: $lbl-grey;
+          label {
+            display: inline-block;
+            vertical-align: super;
+            margin-left: 3px;
+          }
+        }
+        span,
+        a {
+          font-weight: bold;
+        }
+        a.fp {
+          float: right;
+          font-size: 0.8rem;
+        }
+        button {
+          width: 100%;
+          margin-top: 25px;
+          padding: 15px;
+        }
+        &.sign-up {
+          text-align: center;
+          margin-top: 25px;
+        }
       }
     }
   }
