@@ -8,4 +8,8 @@ button {
     background: $primary;
     color: $white;
   }
+  &:disabled {
+    background: $lbl-grey;
+    cursor: not-allowed;
+  }
 }

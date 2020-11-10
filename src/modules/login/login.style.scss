@@ -11,13 +11,17 @@
     color: $lbl-grey;
   }
   input {
-    padding: 8px;
+    padding: 8px 8px 8px 0;
     display: block;
-    width: calc(100% - 20px);
+    width: calc(100% - 10px);
     border: none;
     border-bottom: 2px solid $border-grey;
     &:focus {
       border-bottom-color: $primary;
+    }
+    &[type="password"] {
+      padding: 8px 28px 8px 0;
+      width: calc(100% - 30px);
     }
   }
   div.controls {
@@ -27,11 +31,12 @@
     transform: translate(-50%, -50%);
     width: calc(100% - 20px);
     margin: 10px;
-    .external-auth, .otp {
-        button {
-            padding: 5px;
-            margin-top: 20px;
-        }
+    .external-auth,
+    .otp {
+      button {
+        padding: 5px;
+        margin-top: 20px;
+      }
     }
     .external-auth {
       button {
@@ -48,17 +53,18 @@
       }
     }
     .otp {
-        text-align: center;
-        margin-top: 10px;
-        button {
-            color: $primary;
-            font-weight: bold;
-        }
+      text-align: center;
+      margin-top: 10px;
+      button {
+        color: $primary;
+        font-weight: bold;
+      }
     }
     ul {
       li {
         display: block;
         margin-bottom: 10px;
+        position: relative;
         span {
           font-size: 0.8rem;
           color: $lbl-grey;
@@ -84,6 +90,24 @@
         &.sign-up {
           text-align: center;
           margin-top: 25px;
+        }
+        &.mobile-no {
+          &::after {
+            content: "+91";
+            position: absolute;
+            top: 20px;
+            left: 0;
+            color: $lbl-grey;
+          }
+          input {
+            text-indent: 32px;
+          }
+        }
+        .eye {
+          position: absolute;
+          top: 24px;
+          right: 10px;
+          fill: $primary;
         }
       }
     }
