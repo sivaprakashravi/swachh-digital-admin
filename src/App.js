@@ -7,7 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 function App() {
   return (
     <main>
-      <Header></Header>
+      {/* <Header></Header> */}
       <Switch>
         <Route path="/" component={Login} exact />
       </Switch>

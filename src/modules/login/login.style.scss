@@ -1,0 +1,61 @@
+@import './../../scss/definitions/variables.scss';
+.login {
+  margin: 10px;
+  margin-top: 80px;
+  h1 {
+      color: $primary;
+  }
+  label {
+    display: block;
+    font-size: 0.8rem;
+    color: $lbl-grey;
+  }
+  input {
+    padding: 8px;
+    display: block;
+    width: calc(100% - 20px);
+    border: none;
+    border-bottom: 2px solid $border-grey;
+    &:focus {
+      border-bottom-color: $primary;
+    }
+  }
+  ul {
+    position: absolute;
+    top: calc(50% - 10px);
+    left: calc(50% - 10px);
+    transform: translate(-50%, -50%);
+    width: calc(100% - 20px);
+    margin: 10px;
+    li {
+      display: block;
+      margin-bottom: 10px;
+      span {
+        font-size: 0.8rem;
+        color: $lbl-grey;
+        label {
+          display: inline-block;
+          vertical-align: super;
+          margin-left: 3px;
+        }
+      }
+      span,
+      a {
+        font-weight: bold;
+      }
+      a.fp {
+        float: right;
+        font-size: 0.8rem;
+      }
+      button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 15px;
+      }
+      &.sign-up {
+        text-align: center;
+        margin-top: 25px;
+      }
+    }
+  }
+}

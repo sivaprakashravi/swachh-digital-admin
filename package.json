@@ -31,6 +31,8 @@
     ]
   },
   "devDependencies": {
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.20",
+    "react-icons": "^3.11.0",
+    "sass": "^1.29.0"
   }
 }

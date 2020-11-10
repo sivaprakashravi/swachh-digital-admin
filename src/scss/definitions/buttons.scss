@@ -1,0 +1,10 @@
+@import './definitions/variables.scss';
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  &.primary {
+    background: $primary;
+    color: $white;
+  }
+}
