@@ -94,10 +94,14 @@ class Login extends React.Component {
 
     render() {
         return (
-            <div className="login">
-                <h3>Welcome to</h3>
-                <h1>Swachh Digital</h1>
-                {this.controls()}
+            <div>
+                <div className="greet">
+                    <h3>Welcome to</h3>
+                    <h1>Swachh Digital</h1>
+                </div>
+                <div className="login">
+                    {this.controls()}
+                </div>
             </div>
         );
     }
