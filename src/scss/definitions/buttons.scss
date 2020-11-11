@@ -4,6 +4,7 @@ button {
   border: none;
   border-radius: 5px;
   background: none;
+  font-size: 1rem;
   &.primary {
     background: $primary;
     color: $white;

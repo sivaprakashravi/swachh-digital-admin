@@ -14,7 +14,7 @@ h1 {
   width: calc(100% - 30px);
   label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: $lbl-grey;
   }
   input {
@@ -67,7 +67,7 @@ h1 {
         margin-bottom: 10px;
         position: relative;
         span {
-          font-size: 0.8rem;
+          font-size: 1rem;
           color: $lbl-grey;
           label {
             display: inline-block;
@@ -81,7 +81,7 @@ h1 {
         }
         a.fp {
           float: right;
-          font-size: 0.8rem;
+          font-size: 1rem;
         }
         button {
           width: 100%;

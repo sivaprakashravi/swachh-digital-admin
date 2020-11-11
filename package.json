@@ -12,6 +12,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "run": "react-scripts build && rimraf app/www && move build app/www && cd app && cordova run android",
     "emulate": "react-scripts build && rimraf app/www && move build app/www && cd app && cordova emulate android",
     "build": "react-scripts build && rimraf app/www && move build app/www && cd app && cordova build android",
     "test": "react-scripts test",
