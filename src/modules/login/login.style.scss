@@ -1,13 +1,20 @@
 @import "./../../scss/definitions/variables.scss";
+.greet {
+    margin: 20px 15px 60px;
+}
+h1 {
+  color: $primary;
+}
 .login {
-  margin: 10px;
-  margin-top: 50px;
-  h1 {
-    color: $primary;
-  }
+  margin: 15px;
+  // position: absolute;
+  // top: calc(50% - 10px);
+  // left: calc(50% - 10px);
+  // transform: translate(-50%, -50%);
+  width: calc(100% - 30px);
   label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 1rem;
     color: $lbl-grey;
   }
   input {
@@ -25,12 +32,6 @@
     }
   }
   div.controls {
-    position: absolute;
-    top: calc(50% - 10px);
-    left: calc(50% - 10px);
-    transform: translate(-50%, -50%);
-    width: calc(100% - 20px);
-    margin: 10px;
     .external-auth,
     .otp {
       button {
@@ -66,7 +67,7 @@
         margin-bottom: 10px;
         position: relative;
         span {
-          font-size: 0.8rem;
+          font-size: 1rem;
           color: $lbl-grey;
           label {
             display: inline-block;
@@ -80,7 +81,7 @@
         }
         a.fp {
           float: right;
-          font-size: 0.8rem;
+          font-size: 1rem;
         }
         button {
           width: 100%;
