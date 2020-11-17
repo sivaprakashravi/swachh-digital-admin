@@ -76,7 +76,8 @@ h1 {
           }
         }
         span,
-        a {
+        a,
+        label {
           font-weight: bold;
         }
         a.fp {
@@ -91,6 +92,10 @@ h1 {
         &.sign-up {
           text-align: center;
           margin-top: 25px;
+          label {
+            display: inline-block;
+            color: $primary;
+          }
         }
         &.mobile-no {
           &::after {

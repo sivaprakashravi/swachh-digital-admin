@@ -2,7 +2,7 @@ import React from 'react';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
-
+import { withRouter } from "react-router-dom";
 import './login.style.scss';
 class Login extends React.Component {
     constructor(props) {
@@ -19,6 +19,9 @@ class Login extends React.Component {
 
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
+    }
+    handleClick = () => {
+        this.props.history.push("register");
     }
 
     userNameControls() {
@@ -39,7 +42,7 @@ class Login extends React.Component {
                     this.setState({ rememberMe: !this.state.rememberMe })
                 }}><BsCheckBox size="18" color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
                 <li><button className="primary" disabled={!(this.state.username && this.state.password)}>Login</button></li>
-                <li className="sign-up">Don't have an account? <a href="/register">Sign up</a></li>
+                <li className="sign-up">Don't have an account? <label onClick={this.handleClick}>Sign up</label></li>
             </ul>
         )
     }
