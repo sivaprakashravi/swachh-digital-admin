@@ -6,7 +6,11 @@
     color: $white;
     // color: $primary;
     // background: $white;
-    box-shadow: -1px -1px 25px 0px #ccc;
+    // box-shadow: -1px -1px 25px 0px #ccc;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
     span {
         display: inline-block;
         vertical-align: super;
