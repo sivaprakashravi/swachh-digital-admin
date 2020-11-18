@@ -53,4 +53,27 @@
       }
     }
   }
+  .services {
+    margin-top: 15px;
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+      li {
+        width: calc(33% - 40px);
+        display: inline-block;
+        text-align: center;
+        box-shadow: -1px -1px 25px 0px #ccc;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        label {
+          display: block;
+          font-size: 0.75rem;
+        }
+        &:nth-child(3n+2) {
+          margin: 0 15px 15px;
+        }
+      }
+    }
+  }
 }
