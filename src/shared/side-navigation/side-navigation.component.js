@@ -46,12 +46,14 @@ class SideNav extends React.Component {
                     <ul>
                         {
                             this.state.list.map(l => {
-                                return <li key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                                return <li onClick={() => {
+                                    this.props.toggle();
+                                }}  key={l.label} className={l.active ? 'active' : ''}><a href={l.route}>{l.label}</a></li>;
                             })
                         }
                     </ul>
                     <footer>
-                        <button><CgLogOff size="22px" />Logoff</button>                        
+                        <a href="/login"><button><CgLogOff size="22px" />Logoff</button></a>
                         <i>Version: 1.0.0</i>
                     </footer>
                 </div>
