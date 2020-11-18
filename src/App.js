@@ -1,14 +1,24 @@
 import React from 'react';
 import './App.css';
 import Login from './modules/login/login.component';
-// import Header from './shared/header/header.component';
-import { Route, Switch } from 'react-router-dom';
+import Dashboard from './modules/dashboard/dashboard.component';
+import Header from './shared/header/header.component';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-function App() {
+function showHeader(route) {
+  const noAuth = ['', 'login', 'register'];
+  const has = noAuth.filter(auth => {
+    return route === `/${auth}`;
+  });
+  return (has && has.length) ? false : true;
+}
+
+function App(e) {
   return (
     <main>
-      {/* <Header></Header> */}
+      {showHeader(e.location.pathname) ? <Header></Header>: null}
       <Switch>
+        <Route path="/dashboard" component={Dashboard} />
         <Route path="/login" component={Login} />
         <Route component={Login} exact />
       </Switch>
@@ -16,4 +26,4 @@ function App() {
   )
 }
 
-export default App;
+export default withRouter(App);
