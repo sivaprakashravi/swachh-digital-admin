@@ -2,12 +2,29 @@ import React from 'react';
 import './side-navigation.style.scss';
 import { IoMdClose } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
+import { CgLogOff } from "react-icons/cg";
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [{
-                label: 'Menu Option',
+                label: 'Home',
+                route: '/',
+                active: true
+            },{
+                label: 'Add Products',
+                route: '/'
+            },{
+                label: 'Add Category',
+                route: '/'
+            },{
+                label: 'Orders',
+                route: '/'
+            },{
+                label: 'Manage Staff',
+                route: '/'
+            },{
+                label: 'Business Settings',
                 route: '/'
             }]
         };
@@ -29,10 +46,14 @@ class SideNav extends React.Component {
                     <ul>
                         {
                             this.state.list.map(l => {
-                                return <li key={l.label}>{l.label}</li>;
+                                return <li key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
                             })
                         }
                     </ul>
+                    <footer>
+                        <button><CgLogOff size="22px" />Logoff</button>                        
+                        <i>Version: 1.0.0</i>
+                    </footer>
                 </div>
             </div>
         );

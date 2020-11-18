@@ -10,7 +10,7 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-            <div>Dashboard</div>
+            <div className="dashboard">Dashboard</div>
         );
     }
 }
