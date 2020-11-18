@@ -1,0 +1,31 @@
+@import "./../../scss/definitions/variables.scss";
+.greet {
+    margin: 20px 15px 40px;
+}
+h1 {
+  color: $primary;
+}
+.storeBlock {
+  margin: 15px;
+  // position: absolute;
+  // top: calc(50% - 10px);
+  // left: calc(50% - 10px);
+  // transform: translate(-50%, -50%);
+border: 1px solid black;
+  width: calc(100% - 50px);
+ padding: 10px;
+  }
+  .buttonView{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 10px;
+}
+.urlView{
+    font-size: 16px;
+    background-color: blueviolet;
+    margin: 20px;
+    padding: 20px;
+}
+.selectView{
+  margin: 15px;
+}

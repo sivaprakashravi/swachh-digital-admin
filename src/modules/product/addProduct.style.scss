@@ -1,0 +1,12 @@
+@import "./../../scss/definitions/variables.scss";
+
+.rowView{
+    display: -ms-grid;
+}
+.textRow{
+    float: left;
+}
+input{
+    padding: 10px;
+    margin: 10px;
+}

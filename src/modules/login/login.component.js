@@ -21,7 +21,7 @@ class Login extends React.Component {
         this.setState({ [stateVariable]: event.target.value });
     }
     handleClick = () => {
-        this.props.history.push("register");
+        this.props.history.push("dashboard");
     }
 
     userNameControls() {
