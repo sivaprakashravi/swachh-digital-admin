@@ -2,7 +2,6 @@ import React from 'react';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
-import { withRouter } from "react-router-dom";
 import './login.style.scss';
 class Login extends React.Component {
     constructor(props) {
@@ -20,8 +19,8 @@ class Login extends React.Component {
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
     }
-    handleClick = () => {
-        this.props.history.push("register");
+    handleClick = (route) => {
+        this.props.history.push(route);
     }
 
     userNameControls() {
@@ -41,8 +40,8 @@ class Login extends React.Component {
                 <li><span onClick={() => {
                     this.setState({ rememberMe: !this.state.rememberMe })
                 }}><BsCheckBox size="18" style={{verticalAlign: 'top'}} color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
-                <li><button className="primary" disabled={!(this.state.username && this.state.password)}>Login</button></li>
-                <li className="sign-up">Don't have an account? <label onClick={this.handleClick}>Sign up</label></li>
+                <li><button onClick={() => {this.handleClick("dashboard")}} className="primary" disabled={!(this.state.username && this.state.password)}>Login</button></li>
+                <li className="sign-up">Don't have an account? <label onClick={() => {this.handleClick("register")}}>Sign up</label></li>
             </ul>
         )
     }
