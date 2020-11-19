@@ -54,7 +54,7 @@ class SideNav extends React.Component {
                     </ul>
                     <footer>
                         <a href="/login"><button><CgLogOff size="22px" />Logoff</button></a>
-                        <i>Version: 1.0.0</i>
+                        <i>Version: 1.0.0 <span>&copy; Swachh Digital</span></i>
                     </footer>
                 </div>
             </div>
