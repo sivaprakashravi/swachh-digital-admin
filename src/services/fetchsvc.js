@@ -1,26 +1,24 @@
-import {API} from '../configs/constant';
+import {host,apikey} from './constant';
+const API = 'https://us-central1-retailstores-28e08.cloudfunctions.net/'
 
 function generalUrl(url) {
   //const baseURL = API + '/wp-json' + url;
-  console.log(API +  url)
-  const baseURL = API +  url;
+  const baseURL = host +  url;
   return {
     baseURL,
   };
 }
 
-const get = (url, options = {}, token = null) => {
+const get = (url,token,options = {} ) => {
   return new Promise((resolve, reject) => {
-    const {baseURL} = generalUrl(url);
     const contentType = 'application/json'
-    console.log(baseURL);
-    fetch(baseURL, {
+    fetch(API+url, {
       ...options,
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': contentType,
-        Authorization: token ? `Bearer ${token}` : null,
+        Authorization:  `Bearer ${token}` ,
       },
     })
       .then(res => res.json())
@@ -38,18 +36,16 @@ const get = (url, options = {}, token = null) => {
   });
 };
 
-const post = (url, data, method = 'POST', token) => {
-  console.log(url,data)
+const post = (url, data,token,method = 'POST') => {
+  console.log(url,data,token)
   return new Promise((resolve, reject) => {
-    const {baseURL} = generalUrl(url);
     const contentType = 'application/json';
-
-    fetch(baseURL, {
+    fetch(API+url, {
       method: method,
       headers: {
         Accept: 'application/json',
-        Authorization: token ? `Bearer ${token}` : null,
-        'Content-Type': contentType,
+        'Content-Type': contentType,        
+         Authorization:  `Bearer ${token}` ,
       },
       body: data,
     })
@@ -59,28 +55,28 @@ const post = (url, data, method = 'POST', token) => {
 console.log('err',dataApi.error)
           //reject(new Error(dataApi.message))
         } else {
+          console.log("post api",dataApi)
           resolve(dataApi);         
         }
       })
       .catch(error => {
-        console.error(error);
+        console.error("post api",error);
         reject(error);
       });
   });
 };
 
 
-const logInpost = (url, data, method = 'POST', token) => {
-  console.log("fetch",url,data.username)
+const logInpost = (url, data, method = 'POST') => {
+  console.log("fetch",url,data)
   return new Promise((resolve, reject) => {
     const {baseURL} = generalUrl(url);
-    const urlParameters= "?grant_type=password&client_id=localbasket-client&client_secret=some-secret&username="+data.username+"&password="+data.password;
+    const urlParameters= `?key=${apikey}`
     const contentType = 'application/json';
     fetch(baseURL+urlParameters, {
       method: method,
       headers: {
         Accept: 'application/json',
-        Authorization:  'Basic ' + base64.encode(`localbasket-client:some-secret`) ,
         'Content-Type': contentType,
       },
       body: data,
@@ -88,25 +84,53 @@ const logInpost = (url, data, method = 'POST', token) => {
       .then((res) => res.json())
       .then(dataApi => {
         if (dataApi.error) {
-console.log('error',dataApi.error)
+         console.log('signup URL',dataApi.error)
           //reject(new Error(dataApi.message))
         } else {
-          console.log("a",dataApi)
+          console.log("signup response ",dataApi)
           resolve(dataApi);
-          console.log("navigation",dataApi,data.navigation);
-         data.state(dataApi.access_token)
         }
       })
       .catch(error => {
-        console.error("gfg",error);
+        console.error("signup error",error);
         reject(error);
       });
 
   });
 };
 
+const uploadImage=(url,data)=>{
+  console.log(url,data)
+try {
+  return new Promise((resolve,reject)=>{
+    const contentType = 'application/json';
+    fetch(API+url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': contentType,
+      },
+      body: data,
+    })
+      .then((res) => console.log(res))
+      // .then(dataApi => {
+      //   if (dataApi.error) {
+      //    console.log('Upload URL',dataApi.error)
+      //     //reject(new Error(dataApi.message))
+      //   } else {
+      //     console.log("Upload response ",dataApi)
+      //     resolve(dataApi);
+      //   }
+      // })   
+  })
+} catch (error) {
+  console.log("upload error",error)
+}
+}
+
 export default {
   get,
   post,
   logInpost,
+  uploadImage
 };

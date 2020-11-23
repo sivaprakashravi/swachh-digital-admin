@@ -1,1 +1,2 @@
-export const API = 'http://52.255.139.178:9191/';
+export const host = 'https://identitytoolkit.googleapis.com/v1/accounts:';
+export const apikey = 'AIzaSyDbMWGMF326_7eGzhzQ_lvhjaczF2pXmMw';

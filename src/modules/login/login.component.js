@@ -2,7 +2,7 @@ import React from 'react';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
-import { withRouter } from "react-router-dom";
+import register from '../../services/fetchsvc'
 import './login.style.scss';
 class Login extends React.Component {
     constructor(props) {
@@ -21,7 +21,23 @@ class Login extends React.Component {
         this.setState({ [stateVariable]: event.target.value });
     }
     handleClick = () => {
-        this.props.history.push("dashboard");
+        this.props.history.push("register");
+    }
+
+   async loginControl(){
+        try {
+            const data={
+                "email" : this.state.username,
+    "password" : this.state.password,
+    "returnSecureToken" : true
+            }
+           const dataApi =await register.logInpost('signInWithPassword',JSON.stringify(data));
+           const {idToken,email,localId} = dataApi;
+           await localStorage.setItem('userToken',JSON.stringify({idToken,email,localId}));
+           this.props.history.push("dashboard");
+        } catch (error) {
+            console.log('login',error)
+        }
     }
 
     userNameControls() {
@@ -41,7 +57,7 @@ class Login extends React.Component {
                 <li><span onClick={() => {
                     this.setState({ rememberMe: !this.state.rememberMe })
                 }}><BsCheckBox size="18" style={{verticalAlign: 'top'}} color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
-                <li><button className="primary" disabled={!(this.state.username && this.state.password)}>Login</button></li>
+                <li><button className="primary" disabled={!(this.state.username && this.state.password)} onClick={()=>this.loginControl()}>Login</button></li>
                 <li className="sign-up">Don't have an account? <label onClick={this.handleClick}>Sign up</label></li>
             </ul>
         )

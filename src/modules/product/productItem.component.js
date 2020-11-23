@@ -2,6 +2,8 @@ import React from 'react'
 import './addProduct.style.scss'
 
 const ItemScreen=(props)=>{
+    const [name,setName] = React.useState('');
+    const [price,setPrice] = React.useState('')
     const {data} = props
     return(
             <div className="rowView" >
