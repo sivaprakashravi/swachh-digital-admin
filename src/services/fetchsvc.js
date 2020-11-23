@@ -10,6 +10,7 @@ function generalUrl(url) {
 }
 
 const get = (url,token,options = {} ) => {
+  console.log(url,token)
   return new Promise((resolve, reject) => {
     const contentType = 'application/json'
     fetch(API+url, {
@@ -26,6 +27,7 @@ const get = (url,token,options = {} ) => {
         if (data.code) {
           reject(new Error(data.message));
         } else {
+          console.log(data)
           resolve(data);
         }
       })

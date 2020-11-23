@@ -1,7 +1,7 @@
 import React from 'react'
 import List from   './List.json'
 import {Listview} from './listView'
-import register from '../../services/fetchsvc'
+import fetchservices from '../../services/fetchsvc'
 export class ProductListScreen extends React.Component{
     constructor(props){
         super(props);
@@ -13,10 +13,10 @@ export class ProductListScreen extends React.Component{
    async  getProducts(){
    try {
     const store= await localStorage.getItem('storeUser');
-    const dataId = await localStorage.getItem('userToken');
-    const {email,localId,idToken} = JSON.parse(dataId);
+    const userId = await localStorage.getItem('userToken');
+    const {email,localId,idToken} = JSON.parse(userId);
     const {StoreId} = JSON.parse(store);
-    const data = await register.get(`api/getProducts/${StoreId}`,idToken);
+    const data = await fetchservices.get(`api/getProducts/${StoreId}`,idToken);
     this.setState({list:data})  
    } catch (error) {
        console.log(error)
@@ -29,8 +29,8 @@ export class ProductListScreen extends React.Component{
    async editProduct(name,price,discount,category){
        try {
         const store= await localStorage.getItem('storeUser');
-        const dataId = await localStorage.getItem('userToken');
-        const {email,localId,idToken} = JSON.parse(dataId);
+        const userId = await localStorage.getItem('userToken');
+        const {email,localId,idToken} = JSON.parse(userId);
         const {StoreId} = JSON.parse(store);
         const data={
             "DocId" : "",
@@ -48,7 +48,7 @@ export class ProductListScreen extends React.Component{
     "StoreId" : StoreId,    
     "ModifiedBy" : localId
         } 
-const editApi = await register.post('api/updateProduct',JSON.stringify(data),idToken);
+const editApi = await fetchservices.post('api/updateProduct',JSON.stringify(data),idToken);
 console.log("edit screen api",editApi);
 
        } catch (error) {

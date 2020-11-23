@@ -26,7 +26,7 @@ export class EditScreen extends React.Component{
                     <input type="text" value={state.RetailPrice} onChange={(e) => { this.handleChange(e, 'price') }} />
                 </li>
                 <li>
-                    <label>Discount:</label>
+                    <label>Offer:</label>
                     <input type="text" value={state.Offer_Price}  onChange={(e) => { this.handleChange(e, 'discount') }}/>
                 </li>
                 <li>
