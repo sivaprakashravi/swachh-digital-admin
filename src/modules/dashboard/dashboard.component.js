@@ -1,9 +1,10 @@
 import React from 'react'
 import './dashboard.style.scss'
  
-
-
+import register from '../../services/fetchsvc'
+import {AuthContext} from '../utils/auth-context'
 class DashboardScreen extends React.Component{
+  static contextType = AuthContext
   fileObj = [];
   fileArray = [];
 constructor(props){
@@ -19,6 +20,28 @@ constructor(props){
  
 }
 
+componentDidMount(){
+  const user = this?.context?.user ?? {};
+  console.log("dashboard",user)
+}
+// componentDidMount(){
+//   const store=  localStorage.getItem('storeUser');
+//         const userId =  localStorage.getItem('userToken');
+//         const {email,localId,idToken} = JSON.parse(userId);
+//         const {StoreId} = JSON.parse(store);
+//         const list = JSON.stringify({"DocId":"fw8vPFx3P9V98Zj93czp", "Brands" : "",
+//         "Category" : "soap",
+//         "SubCategory" : "",
+//         "ImageUrl" : "",
+//         "IsActive" : true,
+//         "IsOffer"  : false,
+//         "ProductCode" : "",
+//         "ProductName" : "vmc",
+//         "ProductDesc" : "",
+//         "RetailPrice" : "20",
+//     "Offer_Price" : 0,"StoreId":"swac2137","ModifiedBy":"J5hmruEoY6TMoLGTXiQ8ZLKWnqk1"})
+//   const data = register.post('api/updateProduct',list,idToken)
+// }
 
   handleChange = e => {
     const { name, value } = e.target;

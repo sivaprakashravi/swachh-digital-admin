@@ -4,14 +4,15 @@ import register from '../../services/fetchsvc'
 
 class CreateProduct extends React.Component{
     fileObj = [];
-    fileArray = [];
+    fileArray = []
     constructor(props){
         super(props);
         this.state={
 imgs:[],
-imageUrl:'',
+imageUrl:null,
 file:null,
-image:[null]
+image:null,
+categories:[]
         }
     }
 
@@ -22,38 +23,75 @@ image:[null]
         });
       };
 
+async getCategories(){
+    const store= await localStorage.getItem('storeUser');
+    const {StoreId} = JSON.parse(store)
+    const dataId = await localStorage.getItem('userToken');
+    const {email,localId,idToken} = JSON.parse(dataId);
+    const category= await register.get(`api/getCategories/${StoreId}`,idToken);
+    this.setState({categories:category.Category})
+}
+
+componentDidMount(){
+this.getCategories();
+console.log("image",this.state.image)
+}
+
 async CreateProductControl(){
-    const {category,imageUrl,productName,price,categoryName} = this.state
+    const {imageUrl,productName,price,categoryName} = this.state
+    await this.setState({id:productName.substring(0,3) +this.randomString(3,'0123456789')});
     const store= await localStorage.getItem('storeUser');
     const dataId = await localStorage.getItem('userToken');
     const {email,localId,idToken} = JSON.parse(dataId);
-    const {StoreId} = JSON.parse(store)
+    const {StoreId} = JSON.parse(store);
+    const {ImageUrl} = JSON.parse(this.state.imageUrl);
     try {
         const data={
             "Brands" : "",
             "Category" : categoryName,
             "SubCategory" : "",
-            "ImageUrl" : imageUrl,
+            "ImageUrl" : ImageUrl,
             "IsActive" : true,
             "IsOffer"  : false,
-            "ProductCode" : "",
+            "ProductCode" : this.state.id,
             "ProductName" : productName,
             "ProductDesc" : "",
             "RetailPrice" : price,
-            "Offer_Price" : 0,
+            "OfferPrice" : 0,
             "StoreId" : StoreId,
             "CreatedBy" : localId,
-            "ModifiedBy" :localId
+            "ModifiedBy" : localId
+        
         }
-        const create = await register.post('api/createProduct',JSON.stringify(data),idToken);
-        alert(create.message);
-        this.props.history.push('dashboard')
+        const proId =
+            {
+                "ProductId" : this.state.id
+            }
+        
+        const productId = await register.post('api/checkProductCode',JSON.stringify(proId),idToken);
+     const len = Object.keys(productId).length; // 2
+   if(len < 1){
+    const create = await register.post('api/createProduct',JSON.stringify(data),idToken);
+    alert(create.message);
+    this.props.history.push('dashboard')
+   }else{
+       this.CreateProductControl()
+   }     
     } catch (error) {
         console.log("create product error",error)
     }
 }
 
-categoryControls(){
+//generate random value
+randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i)
+      result += chars[Math.round(Math.random() * (chars.length - 1))];
+    return result;
+  }
+
+
+categoryControls(optionItems){
     return(
        <div> 
         <div className="radio">
@@ -72,10 +110,7 @@ categoryControls(){
                 <label for="item">Choose a Category:</label>
                 </div>
                 <select id="item" name="categoryName" onChange={this.handleChange} className="dropDown">
-                  <option value="volvo" >Food</option>
-                  <option value="saab">Vegetables</option>
-                  <option value="fiat">Fruits</option>
-                  <option value="audi">Breed</option>
+                {optionItems}
                 </select>
                 </ul>          
                :
@@ -106,7 +141,7 @@ async uploadMultipleFiles(e) {
   }
 
  async uploadControl(){
-     console.log(this.state.file)
+     console.log(this.state.image)
     const formData = new FormData();
     formData.append("fileName", this.state.file, this.state.file.name);
 var requestOptions = {
@@ -118,7 +153,8 @@ var requestOptions = {
   fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
     .then(response => response.text())
     .then(result => {
-        this.setState({imageUrl:result.ImageUrl})
+        console.log(result)
+        this.setState({imageUrl:result})
     })
     .catch(error => console.log('error', error));
     // const data = await register.uploadImage('uploadFile',formData);
@@ -131,15 +167,16 @@ var requestOptions = {
    
   }; 
 uploadImage(){
+    console.log(this.state.image)
     return(
         <div>
         <div className="inputView">  
   <input type="file" id="browser" multiple={true}
          accept="image/*"   
-        onChange={(e)=>this.onFileChange(e)}
+        onChange={(e)=>this.uploadMultipleFiles(e)}
          />
          <div>
-      <button onClick={()=>this.uploadControl()} className="primary" > 
+      <button onClick={()=>this.uploadControl()} className="primary" disabled={!this.state.image}> 
                   Upload! 
                 </button> 
                 </div>
@@ -168,19 +205,23 @@ productNameControls(){
  )
 }
 
-controls(){
+controls(optionItems){
     return (
         <div className="controls">
-       {this.categoryControls()}
+       {this.categoryControls(optionItems)}
        {this.productNameControls()}
         </div>)
 }
 
     render(){
+        let planets = this.state.categories;
+        let optionItems = planets.map((planet) =>
+                <option key={planet}>{planet}</option>
+            );
         return(
            <div>
               <h3>Enter Product Details</h3>
-{this.controls()}
+{this.controls(optionItems)}
            </div>
         )
     }

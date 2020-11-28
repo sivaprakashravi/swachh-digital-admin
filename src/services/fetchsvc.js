@@ -17,8 +17,8 @@ const get = (url,token,options = {} ) => {
       ...options,
       method: 'GET',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': contentType,
+        // Accept: 'application/json',
+        // 'Content-Type': contentType,
         Authorization:  `Bearer ${token}` ,
       },
     })

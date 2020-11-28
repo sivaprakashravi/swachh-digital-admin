@@ -1,66 +1,89 @@
 import React from 'react'
-import List from   './List.json'
-import {Listview} from './listView'
+import List from './List.json'
+import { Listview } from './listView'
 import fetchservices from '../../services/fetchsvc'
-export class ProductListScreen extends React.Component{
-    constructor(props){
+export class ProductListScreen extends React.Component {
+    constructor(props) {
         super(props);
-    this.state={
-        list:[]
-    }
+        this.state = {
+            list: []
+        }
     }
 
-   async  getProducts(){
-   try {
-    const store= await localStorage.getItem('storeUser');
-    const userId = await localStorage.getItem('userToken');
-    const {email,localId,idToken} = JSON.parse(userId);
-    const {StoreId} = JSON.parse(store);
-    const data = await fetchservices.get(`api/getProducts/${StoreId}`,idToken);
-    this.setState({list:data})  
-   } catch (error) {
-       console.log(error)
-   }
+    async getProducts() {
+        console.log("call")
+        try {
+            const store = await localStorage.getItem('storeUser');
+            const userId = await localStorage.getItem('userToken');
+            const { email, localId, idToken } = JSON.parse(userId);
+            console.log(idToken)
+            const { StoreId } = JSON.parse(store);
+            const data = await fetchservices.get(`api/getProducts/${StoreId}`, idToken);
+            console.log("data",data)
+            this.setState({ list: data })
+        } catch (error) {
+            console.log(error)
+        }
     }
-    componentDidMount(){
+    componentDidMount() {
         this.getProducts();
     }
 
-   async editProduct(name,price,discount,category){
-       try {
-        const store= await localStorage.getItem('storeUser');
-        const userId = await localStorage.getItem('userToken');
-        const {email,localId,idToken} = JSON.parse(userId);
-        const {StoreId} = JSON.parse(store);
-        const data={
-            "DocId" : "",
-    "Brands" : "",
-    "Category" : "soap",
-    "SubCategory" : "",
-    "ImageUrl" : "",
-    "IsActive" : true,
-    "IsOffer"  : false,
-    "ProductCode" : "",
-    "ProductName" : "vmc",
-    "ProductDesc" : "",
-    "RetailPrice" : price,
-"Offer_Price" : 0,
-    "StoreId" : StoreId,    
-    "ModifiedBy" : localId
-        } 
-const editApi = await fetchservices.post('api/updateProduct',JSON.stringify(data),idToken);
-console.log("edit screen api",editApi);
+    async deleteProduct(id) {
+        try {
+            const store = await localStorage.getItem('storeUser');
+            const userId = await localStorage.getItem('userToken');
+            const { email, localId, idToken } = JSON.parse(userId);
+            const { StoreId } = JSON.parse(store);
+            const list = JSON.stringify({
+                "DocId": id
+            })
+            const deleteApi = await fetchservices.post('api/deleteProduct', list, idToken);
+            alert(deleteApi)
+            this.getProducts()
+        } catch (error) {
 
-       } catch (error) {
-           console.log(error);
-       }
+        }
     }
 
-    render(){
-        let list=this.state.list.map((x,index)=>{return(
-<Listview data={x} key={index} nav={this.props.history} edit={this.editProduct}/>
-        )})
-        return(
+    async editProduct(values) {
+        console.log("values", values)
+        try {
+            const store = await localStorage.getItem('storeUser');
+            const userId = await localStorage.getItem('userToken');
+            const { email, localId, idToken } = JSON.parse(userId);
+            const { StoreId } = JSON.parse(store);
+            const list = JSON.stringify({
+                "DocId": values.DocId, "Brands": "",
+                "Category": values.category,
+                "SubCategory": "",
+                "ImageUrl": values.fileUrl,
+                "IsActive": values.active,
+                "IsOffer": values.offerTog,
+                "ProductCode": "",
+                "ProductName": values.name,
+                "ProductDesc": "",
+                "RetailPrice": values.price,
+                "Offer_Price": values.offerToint, "StoreId": StoreId, "ModifiedBy": localId
+            })
+            const editApi = await fetchservices.post('api/updateProduct', list, idToken);
+            this.getProducts()
+            alert(editApi)
+           
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    
+
+    render() {
+        let list = this.state.list.map((x, index) => {
+            return (
+                <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />
+            )
+        })
+        return (
             <div>
                 {list}
             </div>

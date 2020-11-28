@@ -11,11 +11,21 @@ import { Route, Switch } from 'react-router-dom';
 import StoreRegister  from './modules/register/storeRegister.component'
 import CreateProduct from './modules/baseProduct/createProduct.component'
 import {AuthContext} from './modules/utils/auth-context'
+import fetchApi from './services/fetchsvc'
 function App() {
 const [state,dispatch] = React.useReducer(
   (prevState,action)=>{
+    console.log(action.store)
 switch(action.type){
   
+  case 'SING_IN_SUCCESS':
+          return {
+            ...prevState,
+            isLoading: false,
+            userToken: action.dataApi.idToken,
+            ids:action.dataApi,
+            user: action.store,        
+          }
 }
   },
   {
@@ -23,36 +33,37 @@ switch(action.type){
     isSignOut: false,
     userToken: null,
     user: {},
+    ids:{},
     error: null,
   },
 );
 
-React.useEffect(() => {
-  // Fetch the token from storage then navigate to our appropriate place
-  const bootstrapAsync = async () => {
-    try {
-      const userJson = await localStorage.getItem('userToken');
-      if (userJson) {
-        const {idToken,email,localId} = JSON.parse(userJson);
-        dispatch({type: 'RESTORE_TOKEN', idToken, email,localId});
-      }
-    } catch (e) {
-      // Restoring token failed
-      console.log(e);
-    }
-  };
-  bootstrapAsync();
-}, []);
-
 
 const authContext = React.useMemo(
   ()=>({
-      signIn: async (data)=>{
+      signIn: async (values)=>{
+
         try {
-          
-        } catch (error) {
-          
-        }
+          const data={
+              "email" : values.username,
+  "password" : values.password,
+  "returnSecureToken" : true
+          }
+         const dataApi =await fetchApi.logInpost('signInWithPassword',JSON.stringify(data));
+         const {idToken,email,localId} = dataApi;
+         await localStorage.setItem('userToken',JSON.stringify({idToken,email,localId}));
+         const user=
+          {
+              "UserId" : localId
+          }
+         const store = await fetchApi.post('api/getStoreInfo',JSON.stringify(user),idToken);
+         await localStorage.setItem('storeUser',JSON.stringify(store));
+         dispatch({type: 'SING_IN_SUCCESS', dataApi, store});
+         
+      } catch (error) {
+          console.log('login',error)
+      }
+
       },
       signOut: async ()=>{
 
@@ -72,15 +83,29 @@ const authContext = React.useMemo(
       {/* <Header></Header> */}
       <AuthContext.Provider value={{...authContext,...state}}>
       <Switch>
-        <Route path="/login" component={Login} />
+        {
+          state.userToken == null ?
+          ( 
+            <>
+           <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route path="/" component={Login} exact />
+          </>
+          )
+          :
+          (
+            <>
+             <Route path="/" component={Dashboard} exact />
+             <Route path="/dashboard" component={Dashboard} />
         <Route path="/addproduct" component={AddProductScreen} />
         <Route path="/productlist" component={ProductListScreen} />
         <Route path="/editScreen" component={EditScreen} />
         <Route path="/storeRegister" component={StoreRegister} />
         <Route path="/createProduct" component={CreateProduct} />
-        <Route path="/" component={Login} exact />
+            </>
+          )
+        }
+      
       </Switch>
       </AuthContext.Provider>
     </main>

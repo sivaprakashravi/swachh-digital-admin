@@ -1,16 +1,41 @@
 import React from 'react'
 import './addProduct.style.scss'
-export const Listview=(props)=>{
-    const {data,edit} = props;
+export const Listview = (props) => {
+    const { data, edit } = props;
+   const menuControl=()=>{
+        return(
+           <div>
+            <button type="menu" menu="popup-menu">
+              Dropdown
+            </button>
+            
+            <menu type="context" id="popup-menu">
+              <menuitem>Action</menuitem>
+              <menuitem>Another action</menuitem>
+              <hr/>
+              <menuitem>Separated action</menuitem>
+            </menu>
 
-    return(
+            </div>        )
+    }
+    return (
         <div className="listContainer">
-           <div className="listrowView">
-    <text style={{margin:10,padding:10}} >Category :{data.Category}</text><br/>
-    <text style={{margin:10,padding:10}}>RetailPrice  : {data.RetailPrice}</text><br/>
-    <text style={{margin:10,padding:10}}>DocId : {data.DocId}</text>
-           </div>
-           <button className="primary" onClick={()=>props.nav.push({pathname:'editScreen',state:data,callBack:edit})}>Edit</button>
+        <div className="listView" >
+            <div>
+            <img src={data.Imageurl} alt="image" className="thumbnailImg" />
+            </div>
+            <div>
+                <pre>
+            <text >Product Name : {data.ProductName}</text><br/>
+                <text  >Category :{data.Category}</text><br />
+                <text >RetailPrice  : {data.RetailPrice}</text><br />
+                </pre>
+            </div>
+        </div>
+        <div style={{marginLeft:80}}>
+            <button className="button"  onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit })}>Edit</button>
+            <button className="button"  onClick={() => menuControl()}>Delete</button>
+            </div>
         </div>
     )
 }

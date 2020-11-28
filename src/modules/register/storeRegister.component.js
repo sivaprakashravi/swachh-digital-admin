@@ -34,12 +34,19 @@ try {
         "CreatedBy" : localId,
         "ModifiedBy" : localId,
         "LogoUrl" : "",
-        "Pincode" : "500072"
+        "Pincode" : "500072",
+        "UserId" : localId
     };
-    // const checkId = await register.get(`api/getStoreDetails/${id}`);
+     const checkId = await register.get(`api/getStoreDetails/${this.state.id}`,idToken);
+     const len = Object.keys(checkId).length;
+     if(len  < 1){
         const dataApi = await register.post('api/createStore',JSON.stringify(data),idToken);
         await localStorage.setItem('storeUser',JSON.stringify(dataApi))
         this.props.history.push('createProduct');
+     }else{
+         this.registerControl()
+     }
+        
 } catch (error) {
     console.log("store register",error)
 }
