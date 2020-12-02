@@ -5,6 +5,13 @@
 h1 {
   color: $primary;
 }
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  
+}
 .login {
   margin: 15px;
   // position: absolute;

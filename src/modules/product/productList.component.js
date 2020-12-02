@@ -2,7 +2,11 @@ import React from 'react'
 import List from './List.json'
 import { Listview } from './listView'
 import fetchservices from '../../services/fetchsvc'
+import {AuthContext} from '../utils/auth-context'
+
 export class ProductListScreen extends React.Component {
+    static contextType = AuthContext
+
     constructor(props) {
         super(props);
         this.state = {
@@ -11,15 +15,10 @@ export class ProductListScreen extends React.Component {
     }
 
     async getProducts() {
-        console.log("call")
         try {
-            const store = await localStorage.getItem('storeUser');
-            const userId = await localStorage.getItem('userToken');
-            const { email, localId, idToken } = JSON.parse(userId);
-            console.log(idToken)
-            const { StoreId } = JSON.parse(store);
-            const data = await fetchservices.get(`api/getProducts/${StoreId}`, idToken);
-            console.log("data",data)
+            const {user,userToken} = this.context
+            const { StoreId } = user;
+            const data = await fetchservices.get(`api/getProducts/${StoreId}`, userToken);
             this.setState({ list: data })
         } catch (error) {
             console.log(error)
@@ -31,6 +30,7 @@ export class ProductListScreen extends React.Component {
 
     async deleteProduct(id) {
         try {
+            
             const store = await localStorage.getItem('storeUser');
             const userId = await localStorage.getItem('userToken');
             const { email, localId, idToken } = JSON.parse(userId);
@@ -39,15 +39,14 @@ export class ProductListScreen extends React.Component {
                 "DocId": id
             })
             const deleteApi = await fetchservices.post('api/deleteProduct', list, idToken);
+           await  this.getProducts()
             alert(deleteApi)
-            this.getProducts()
         } catch (error) {
 
         }
     }
 
     async editProduct(values) {
-        console.log("values", values)
         try {
             const store = await localStorage.getItem('storeUser');
             const userId = await localStorage.getItem('userToken');
@@ -60,7 +59,7 @@ export class ProductListScreen extends React.Component {
                 "ImageUrl": values.fileUrl,
                 "IsActive": values.active,
                 "IsOffer": values.offerTog,
-                "ProductCode": "",
+                "ProductCode": "code123",
                 "ProductName": values.name,
                 "ProductDesc": "",
                 "RetailPrice": values.price,
@@ -75,9 +74,9 @@ export class ProductListScreen extends React.Component {
         }
     }
 
-    
 
     render() {
+
         let list = this.state.list.map((x, index) => {
             return (
                 <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />

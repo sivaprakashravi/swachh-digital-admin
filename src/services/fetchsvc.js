@@ -10,7 +10,6 @@ function generalUrl(url) {
 }
 
 const get = (url,token,options = {} ) => {
-  console.log(url,token)
   return new Promise((resolve, reject) => {
     const contentType = 'application/json'
     fetch(API+url, {
@@ -27,12 +26,10 @@ const get = (url,token,options = {} ) => {
         if (data.code) {
           reject(new Error(data.message));
         } else {
-          console.log(data)
           resolve(data);
         }
       })
       .catch(error => {
-        console.log(error);
         reject(error);
       });
   });
@@ -57,7 +54,7 @@ const post = (url, data,token,method = 'POST') => {
 console.log('err',dataApi.error)
           //reject(new Error(dataApi.message))
         } else {
-          console.log("post api",dataApi)
+          console.log(dataApi)
           resolve(dataApi);         
         }
       })
@@ -70,7 +67,6 @@ console.log('err',dataApi.error)
 
 
 const logInpost = (url, data, method = 'POST') => {
-  console.log("fetch",url,data)
   return new Promise((resolve, reject) => {
     const {baseURL} = generalUrl(url);
     const urlParameters= `?key=${apikey}`
@@ -87,9 +83,9 @@ const logInpost = (url, data, method = 'POST') => {
       .then(dataApi => {
         if (dataApi.error) {
          console.log('signup URL',dataApi.error)
+         reject(dataApi.error.message)
           //reject(new Error(dataApi.message))
         } else {
-          console.log("signup response ",dataApi)
           resolve(dataApi);
         }
       })
@@ -102,7 +98,6 @@ const logInpost = (url, data, method = 'POST') => {
 };
 
 const uploadImage=(url,data)=>{
-  console.log(url,data)
 try {
   return new Promise((resolve,reject)=>{
     const contentType = 'application/json';
@@ -115,15 +110,6 @@ try {
       body: data,
     })
       .then((res) => console.log(res))
-      // .then(dataApi => {
-      //   if (dataApi.error) {
-      //    console.log('Upload URL',dataApi.error)
-      //     //reject(new Error(dataApi.message))
-      //   } else {
-      //     console.log("Upload response ",dataApi)
-      //     resolve(dataApi);
-      //   }
-      // })   
   })
 } catch (error) {
   console.log("upload error",error)

@@ -16,7 +16,6 @@ class StoreRegister extends React.Component{
 componentDidMount(){
     const data =  localStorage.getItem('userToken');
     const {email,localId,idToken} = JSON.parse(data);
-    console.log(email,localId,idToken)
 }
 
 async registerControl(){

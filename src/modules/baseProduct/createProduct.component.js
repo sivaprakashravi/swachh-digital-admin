@@ -34,7 +34,6 @@ async getCategories(){
 
 componentDidMount(){
 this.getCategories();
-console.log("image",this.state.image)
 }
 
 async CreateProductControl(){
@@ -141,7 +140,6 @@ async uploadMultipleFiles(e) {
   }
 
  async uploadControl(){
-     console.log(this.state.image)
     const formData = new FormData();
     formData.append("fileName", this.state.file, this.state.file.name);
 var requestOptions = {
@@ -153,7 +151,6 @@ var requestOptions = {
   fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
     .then(response => response.text())
     .then(result => {
-        console.log(result)
         this.setState({imageUrl:result})
     })
     .catch(error => console.log('error', error));
@@ -167,7 +164,6 @@ var requestOptions = {
    
   }; 
 uploadImage(){
-    console.log(this.state.image)
     return(
         <div>
         <div className="inputView">  

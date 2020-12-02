@@ -14,10 +14,12 @@ class Login extends React.Component {
             username: '',
             password: '',
             mobile: '',
+            loading:false,
             showPassword: false,
             isOTPControl: false,
             rememberMe: false
         };
+        
     }
 
     handleChange(event, stateVariable) {
@@ -28,7 +30,9 @@ class Login extends React.Component {
     }
 
    async loginControl(){
+   await this.setState({loading:true})
         try {
+            
             const data={
                 "email" : this.state.username,
     "password" : this.state.password,
@@ -44,7 +48,8 @@ class Login extends React.Component {
             }
         
            const store = await register.post('api/getStoreInfo',JSON.stringify(user),idToken);
-           await localStorage.setItem('storeUser',JSON.stringify(store))
+           await localStorage.setItem('storeUser',JSON.stringify(store));
+           this.setState({loading:false})
            this.props.history.push("dashboard");
         } catch (error) {
             console.log('login',error)
@@ -123,6 +128,7 @@ class Login extends React.Component {
             </div>
         )
     }
+
 
     render() {
         return (

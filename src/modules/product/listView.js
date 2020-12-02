@@ -33,8 +33,10 @@ export const Listview = (props) => {
             </div>
         </div>
         <div style={{marginLeft:80}}>
-            <button className="button"  onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit })}>Edit</button>
-            <button className="button"  onClick={() => menuControl()}>Delete</button>
+            <button className="button"  onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'edit' })}>Edit</button>
+            <button className="button"  onClick={() => props.delete(data.DocId)}>Delete</button>
+            <button className="button"  onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'move' })}>Move category</button>
+            <button className="button"  onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'copy' })}>Copy</button>
             </div>
         </div>
     )
