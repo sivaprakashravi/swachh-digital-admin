@@ -5,14 +5,24 @@ import Register from './modules/register/register.component';
 import Login from './modules/login/login.component';
 import Dashboard from './modules/dashboard/dashboard.component'
 import AddProductScreen from './modules/product/addProduct.component'
-// import Header from './shared/header/header.component';
+import Header from './shared/header/header.component';
+import BottomNav from './shared/bottom-navigation/bottom-navigation.component';
 import { ProductListScreen } from './modules/product/productList.component'
 import { EditScreen } from './modules/product/editProduct';
 import StoreRegister from './modules/register/storeRegister.component'
 import CreateProduct from './modules/baseProduct/createProduct.component'
 import { AuthContext } from './modules/utils/auth-context'
-import fetchApi from './services/fetchsvc'
-function App() {
+import fetchApi from './services/fetchsvc';
+
+
+function showHeader(route) {
+  const noAuth = ['', 'login', 'register'];
+  const has = noAuth.filter(auth => {
+    return route === `/${auth}`;
+  });
+  return (has && has.length) ? false : true;
+}
+function App(e) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       console.log(action.store)
@@ -77,10 +87,12 @@ function App() {
     }),
     []
   )
+
   return (
     <main>
       {/* <Header></Header> */}
       <AuthContext.Provider value={{ ...authContext, ...state }}>
+        {showHeader(e.location.pathname) ? <Header /> : null}
         <Switch>
           {
             state.userToken == null ?
@@ -106,6 +118,8 @@ function App() {
           }
 
         </Switch>
+
+        {showHeader(e.location.pathname) ? <BottomNav /> : null}
       </AuthContext.Provider>
     </main>
   )
