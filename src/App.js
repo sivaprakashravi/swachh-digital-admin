@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Login from './modules/login/login.component';
 import Register from './modules/register/register.component';
-import Dashboard from './modules/dashboard/dashboard.component'
+// import Dashboard from './modules/dashboard/dashboard.component'
 import AddProductScreen from './modules/product/addProduct.component'
 // import Header from './shared/header/header.component';
 import {ProductListScreen} from './modules/product/productList.component'
@@ -95,8 +95,8 @@ const authContext = React.useMemo(
           :
           (
             <>
-             <Route path="/" component={Dashboard} exact />
-             <Route path="/dashboard" component={Dashboard} />
+             <Route path="/" component={CreateProduct} exact />
+             {/* <Route path="/dashboard" component={Dashboard} /> */}
         <Route path="/addproduct" component={AddProductScreen} />
         <Route path="/productlist" component={ProductListScreen} />
         <Route path="/editScreen" component={EditScreen} />
