@@ -1,7 +1,7 @@
-import React from 'react'
-import List from './List.json'
-import { Listview } from './listView'
-import fetchservices from '../../services/fetchsvc'
+import React from 'react';
+import List from './List.json';
+import { Listview } from './listView';
+import fetchservices from '../../services/fetchsvc';
 export class ProductListScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -19,7 +19,7 @@ export class ProductListScreen extends React.Component {
             console.log(idToken)
             const { StoreId } = JSON.parse(store);
             const data = await fetchservices.get(`api/getProducts/${StoreId}`, idToken);
-            console.log("data",data)
+            console.log("data", data)
             this.setState({ list: data })
         } catch (error) {
             console.log(error)
@@ -69,13 +69,11 @@ export class ProductListScreen extends React.Component {
             const editApi = await fetchservices.post('api/updateProduct', list, idToken);
             this.getProducts()
             alert(editApi)
-           
+
         } catch (error) {
             console.log(error);
         }
     }
-
-    
 
     render() {
         let list = this.state.list.map((x, index) => {
@@ -84,7 +82,7 @@ export class ProductListScreen extends React.Component {
             )
         })
         return (
-            <div>
+            <div className="product-list">
                 {list}
             </div>
         )

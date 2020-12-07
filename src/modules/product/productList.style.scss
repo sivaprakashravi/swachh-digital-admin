@@ -1,16 +1,16 @@
 @import "./../../scss/definitions/variables.scss";
-
-.listContainer{
-    border:1px solid lightgrey;
+.product-list {
+  .listContainer {
+    border: 1px solid lightgrey;
     padding: 15px;
-
-}
-.productImg{
+  }
+  .productImg {
     height: 150px;
     width: 150px;
     align-items: center;
   }
-  .thumbnailImg{
+  .thumbnailImg {
     height: 80px;
     width: 80px;
   }
+}
