@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
                 icon: <FcKey size="35px" />
             }, {
                 label: 'Orders',
-                route: 'orderScreen',
+                route: 'orderlist',
                 icon: <FcPaid size="35px" />
             }, {
                 label: 'Customers',
