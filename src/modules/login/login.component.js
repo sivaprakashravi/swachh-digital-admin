@@ -23,8 +23,8 @@ class Login extends React.Component {
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
     }
-    handleClick = () => {
-        this.props.history.push("register");
+    handleClick = (route) => {
+        this.props.history.push(route);
     }
 
    async loginControl(){

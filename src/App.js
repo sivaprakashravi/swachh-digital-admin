@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import Login from './modules/login/login.component';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Register from './modules/register/register.component';
+import Login from './modules/login/login.component';
 // import Dashboard from './modules/dashboard/dashboard.component'
 import AddProductScreen from './modules/product/addProduct.component'
 // import Header from './shared/header/header.component';
 import {ProductListScreen} from './modules/product/productList.component'
-import {EditScreen} from './modules/product/editProduct'
-import { Route, Switch } from 'react-router-dom';
+import {EditScreen} from './modules/product/editProduct';
 import StoreRegister  from './modules/register/storeRegister.component'
 import CreateProduct from './modules/baseProduct/createProduct.component'
 import {AuthContext} from './modules/utils/auth-context'
@@ -112,4 +112,4 @@ const authContext = React.useMemo(
   )
 }
 
-export default App;
+export default withRouter(App);
