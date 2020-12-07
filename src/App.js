@@ -10,6 +10,9 @@ import {ProductListScreen} from './modules/product/productList.component'
 import {EditScreen} from './modules/product/editProduct';
 import StoreRegister  from './modules/register/storeRegister.component'
 import CreateProduct from './modules/baseProduct/createProduct.component'
+import {OrderScreen} from './modules/orders/orderScreen.component'
+import {OrderDetails} from './modules/orders/orderDetails.component'
+import {OrderEditScreen} from './modules/orders/orderEdit.component'
 import {AuthContext} from './modules/utils/auth-context'
 import fetchApi from './services/fetchsvc'
 function App() {
@@ -99,9 +102,12 @@ const authContext = React.useMemo(
               <Route path="/dashboard" component={Dashboard} /> 
         <Route path="/addproduct" component={AddProductScreen} />
         <Route path="/productlist" component={ProductListScreen} />
+        <Route path="/orderScreen" component={OrderScreen} />
         <Route path="/editScreen" component={EditScreen} />
         <Route path="/storeRegister" component={StoreRegister} />
         <Route path="/createProduct" component={CreateProduct} />
+        <Route path="/orderDetails" component={OrderDetails} />
+        <Route path="/orderEdit" component={OrderEditScreen} />
             </>
           )
         }

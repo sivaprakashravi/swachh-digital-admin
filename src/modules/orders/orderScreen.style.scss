@@ -1,0 +1,87 @@
+@import "./../../scss/definitions/variables.scss";
+
+
+.listContainer{
+    border:0.5px solid lightgrey;
+    padding: 5px;
+    margin: 5px;
+}
+.listView{
+    padding: 10px;
+}
+.orderlistContainer{
+    margin: 5%;
+   
+}
+.headText{
+  background-color: grey;
+  border-radius: 10px;
+  padding: 10px;
+ margin: 10px
+}
+.headText:active{
+    background-color: blue;
+    color: white;
+}
+.headtextContainer{
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px ;
+   margin-left: 1rem;
+   margin-right: 2rem;
+   padding-right:1rem ;
+}
+.container{
+    display: flexbox;
+   margin: 20px;
+}
+.button {
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    background: none;
+    font-size: 16px;
+    background: $primary;
+    margin-left:20px;
+  color: $white;
+  width: 25%;
+  margin-top: 10px;
+
+  }
+  .rowView{
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 10px;
+      height: 50px;
+  }
+  .detailsView {
+      ul{
+          justify-content: space-evenly;
+          margin: 10px;
+      }
+      li{
+          color: gray;
+          padding: 10px;
+          
+      }
+      border:0.5px solid lightgrey;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 5px;
+  }
+  .primary{
+      margin: 10px;
+  }
+.buttonView{
+    justify-content: space-between;
+}
+select{
+    margin: 10px;
+    width: 50%;
+    height: 30px;
+    font-weight: 700;
+  }
+  option{
+  font-size: 20;
+  font-weight: 600;
+  font-family: Arial, Helvetica, sans-serif;
+  }
