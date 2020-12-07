@@ -13,6 +13,7 @@ import CreateProduct from './modules/baseProduct/createProduct.component'
 import {OrderScreen} from './modules/orders/orderScreen.component'
 import {OrderDetails} from './modules/orders/orderDetails.component'
 import { OrderEditScreen } from "./modules/orders/orderEdit.component";
+import {SetupScreen} from "./modules/store/setup.component"
 import {AuthContext} from './modules/utils/auth-context'
 import fetchApi from './services/fetchsvc'
 function App() {
@@ -167,6 +168,7 @@ console.log( state.userToken)
         <Route path="/storeRegister" component={StoreRegister} />
         <Route path="/createProduct" component={CreateProduct} />
         <Route path="/orderEdit" component={OrderEditScreen} />
+        <Route path="/setupScreen" component={SetupScreen} />
             </>
           )
         }

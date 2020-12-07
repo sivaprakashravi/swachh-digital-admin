@@ -17,6 +17,12 @@
   display: grid;
   grid-template-columns: 100px 500px;
   margin: 10px; 
+  
+ 
+}
+.menuView{
+  float: right;
+  width: 20%;
 }
 .buttonView{
 }
@@ -39,7 +45,7 @@ input{
 .listContainer{
     border:1px solid lightgrey;
     padding: 5px;
-
+    display: flexbox;
 }
 .inputView{
    

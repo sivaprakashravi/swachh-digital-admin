@@ -9,6 +9,31 @@
 .listView{
     padding: 10px;
 }
+.orderlistContainer{
+    margin: 5%;
+   
+}
+.headText{
+  background-color: grey;
+  border-radius: 10px;
+  padding: 10px;
+ margin: 10px
+}
+.headText:active{
+    background-color: blue;
+    color: white;
+}
+.headtextContainer{
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px ;
+   margin-left: 1rem;
+   margin-right: 2rem;
+   padding-right:1rem ;
+}
+.container{
+    display: flexbox;
+   margin: 20px;
+}
 .button {
     padding: 6px;
     border: none;

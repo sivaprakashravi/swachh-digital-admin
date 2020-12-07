@@ -10,8 +10,18 @@ export class OrderScreen extends React.Component{
             )
         })
         return(
-<div>
+<div className="container">
+    <div className="headtextContainer">
+    <button className="headText">All time</button>
+    <button className="headText" onClick={()=>{}}>Today</button>
+    <button className="headText">Yesterday</button>
+    <button className="headText">This week</button>
+    <button className="headText">This Month</button>
+    <button className="headText">Last 6 Months</button>
+    </div>
+    <div className="orderlistContainer">
     {list}
+    </div>
 </div>
         )
     }

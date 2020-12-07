@@ -42,7 +42,7 @@ buttonControls(){
 <button className="primary" style={{margin:10}}>Access Management</button>
 <button className="primary" style={{margin:10}} onClick={()=>this.props.history.push('orderlist')}>Orders</button>
 <button className="primary" style={{margin:10}}>Customers</button>
-<button className="primary" style={{margin:10}}>Store Setup</button>
+<button className="primary" style={{margin:10}} onClick={()=>this.props.history.push('setupScreen')}>Store Setup</button>
 <button className="primary" style={{margin:10}}>Reports</button>
 <button className="primary" style={{margin:10}}>Store Design</button>
 <button className="primary" style={{margin:10}} onClick={()=>signOut()}>Log Out</button>
