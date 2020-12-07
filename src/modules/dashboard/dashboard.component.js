@@ -12,7 +12,7 @@ class Dashboard extends React.Component {
             showActions: true,
             services: [{
                 label: 'Add Products',
-                route: '',
+                route: 'CreateProduct',
                 icon: <FcPlus size="35px" />
             }, {
                 label: 'Offers',
@@ -85,7 +85,7 @@ class Dashboard extends React.Component {
                 <ul>
                     {
                         this.state.services.map(s => {
-                            return <li key={s.label}>{s.icon}<label>{s.label}</label></li>
+                            return <li key={s.label} onClick={()=>this.props.history.push(s.route)}>{s.icon}<label>{s.label}</label></li>
                         })
                     }
                 </ul>
