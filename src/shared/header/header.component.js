@@ -11,7 +11,7 @@ class Header extends React.Component {
     }
 
     toggleNav(self) {
-        self.setState({showNav: !self.state.showNav})
+        self.setState({ showNav: !self.state.showNav })
     }
 
     render() {

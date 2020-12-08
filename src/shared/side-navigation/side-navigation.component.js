@@ -3,31 +3,36 @@ import './side-navigation.style.scss';
 import { IoMdClose } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
 import { CgLogOff } from "react-icons/cg";
+import { Redirect } from 'react-router-dom';
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [{
                 label: 'Home',
-                route: '/',
+                route: '/dashboard',
                 active: true
             },{
                 label: 'Add Products',
-                route: '/'
+                route: '/CreateProduct'
             },{
                 label: 'Add Category',
-                route: '/'
+                route: ''
             },{
                 label: 'Orders',
-                route: '/'
+                route: ''
             },{
                 label: 'Manage Staff',
-                route: '/'
+                route: ''
             },{
                 label: 'Business Settings',
-                route: '/'
+                route: ''
             }]
         };
+    }
+
+    handleClick = (route) => {
+        return <Redirect to={route} />;
     }
 
     render() {
@@ -48,7 +53,8 @@ class SideNav extends React.Component {
                             this.state.list.map(l => {
                                 return <li onClick={() => {
                                     this.props.toggle();
-                                }}  key={l.label} className={l.active ? 'active' : ''}><a href={l.route}>{l.label}</a></li>;
+                                    this.handleClick(l.route)
+                                }}  key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
                             })
                         }
                     </ul>
@@ -57,6 +63,7 @@ class SideNav extends React.Component {
                         <i>Version: 1.0.0 <span>&copy; Swachh Digital</span></i>
                     </footer>
                 </div>
+                <div className="overlay"></div>
             </div>
         );
     }

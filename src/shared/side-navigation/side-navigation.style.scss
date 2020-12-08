@@ -7,14 +7,16 @@
   background: $white;
   top: 0;
   left: -100%;
-  transition: left 0.2s;
+  transition: background 1s ease, left 0.2s;
   &.show {
     left: 0;
+    background: rgba(0,0,0,0.7);
   }
   .menu {
-    width: 100%;
+    width: 75%;
     background: $menu-bg;
     height: 100%;
+    position: fixed;
     .profile {
       background: $white;
       color: $black;
@@ -63,10 +65,17 @@
       }
     }
   }
+  .overlay {
+    width: 25%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: none;
+  }
   footer {
     position: fixed;
     bottom: 0;
-    width: calc(100% - 20px);
+    width: calc(75% - 20px);
     padding: 10px;
     button {
       margin: 0;
