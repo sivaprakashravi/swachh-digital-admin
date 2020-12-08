@@ -13,49 +13,43 @@ export class SetupScreen extends React.Component{
         this.setState({ [stateVariable]: event.target.value });
     }
 inputController(){
-    const {name,price,description,inventory,taxRate,shippingRate,minQty,maxQty} = this.state
+    const{storeName,tagline,userName,contact,address,gst} = this.state
     return(
         <div className="input">
     <ul>
         <li>
-            <label>Product Name:</label>
-            <input type="text" value={name} onChange={(e) => { this.handleChange(e, 'name') }} />
+            <label>Store Name:</label>
+            <input type="text" value={storeName} onChange={(e) => { this.handleChange(e, 'storeName') }} />
         </li>
         <li>
-            <label>Price:</label>
-            <input type="number" value={price} onChange={(e) => { this.handleChange(e, 'price') }} />
+            <label>Tag Line:</label>
+            <input type="text" value={tagline} onChange={(e) => { this.handleChange(e, 'tagline') }} />
         </li>
         <li>
-            <label>Product Description:</label>
-            <input type="text" value={description} onChange={(e) => { this.handleChange(e, 'description') }} />
+            <label>userName:</label>
+            <input type="number" value={userName} onChange={(e) => { this.handleChange(e, 'userName') }} />
         </li>
         <li>
-            <label>Inventory:</label>
-            <input type="text" value={inventory} onChange={(e) => { this.handleChange(e, 'inventory') }} />
+            <label>Contact:</label>
+            <input type="text" value={contact} onChange={(e) => { this.handleChange(e, 'contact') }} />
         </li>
         <li>
-            <label>Tax rate:</label>
-            <input type="text" value={taxRate} onChange={(e) => { this.handleChange(e, 'taxRate') }} />
+            <label>Address:</label>
+            <input type="text" value={address} onChange={(e) => { this.handleChange(e, 'address') }} />
         </li>
         <li>
-            <label>shipping rate:</label>
-            <input type="text" value={shippingRate} onChange={(e) => { this.handleChange(e, 'shippingRate') }} />
+            <label>GST Number:</label>
+            <input type="text" value={gst} onChange={(e) => { this.handleChange(e, 'gst') }} />
         </li>
-        <li>
-            <label>Min Order Qty:</label>
-            <input type="text" value={minQty} onChange={(e) => { this.handleChange(e, 'minQty') }} />
-        </li>
-        <li>
-            <label>Max Order Qty:</label>
-            <input type="text" value={maxQty} onChange={(e) => { this.handleChange(e, 'maxQty') }} />
-        </li>
+        <text onClick={()=>{}}>Privacy & return policy</text>
 </ul>
 </div>
     )
 }
     render(){
         return(
-            <div>
+            <div className="setupContainer">
+                <h2>Store setup page</h2>
 {this.inputController()}
             </div>
         )
