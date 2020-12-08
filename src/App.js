@@ -15,7 +15,6 @@ import { OrderScreen } from './modules/orders/orderScreen.component'
 import { OrderDetails } from './modules/orders/orderDetails.component'
 import { OrderEditScreen } from "./modules/orders/orderEdit.component";
 import { AuthContext } from './modules/utils/auth-context'
-import fetchApi from './services/fetchsvc';
 function showHeader(route) {
   const noAuth = ['', 'login', 'register'];
   const has = noAuth.filter(auth => {

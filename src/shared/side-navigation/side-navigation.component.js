@@ -3,18 +3,18 @@ import './side-navigation.style.scss';
 import { IoMdClose } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
 import { CgLogOff } from "react-icons/cg";
-import { Redirect } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [{
                 label: 'Home',
-                route: '/dashboard',
+                route: 'dashboard',
                 active: true
             },{
                 label: 'Add Products',
-                route: '/CreateProduct'
+                route: 'CreateProduct'
             },{
                 label: 'Add Category',
                 route: ''
@@ -32,7 +32,7 @@ class SideNav extends React.Component {
     }
 
     handleClick = (route) => {
-        return <Redirect to={route} />;
+        this.props.history.push(route);
     }
 
     render() {
@@ -69,4 +69,4 @@ class SideNav extends React.Component {
     }
 }
 
-export default SideNav;
+export default withRouter(SideNav);
