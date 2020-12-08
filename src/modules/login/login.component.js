@@ -2,12 +2,13 @@ import React from 'react';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
-import register from '../../services/fetchsvc'
-import {AuthContext} from '../utils/auth-context'
+import register from '../../services/fetchsvc';
+import { AuthContext } from '../utils/auth-context';
 import './login.style.scss';
+import session from '../../services/session-manger.service';
 
 class Login extends React.Component {
-    static contextType = AuthContext
+    static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
@@ -23,37 +24,38 @@ class Login extends React.Component {
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
     }
+    
     handleClick = (route) => {
         this.props.history.push(route);
     }
 
-   async loginControl(){
+    async loginControl() {
         try {
-            const data={
-                "email" : this.state.username,
-    "password" : this.state.password,
-    "returnSecureToken" : true
+            const data = {
+                "email": this.state.username,
+                "password": this.state.password,
+                "returnSecureToken": true
             }
 
-           const dataApi =await register.logInpost('signInWithPassword',JSON.stringify(data));
-           const {idToken,email,localId} = dataApi;
-           await localStorage.setItem('userToken',JSON.stringify({idToken,email,localId}));
-           const user=
+            const dataApi = await register.logInpost('signInWithPassword', JSON.stringify(data));
+            const { idToken, email, localId } = dataApi;
+            await localStorage.setItem('userToken', JSON.stringify({ idToken, email, localId }));
+            const user =
             {
-                "UserId" : localId
+                "UserId": localId
             }
-        
-           const store = await register.post('api/getStoreInfo',JSON.stringify(user),idToken);
-           await localStorage.setItem('storeUser',JSON.stringify(store))
-           this.props.history.push("dashboard");
+
+            const store = await register.post('api/getStoreInfo', JSON.stringify(user), idToken);
+            await localStorage.setItem('storeUser', JSON.stringify(store))
+            this.props.history.push("dashboard");
         } catch (error) {
-            console.log('login',error)
+            console.log('login', error)
         }
     }
 
     userNameControls() {
-        const {signIn}= this.context;
-        const {username,password} = this.state
+        const self = this;
+        const { username, password } = self.state;
         return (
             <ul>
                 <li>
@@ -69,9 +71,12 @@ class Login extends React.Component {
                 </li>
                 <li><span onClick={() => {
                     this.setState({ rememberMe: !this.state.rememberMe })
-                }}><BsCheckBox size="18" style={{verticalAlign: 'top'}} color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
-                <li><button className="primary" disabled={!(this.state.username && this.state.password)} onClick={()=>signIn({username,password})}>Login</button></li>
-                <li className="sign-up">Don't have an account? <label onClick={()=>this.props.history.push('register')}>Sign up</label></li>
+                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
+                <li><button className="primary" disabled={!(this.state.username && this.state.password)} 
+                onClick={() => {
+                    session.login({ username, password }, self);
+                }}>Login</button></li>
+                <li className="sign-up">Don't have an account? <label onClick={() => this.props.history.push('register')}>Sign up</label></li>
             </ul>
         )
     }

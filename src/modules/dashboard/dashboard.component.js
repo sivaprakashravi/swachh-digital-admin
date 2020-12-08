@@ -85,7 +85,6 @@ class Dashboard extends React.Component {
                 <ul>
                     {
                         this.state.services.map(s => {
-                            console.log("check",s)
                             return <li key={s.label} onClick={()=>this.props.history.push(s.route)}>{s.icon}<label>{s.label}</label></li>
                         })
                     }
