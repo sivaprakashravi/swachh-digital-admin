@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { FcPlus, FcLike, FcKey, FcPaid, FcButtingIn, FcBullish, FcServices, FcIdea, FcMultipleInputs } from "react-icons/fc";
 import Carousel from 're-carousel';
 import IndicatorDots from './indicators';
+import {AuthContext} from '../utils/auth-context'
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -50,6 +51,12 @@ class Dashboard extends React.Component {
         };
     }
 
+    componentDidMount() {
+        const store = localStorage.getItem('storeUser');
+        const { StoreLink } = JSON.parse(store);
+        this.setState({ StoreLink });
+    }
+
     banner() {
         return (
             <div className="scroll-banner">
@@ -85,7 +92,7 @@ class Dashboard extends React.Component {
                 <ul>
                     {
                         this.state.services.map(s => {
-                            return <li key={s.label} onClick={()=>this.props.history.push(s.route)}>{s.icon}<label>{s.label}</label></li>
+                            return <li key={s.label} onClick={() => this.props.history.push(s.route)}>{s.icon}<label>{s.label}</label></li>
                         })
                     }
                 </ul>
@@ -94,10 +101,11 @@ class Dashboard extends React.Component {
     }
 
     render() {
+        const { StoreLink } = this.state
         return (
             <div className="dashboard">
                 {this.banner()}
-                <div className="store-url"><label>My Store Name</label> <FaShareAlt size="24px" style={{ float: 'right' }} /></div>
+                <div className="store-url"><label>{StoreLink}</label> <FaShareAlt size="24px" style={{ float: 'right' }} /></div>
                 {this.notify()}
                 {this.services()}
             </div>

@@ -39,7 +39,7 @@ export const OrderDetails = (props) => {
                 </ul>
             </div>
             <div className="buttonView">
-                <button className="primary">Confirm</button>
+                <button className="primary">Accept</button>
                 <button className="primary">Reject</button>
             </div>
         </div>

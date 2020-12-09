@@ -1,5 +1,5 @@
 import React from 'react';
-import './addProduct.style.scss';
+import './productList.style.scss';
 
 const ItemScreen = (props) => {
     const [name, setName] = React.useState('');

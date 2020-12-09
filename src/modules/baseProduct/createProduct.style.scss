@@ -1,5 +1,10 @@
 @import "./../../scss/definitions/variables.scss";
 .createProduct{
+ position: absolute;
+   top: calc(100% - 10px);
+   left: calc(50% - 5px);
+   transform: translate(-50%, -50%);
+   width: calc(100% - 30px);
   .greet {
     margin: 20px 15px 60px;
   }

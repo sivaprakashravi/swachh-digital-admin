@@ -1,6 +1,6 @@
 import React from 'react';
 import './createProduct.style.scss';
-import register from '../../services/fetchsvc';
+import register from '../../services/fetchsvc.service';
 
 class CreateProduct extends React.Component {
     fileObj = [];
@@ -141,7 +141,6 @@ class CreateProduct extends React.Component {
     }
 
     async uploadControl() {
-        console.log(this.state.image)
         const formData = new FormData();
         formData.append("fileName", this.state.file, this.state.file.name);
         var requestOptions = {
@@ -154,7 +153,8 @@ class CreateProduct extends React.Component {
             .then(response => response.text())
             .then(result => {
                 console.log(result)
-                this.setState({ imageUrl: result })
+                this.setState({ imageUrl: result });
+                alert("Image Uploaded")
             })
             .catch(error => console.log('error', error));
         // const data = await register.uploadImage('uploadFile',formData);
@@ -176,7 +176,7 @@ class CreateProduct extends React.Component {
                         onChange={(e) => this.uploadMultipleFiles(e)}
                     />
                     <div>
-                        <button onClick={() => this.uploadControl()} className="primary" disabled={!this.state.image}>
+                        <button onClick={() => this.uploadControl()} className="primary" disabled={!this.state.image} >
                             Upload!
                 </button>
                     </div>
@@ -200,7 +200,7 @@ class CreateProduct extends React.Component {
                     </li>
                     {this.uploadImage()}
                 </ul>
-                <button className="primary" disabled={!(this.state.productName && this.state.price && this.state.categoryName)} onClick={() => this.CreateProductControl()}>SAVE</button>
+                <button className="primary" disabled={!(this.state.productName && this.state.price && this.state.categoryName )} onClick={() => this.CreateProductControl()}>SAVE</button>
             </div>
         )
     }

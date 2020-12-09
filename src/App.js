@@ -31,7 +31,7 @@ function App(e) {
         <Switch>
           <Route path="/" component={Login} exact />
           <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/dashboard" component={Dashboard} /> v         
           <Route path="/addproduct" component={AddProductScreen} />
           <Route path="/productlist" component={ProductListScreen} />
           <Route path="/orderDetails" component={OrderDetails} />

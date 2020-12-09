@@ -1,4 +1,4 @@
-import {host,apikey} from './constant';
+import {host,apikey} from './constant.service';
 const API = 'https://us-central1-retailstores-28e08.cloudfunctions.net/'
 
 function generalUrl(url) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './List.json';
 import { Listview } from './listView';
-import fetchservices from '../../services/fetchsvc';
+import fetchservices from '../../services/fetchsvc.service';
 export class ProductListScreen extends React.Component {
     constructor(props) {
         super(props);

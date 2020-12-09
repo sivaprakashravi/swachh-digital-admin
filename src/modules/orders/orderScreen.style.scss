@@ -1,5 +1,7 @@
 @import "./../../scss/definitions/variables.scss";
 .orderDetails {
+  margin-top: 50px;
+  margin-bottom: 50px;
   .rowView {
     flex-direction: row;
     flex-wrap: wrap;
@@ -29,7 +31,14 @@
 }
 
 .orderEdit {
-  margin: 10px;
+  //margin: 15px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  //  position: absolute;
+  //  top: calc(100% - 10px);
+  //  left: calc(50% - 5px);
+  //  transform: translate(-50%, -50%);
+  //  width: calc(100% - 30px);
   div.input {
     margin: 10px;
     input {
@@ -122,16 +131,21 @@
   border: 0.5px solid lightgrey;
   padding: 5px;
   margin: 5px;
+  .menu{
+    float: right;
+  }
   .listView {
     padding: 10px;
+    
   }
 }
 .container {
   display: flexbox;
   margin: 20px;
+  margin-top: 50px;
   .headText {
-    background-color: grey;
-    border-radius: 10px;
+    background-color: lightgray;
+    border-radius: 20px;
     padding: 10px;
     margin: 10px;
   }

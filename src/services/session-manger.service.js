@@ -1,4 +1,4 @@
-import fetchApi from './fetchsvc';
+import fetchApi from './fetchsvc.service';
 
 var login = async (values, self) => {
 
