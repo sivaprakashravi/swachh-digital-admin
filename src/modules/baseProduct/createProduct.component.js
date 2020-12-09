@@ -1,7 +1,9 @@
 import React from 'react';
 import './createProduct.style.scss';
 import register from '../../services/fetchsvc';
-
+import Radio from '../../components/radio.component';
+import { AiFillPicture, AiFillCamera } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
 class CreateProduct extends React.Component {
     fileObj = [];
     fileArray = []
@@ -12,7 +14,8 @@ class CreateProduct extends React.Component {
             imageUrl: null,
             file: null,
             image: null,
-            categories: []
+            categories: [],
+            isNewCategory: true
         }
     }
 
@@ -91,38 +94,13 @@ class CreateProduct extends React.Component {
     }
 
 
-    categoryControls(optionItems) {
+    categoryControls() {
         return (
             <div>
                 <div className="radio">
-                    <form>
-                        <input type="radio" id="new" name="category" value="New Category" onChange={this.handleChange} />
-                        <label for="new" >New Category</label>
-                        <input type="radio" id="exist" name="category" value="Existing Category" onChange={this.handleChange} />
-                        <label for="exist" >Existing Category</label>
-                    </form>
-                </div>
-                <div >
-                    {
-                        this.state.category === 'Existing Category' ?
-                            <ul>
-                                <div className="input">
-                                    <label for="item">Choose a Category:</label>
-                                </div>
-                                <select id="item" name="categoryName" onChange={this.handleChange} className="dropDown">
-                                    {optionItems}
-                                </select>
-                            </ul>
-                            :
-                            <div className="input">
-                                <ul>
-                                    <li>
-                                        <label>Category Name :</label>
-                                        <input type="text" value={this.state.categoryName} name="categoryName" onChange={this.handleChange} />
-                                    </li>
-                                </ul>
-                            </div>
-                    }
+                    <Radio label="New Category" checked={this.state.isNewCategory} onChange={() => this.setState({ isNewCategory: true, categoryName: null })
+                    } />
+                    <Radio label="Existing Category" checked={!this.state.isNewCategory} onChange={() => this.setState({ isNewCategory: false, categoryName: null })} />
                 </div>
             </div>
         )
@@ -141,7 +119,6 @@ class CreateProduct extends React.Component {
     }
 
     async uploadControl() {
-        console.log(this.state.image)
         const formData = new FormData();
         formData.append("fileName", this.state.file, this.state.file.name);
         var requestOptions = {
@@ -153,8 +130,8 @@ class CreateProduct extends React.Component {
         fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log(result)
-                this.setState({ imageUrl: result })
+                this.setState({ imageUrl: result });
+                this.CreateProductControl();
             })
             .catch(error => console.log('error', error));
         // const data = await register.uploadImage('uploadFile',formData);
@@ -166,30 +143,47 @@ class CreateProduct extends React.Component {
         this.setState({ file: event.target.files[0] });
 
     };
+    removeImage(index) {
+        const images = this.state.image;
+        const removedIndex = images.filter((im, i) => i !== index);
+        this.setState({ image: removedIndex });
+    }
     uploadImage() {
-        console.log(this.state.image)
         return (
             <div>
-                <div className="inputView">
-                    <input type="file" id="browser" multiple={true}
-                        accept="image/*"
-                        onChange={(e) => this.uploadMultipleFiles(e)}
-                    />
-                    <div>
-                        <button onClick={() => this.uploadControl()} className="primary" disabled={!this.state.image}>
-                            Upload!
-                </button>
-                    </div>
+                {this.state.image && this.state.image.length ?
+                    this.state.image.map((image, i) => {
+                        return <div key={'img-box'+i} className="uploaded-image">
+                            <IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                            <img width="100%" src={image} alt={'Product ' + (i + 1)} />
+                        </div>
+                    }) : null}
+                <div className="image-placeholder">
+                    <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
+                    <AiFillPicture size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
                 </div>
-                {this.state.file ? <img src={this.state.image} alt="product" className="productImg" /> : null}
+                <div className="camera-placeholder">
+                    <AiFillCamera size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                </div>
             </div>
         )
     }
 
-    productNameControls() {
+    productNameControls(optionItems) {
         return (
             <div className="input">
                 <ul>
+                    <li>
+                        <label>{this.state.isNewCategory ? 'Category Name' : 'Select from Category'}:</label>
+                        {
+                            !this.state.isNewCategory ?
+                                <select id="item" name="categoryName" onChange={this.handleChange} className="dropDown">
+                                    {optionItems}
+                                </select>
+                                :
+                                <input type="text" value={this.state.categoryName} name="categoryName" onChange={this.handleChange} />
+                        }
+                    </li>
                     <li>
                         <label>Product Name:</label>
                         <input type="text" value={this.state.productName} name="productName" onChange={this.handleChange} />
@@ -199,8 +193,8 @@ class CreateProduct extends React.Component {
                         <input type={'text'} value={this.state.price} name="price" onChange={this.handleChange} />
                     </li>
                     {this.uploadImage()}
-                </ul>
-                <button className="primary" disabled={!(this.state.productName && this.state.price && this.state.categoryName)} onClick={() => this.CreateProductControl()}>SAVE</button>
+                </ul>                
+                <button disabled={!(this.state.productName && this.state.price && this.state.categoryName && this.state.image)} onClick={() => this.uploadControl()} className="primary">Add Product</button>
             </div>
         )
     }
@@ -209,7 +203,7 @@ class CreateProduct extends React.Component {
         return (
             <div className="controls">
                 {this.categoryControls(optionItems)}
-                {this.productNameControls()}
+                {this.productNameControls(optionItems)}
             </div>)
     }
 
