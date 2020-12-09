@@ -1,6 +1,6 @@
 import React from 'react';
 import './createProduct.style.scss';
-import register from '../../services/fetchsvc';
+import register from '../../services/fetchsvc.service';
 import Radio from '../../components/radio.component';
 import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
