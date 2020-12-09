@@ -1,5 +1,5 @@
 import React from 'react';
-import  register  from "../../services/fetchsvc";
+import  register  from "../../services/fetchsvc.service";
 
 import './register.style.scss';
 class Register extends React.Component {

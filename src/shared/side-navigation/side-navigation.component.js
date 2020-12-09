@@ -18,9 +18,13 @@ class SideNav extends React.Component {
             },{
                 label: 'Add Category',
                 route: ''
+            },
+            {
+                label: 'Product List',
+                route: 'productlist'
             },{
                 label: 'Orders',
-                route: ''
+                route: 'orderlist'
             },{
                 label: 'Manage Staff',
                 route: ''

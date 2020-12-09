@@ -2,7 +2,7 @@ import React from 'react';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
-import register from '../../services/fetchsvc';
+import register from '../../services/fetchsvc.service';
 import { AuthContext } from '../utils/auth-context';
 import './login.style.scss';
 import session from '../../services/session-manger.service';

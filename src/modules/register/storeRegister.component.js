@@ -1,6 +1,6 @@
 import React from 'react'
 import './register.style.scss'
-import register from '../../services/fetchsvc'
+import register from '../../services/fetchsvc.service'
 class StoreRegister extends React.Component{
     constructor(props) {
         super(props);

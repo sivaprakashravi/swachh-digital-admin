@@ -1,5 +1,11 @@
 @import "./../../scss/definitions/variables.scss";
 .product-list {
+  //margin: 15px;
+  position: absolute;
+  top: calc(30% - 10px);
+  left: calc(50% - 5px);
+  transform: translate(-50%, -50%);
+  width: calc(100% - 30px);
   .listContainer {
     border: 1px solid lightgrey;
     padding: 15px;
@@ -12,5 +18,91 @@
   .thumbnailImg {
     height: 80px;
     width: 80px;
+  }
+}
+
+//list view
+.listContainer {
+  // border: 1px solid lightgrey;
+  width: auto;
+  .listView {
+    display: grid;
+    grid-template-columns: 35% 500px;
+    
+  }
+  .button {
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    background: none;
+    font-size: 16px;
+    background: $primary;
+    margin-left: 20px;
+    color: $white;
+    width: 32%;
+    margin-top: 10px;
+  }
+}
+.rowView {
+  display: -ms-grid;
+  .textRow {
+    float: left;
+  }
+  .switchView {
+    float: right;
+  }
+  .toggleView {
+    display: grid;
+    grid-template-columns: 100px 100px;
+  }
+  .listView {
+    display: grid;
+    grid-template-columns: 100px 500px;
+    margin: 10px;
+  }
+  .button {
+    padding: 6px;
+    border: none;
+    border-radius: 5px;
+    background: none;
+    font-size: 16px;
+    background: $primary;
+    margin-left: 20px;
+    color: $white;
+    width: 25%;
+    margin-top: 10px;
+  }
+  input {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .inputView {
+    justify-content: center;
+  }
+  .radio {
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+
+  .productImg {
+    height: 150px;
+    width: 150px;
+    align-items: center;
+  }
+  .thumbnailImg {
+    height: 80px;
+    width: 80px;
+  }
+  select {
+    margin: 10px;
+    width: 50%;
+    height: 30px;
+    font-weight: 700;
+  }
+  option {
+    font-size: 20;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
   }
 }
