@@ -53,17 +53,21 @@ export class ProductListScreen extends React.Component {
             const userId = await localStorage.getItem('userToken');
             const { email, localId, idToken } = JSON.parse(userId);
             const { StoreId } = JSON.parse(store);
-            const {
-                name, price, categoryName, offerToint, subcategoryName,description, DocId, active, fileUrl, offerTog
-            } = values
-            const list = JSON.stringify({"DocId":DocId,
-            "Brands":"","Category":categoryName,"SubCategory":subcategoryName,"ImageUrl":"","IsActive":active,
-            "IsOffer":offerTog,
-            "ProductCode":"","ProductName":name,"ProductDesc":description,
-            "RetailPrice":price,"Offer_Price":offerToint,"StoreId":StoreId,
-            "ModifiedBy":localId})
+            const list = JSON.stringify({
+                "DocId": values.DocId, "Brands": "",
+                "Category": values.category,
+                "SubCategory": "",
+                "ImageUrl": values.fileUrl,
+                "IsActive": values.active,
+                "IsOffer": values.offerTog,
+                "ProductCode": "",
+                "ProductName": values.name,
+                "ProductDesc": "",
+                "RetailPrice": values.price,
+                "Offer_Price": values.offerToint, "StoreId": StoreId, "ModifiedBy": localId
+            })
             const editApi = await fetchservices.post('api/updateProduct', list, idToken);
-            //this.getProducts()
+            this.getProducts()
             alert(editApi)
 
         } catch (error) {
