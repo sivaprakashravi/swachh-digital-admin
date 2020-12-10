@@ -2,19 +2,22 @@ import React from 'react';
 import './App.css';
 import Login from './modules/login/login.component';
 import Register from './modules/register/register.component';
-import Dashboard from './modules/dashboard/dashboard.component'
-import AddProductScreen from './modules/product/addProduct.component'
+import Dashboard from './modules/dashboard/dashboard.component';
+import AddProductScreen from './modules/product/addProduct.component';
 import Header from './shared/header/header.component';
 import BottomNav from './shared/bottom-navigation/bottom-navigation.component';
-import { ProductListScreen } from './modules/product/productList.component'
+import { ProductListScreen } from './modules/product/productList.component';
 import { EditScreen } from './modules/product/editProduct'
 import { Route, Switch, withRouter } from 'react-router-dom';
-import StoreRegister from './modules/register/storeRegister.component'
-import CreateProduct from './modules/baseProduct/createProduct.component'
-import { OrderScreen } from './modules/orders/orderScreen.component'
-import { OrderDetails } from './modules/orders/orderDetails.component'
+import StoreRegister from './modules/register/storeRegister.component';
+import CreateProduct from './modules/baseProduct/createProduct.component';
+import { OrderScreen } from './modules/orders/orderScreen.component';
+import { OrderDetails } from './modules/orders/orderDetails.component';
 import { OrderEditScreen } from "./modules/orders/orderEdit.component";
-import { AuthContext } from './modules/utils/auth-context'
+import { AuthContext } from './modules/utils/auth-context';
+import Loader from './components/loader.component';
+import { usePromiseTracker } from "react-promise-tracker";
+
 function showHeader(route) {
   const noAuth = ['', 'login', 'register'];
   const has = noAuth.filter(auth => {
@@ -24,6 +27,7 @@ function showHeader(route) {
 }
 
 function App(e) {
+  const { promiseInProgress } = usePromiseTracker();
   return (
     <main>
       <AuthContext.Provider>
@@ -42,6 +46,7 @@ function App(e) {
           <Route path="/orderEdit" component={OrderEditScreen} />
         </Switch>
         {showHeader(e.location.pathname) ? <BottomNav /> : null}
+        {promiseInProgress ? <Loader/> : null } 
       </AuthContext.Provider>
     </main>
   )
