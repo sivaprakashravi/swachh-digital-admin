@@ -1,15 +1,9 @@
 @import "./../../scss/definitions/variables.scss";
 .product-list {
-  //margin: 15px;
   position: absolute;
-  top: calc(30% - 10px);
-  left: calc(50% - 5px);
-  transform: translate(-50%, -50%);
-  width: calc(100% - 30px);
-  // .listContainer {
-  //   border: 1px solid lightgrey;
-  //   padding: 15px;
-  // }
+  width: 100%;
+margin-top:20%;
+margin-left: 10px;
   .productImg {
     height: 150px;
     width: 150px;
@@ -26,7 +20,7 @@
   // border: 1px solid lightgrey;
   border: 1px solid lightgrey;
   width: calc(100% - 30px);
-   padding: 15px;
+   //padding: 15px;
   .listView {
     display: grid;
     grid-template-columns: 35% 500px;

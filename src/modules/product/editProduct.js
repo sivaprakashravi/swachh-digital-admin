@@ -16,7 +16,7 @@ export class EditScreen extends React.Component {
             active: true,
             offerTog: false,
             isNewCategory: true,
-            isNewSubCategory:true
+            isNewSubCategory: true
         }
         this.handleChangeTogActive = this.handleChangeTogActive.bind(this);
         this.handleChangeTogOffer = this.handleChangeTogOffer.bind(this);
@@ -97,7 +97,7 @@ export class EditScreen extends React.Component {
         )
     }
 
-    subCategoryControls(){
+    subCategoryControls() {
         return (
             <div>
                 <div className="radio">
@@ -172,29 +172,29 @@ export class EditScreen extends React.Component {
         return (
             <div className="input">
                 <ul>
-                <li>
+                    <li>
                         <label>{this.state.isNewCategory ? 'Category Name' : 'Select from Category'}:</label>
                         {
                             !this.state.isNewCategory ?
-                                <select id="item" name="categoryName" onChange={(e)=>this.handleChange(e,'categoryName')} className="dropDown">
-                                   <option>Choose one</option>
+                                <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} className="dropDown">
+                                    <option>Choose one</option>
                                     {optionItems}
                                 </select>
                                 :
-                                <input type="text" value={this.state.categoryName} name="categoryName" onChange={(e)=>this.handleChange(e,'categoryName')} />
+                                <input type="text" value={this.state.categoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} />
                         }
                     </li>
                     <li>
-                    <label>{this.state.isNewSubCategory ? 'SubCategory Name' : 'Select from SubCategory'}:</label>
-{
-!this.state.isNewSubCategory ?
-    <select id="item" name="categoryName" onChange={(e)=>this.handleChange(e,'subcategoryName')} className="dropDown">
-       <option>Choose one</option>
-        {subItems}
-    </select>
-    :
-    <input type="text" value={this.state.subcategoryName} name="categoryName" onChange={(e)=>this.handleChange(e,'subcategoryName')} />
-}
+                        <label>{this.state.isNewSubCategory ? 'SubCategory Name' : 'Select from SubCategory'}:</label>
+                        {
+                            !this.state.isNewSubCategory ?
+                                <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} className="dropDown">
+                                    <option>Choose one</option>
+                                    {subItems}
+                                </select>
+                                :
+                                <input type="text" value={this.state.subcategoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} />
+                        }
                     </li>
                     <li>
                         <label>Product Name:</label>
