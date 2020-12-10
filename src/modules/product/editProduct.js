@@ -69,14 +69,8 @@ export class EditScreen extends React.Component {
         }
     }
 
-    async uploadControl() {
-        const {state,callBack } = this.props.location;
-        const { DocId } = state
-        const { name, price, active, categoryName, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
-        const fileUrl = imageUrl ? imageUrl : image
-        const data = {
-            name, price, categoryName, offer, description, DocId, active, fileUrl, offerTog
-        }
+    async uploadControl(data) {
+        const {callBack} = this.props.location;
         const formData = new FormData();
         formData.append("fileName", this.state.file, this.state.file.name);
         var requestOptions = {
@@ -178,7 +172,7 @@ export class EditScreen extends React.Component {
 
 
     inputController(optionItems, subItems) {
-        const { state, callBack } = this.props.location;
+      
         const { name, price, active, categoryName, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
       
         let offerToint = parseInt(offer);
@@ -257,13 +251,13 @@ export class EditScreen extends React.Component {
     render() {
         const { state, callBack } = this.props.location;
         const { DocId } = state
-        const { name, price, active, categoryName, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
+        const { name, price, active, categoryName,subcategoryName,offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
 
         const fileUrl = imageUrl ? imageUrl : image
         let offerToint = parseInt(offer);
 
         const data = {
-            name, price, categoryName, offerToint, description, DocId, active, fileUrl, offerTog
+            name, price, categoryName, offerToint, subcategoryName,description, DocId, active, fileUrl, offerTog
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
@@ -282,7 +276,7 @@ export class EditScreen extends React.Component {
                 {this.uploadImage()}
                 <div className="input">
                     <ul>
-                        <li><button className="primary" onClick={() => this.uploadControl()}>Save</button></li>
+                        <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
                     </ul>
                 </div>
             </div>

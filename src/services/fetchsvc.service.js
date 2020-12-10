@@ -51,7 +51,7 @@ const post = (url, data, token, method = 'POST') => {
       },
       body: data,
     })
-      .then((res) => res.json())
+      .then((res) => res.text())
       .then(dataApi => {
         if (dataApi.error) {
           console.log('err', dataApi.error)
