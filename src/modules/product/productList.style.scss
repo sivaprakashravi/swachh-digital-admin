@@ -6,10 +6,10 @@
   left: calc(50% - 5px);
   transform: translate(-50%, -50%);
   width: calc(100% - 30px);
-  .listContainer {
-    border: 1px solid lightgrey;
-    padding: 15px;
-  }
+  // .listContainer {
+  //   border: 1px solid lightgrey;
+  //   padding: 15px;
+  // }
   .productImg {
     height: 150px;
     width: 150px;
@@ -24,7 +24,9 @@
 //list view
 .listContainer {
   // border: 1px solid lightgrey;
-  width: auto;
+  border: 1px solid lightgrey;
+  width: calc(100% - 30px);
+   padding: 15px;
   .listView {
     display: grid;
     grid-template-columns: 35% 500px;
