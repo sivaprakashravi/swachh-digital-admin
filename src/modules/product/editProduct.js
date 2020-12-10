@@ -2,6 +2,7 @@ import React from 'react'
 import './addProduct.style.scss'
 import register from "../../services/fetchsvc.service";
 import Switch from "react-switch";
+import Radio from '../../components/radio.component'
 export class EditScreen extends React.Component {
     fileObj = [];
     fileArray = []
@@ -13,7 +14,9 @@ export class EditScreen extends React.Component {
             image: null,
             file: null,
             active: true,
-            offerTog: false
+            offerTog: false,
+            isNewCategory: true,
+            isNewSubCategory: true
         }
         this.handleChangeTogActive = this.handleChangeTogActive.bind(this);
         this.handleChangeTogOffer = this.handleChangeTogOffer.bind(this);
@@ -43,7 +46,7 @@ export class EditScreen extends React.Component {
             type === 'copy' ?
                 this.setState({ description: ProductDesc, offer: Offer_Price, })
                 :
-                this.setState({ name: ProductName, price: RetailPrice, category: Category, description: ProductDesc, offer: Offer_Price, image: Imageurl })
+                this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price, image: Imageurl })
         }
         this.getCategories()
     }
@@ -81,68 +84,26 @@ export class EditScreen extends React.Component {
     }
 
 
-    categoryControls(optionItems, subItems) {
+    categoryControls() {
         return (
-            <div >
+            <div>
                 <div className="radio">
-                    <form>
-                        <input type="radio" id="new" name="category" value="New Category" onChange={(e) => this.handleChange(e, 'category')} />
-                        <label for="new" >New Category</label>
-                        <input type="radio" id="exist" name="category" value="Existing Category" onChange={(e) => this.handleChange(e, 'category')} />
-                        <label for="exist" >Existing Category</label>
-                    </form>
+                    <Radio label="New Category" checked={this.state.isNewCategory} onChange={() => this.setState({ isNewCategory: true, categoryName: null })
+                    } />
+                    <Radio label="Existing Category" checked={!this.state.isNewCategory} onChange={() => this.setState({ isNewCategory: false, categoryName: null })} />
                 </div>
-                <div >
-                    {
-                        this.state.category === 'Existing Category' ?
-                            <ul>
-                                <div className="input">
-                                    <label for="item">Choose a Category:</label>
-                                </div>
-                                <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'category')} className="dropDown">
-                                    {optionItems}
-                                </select>
-                            </ul>
-                            :
-                            <div className="input">
-                                <ul>
-                                    <li>
-                                        <label>Category Name :</label>
-                                        <input type="text" value={this.state.category} name="categoryName" onChange={(e) => this.handleChange(e, 'category')} />
-                                    </li>
-                                </ul>
-                            </div>
-                    }
-                </div>
+                {this.subCategoryControls()}
+            </div>
+        )
+    }
+
+    subCategoryControls() {
+        return (
+            <div>
                 <div className="radio">
-                    <form>
-                        <input type="radio" id="new" name="subcategory" value="New SubCategory" onChange={(e) => this.handleChange(e, 'subcategory')} />
-                        <label for="new" >New SubCategory</label>
-                        <input type="radio" id="exist" name="subcategory" value="Existing SubCategory" onChange={(e) => this.handleChange(e, 'subcategory')} />
-                        <label for="exist" >Existing SubCategory</label>
-                    </form>
-                </div>
-                <div >
-                    {
-                        this.state.subcategory === 'Existing SubCategory' ?
-                            <ul>
-                                <div className="input">
-                                    <label for="item">Choose a Sub-Category:</label>
-                                </div>
-                                <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'subcategory')} className="dropDown">
-                                    {subItems}
-                                </select>
-                            </ul>
-                            :
-                            <div className="input">
-                                <ul>
-                                    <li>
-                                        <label>Sub Category Name :</label>
-                                        <input type="text" value={this.state.subcategory} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategory')} />
-                                    </li>
-                                </ul>
-                            </div>
-                    }
+                    <Radio label="New SubCategory" checked={this.state.isNewSubCategory} onChange={() => this.setState({ isNewSubCategory: true, subcategoryName: null })
+                    } />
+                    <Radio label="Existing SubCategory" checked={!this.state.isNewSubCategory} onChange={() => this.setState({ isNewSubCategory: false, subcategoryName: null })} />
                 </div>
             </div>
         )
@@ -195,7 +156,7 @@ export class EditScreen extends React.Component {
     }
 
 
-    inputController() {
+    inputController(optionItems, subItems) {
         const { state, callBack } = this.props.location;
         const { DocId } = state
         const { name, price, active, category, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
@@ -211,7 +172,30 @@ export class EditScreen extends React.Component {
         return (
             <div className="input">
                 <ul>
-
+                    <li>
+                        <label>{this.state.isNewCategory ? 'Category Name' : 'Select from Category'}:</label>
+                        {
+                            !this.state.isNewCategory ?
+                                <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} className="dropDown">
+                                    <option>Choose one</option>
+                                    {optionItems}
+                                </select>
+                                :
+                                <input type="text" value={this.state.categoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} />
+                        }
+                    </li>
+                    <li>
+                        <label>{this.state.isNewSubCategory ? 'SubCategory Name' : 'Select from SubCategory'}:</label>
+                        {
+                            !this.state.isNewSubCategory ?
+                                <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} className="dropDown">
+                                    <option>Choose one</option>
+                                    {subItems}
+                                </select>
+                                :
+                                <input type="text" value={this.state.subcategoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} />
+                        }
+                    </li>
                     <li>
                         <label>Product Name:</label>
                         <input type="text" value={name} onChange={(e) => { this.handleChange(e, 'name') }} readOnly={checkType} />
@@ -253,13 +237,13 @@ export class EditScreen extends React.Component {
     render() {
         const { state, callBack } = this.props.location;
         const { DocId } = state
-        const { name, price, active, category, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
+        const { name, price, active, categoryName, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
 
         const fileUrl = imageUrl ? imageUrl : image
         let offerToint = parseInt(offer);
 
         const data = {
-            name, price, category, offerToint, description, DocId, active, fileUrl, offerTog
+            name, price, categoryName, offerToint, description, DocId, active, fileUrl, offerTog
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
@@ -271,8 +255,8 @@ export class EditScreen extends React.Component {
         );
         return (
             <div className="editContainer">
-                {this.categoryControls(optionItems, subItems)}
-                {this.inputController()}
+                {this.categoryControls()}
+                {this.inputController(optionItems, subItems)}
                 {this.toggleControl()}
                 {this.uploadImage()}
                 <div className="input">
