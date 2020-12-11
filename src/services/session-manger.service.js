@@ -1,4 +1,5 @@
 import fetchApi from './fetchsvc.service';
+import constants from './constant.service';
 
 var login = async (values, self) => {
     try {
@@ -7,14 +8,14 @@ var login = async (values, self) => {
             "password": values.password,
             "returnSecureToken": true
         }
-        const dataApi = await fetchApi.logInpost('signInWithPassword', JSON.stringify(data));
+        const dataApi = await fetchApi.post('signInWithPassword', data, { key: constants.key });
         const { idToken, email, localId } = dataApi;
         await localStorage.setItem('userToken', JSON.stringify({ idToken, email, localId }));
         const user =
         {
             "UserId": localId
         }
-        const store = await fetchApi.post('api/getStoreInfo', JSON.stringify(user), idToken);
+        const store = await fetchApi.post('api/getStoreInfo', user);
         await localStorage.setItem('storeUser', JSON.stringify(store));
         self.handleClick('dashboard');
     } catch (error) {
@@ -25,10 +26,18 @@ var login = async (values, self) => {
 
 var logout = () => {
     localStorage.clear();
+};
+
+var user = {
+    storeUser: localStorage.getItem('storeUser') ? JSON.parse(localStorage.getItem('storeUser')) : {},
+    userToken: () => {
+        return localStorage.getItem('userToken') ? JSON.parse(localStorage.getItem('userToken')) : {};
+    },
 }
 
 var exports = {
     login,
-    logout
+    logout,
+    user
 }
 export default exports;
