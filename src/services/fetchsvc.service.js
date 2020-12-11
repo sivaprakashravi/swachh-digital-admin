@@ -13,7 +13,7 @@ function generalUrl(url) {
 const get = (url, token, options = {}) => {
   return new Promise((resolve, reject) => {
     const contentType = 'application/json';
-    fetch(API + url, {
+    trackPromise(fetch(API + url, {
       ...options,
       method: 'GET',
       headers: {
@@ -34,7 +34,7 @@ const get = (url, token, options = {}) => {
       .catch(error => {
         console.log(error);
         reject(error);
-      });
+      }));
   });
 };
 
@@ -42,7 +42,7 @@ const post = (url, data, token, method = 'POST') => {
   console.log(url, data, token)
   return new Promise((resolve, reject) => {
     const contentType = 'application/json';
-    fetch(API + url, {
+    trackPromise(fetch(API + url, {
       method: method,
       headers: {
         Accept: 'application/json',
@@ -64,7 +64,7 @@ const post = (url, data, token, method = 'POST') => {
       .catch(error => {
         console.error("post api", error);
         reject(error);
-      });
+      }));
   });
 };
 

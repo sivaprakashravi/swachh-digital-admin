@@ -15,7 +15,7 @@ var login = async (values, self) => {
             "UserId": localId
         }
         const store = await fetchApi.post('api/getStoreInfo', JSON.stringify(user), idToken);
-        await localStorage.setItem('storeUser', JSON.stringify(store));
+        await localStorage.setItem('storeUser', store);
         self.handleClick('dashboard');
     } catch (error) {
         console.log('login', error)

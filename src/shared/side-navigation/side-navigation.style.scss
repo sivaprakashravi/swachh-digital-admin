@@ -61,6 +61,16 @@
         &.active {
           font-weight: bold;
           border-left: 2.5px solid $primary;
+        };
+        &.none{
+          display: none;
+        };
+        &.subList{
+          li{
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: -15px;
+          }
         }
       }
     }

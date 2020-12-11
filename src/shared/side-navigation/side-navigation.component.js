@@ -31,7 +31,21 @@ class SideNav extends React.Component {
             },{
                 label: 'Business Settings',
                 route: ''
-            }]
+            }],
+            subList:[{
+                label: 'Business Setup',
+                route: 'businessSetup'
+            },
+            {
+                label: 'My account page',
+                route: 'myAccount'
+            },
+            {
+                label: 'User management page',
+                route: 'userManage'
+            }      
+            ],
+            storeSet:false
         };
     }
 
@@ -53,6 +67,17 @@ class SideNav extends React.Component {
                         this.props.toggle();
                     }} style={{ margin: '6px 10px 0' }} />
                     <ul>
+                    <li onClick={()=>this.setState({storeSet:!this.state.storeSet})}>Store Setup</li>
+                    <li className={this.state.storeSet ? 'subList': 'none'} >
+                    {
+                            this.state.subList.map(l => {
+                                return <li onClick={() => {
+                                    this.props.toggle();
+                                    this.handleClick(l.route)
+                                }}  key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                            })
+                        }
+                        </li>
                         {
                             this.state.list.map(l => {
                                 return <li onClick={() => {
