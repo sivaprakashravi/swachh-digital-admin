@@ -14,6 +14,9 @@ import CreateProduct from './modules/baseProduct/createProduct.component';
 import { OrderScreen } from './modules/orders/orderScreen.component';
 import { OrderDetails } from './modules/orders/orderDetails.component';
 import { OrderEditScreen } from "./modules/orders/orderEdit.component";
+import { BusinessSetupScreen } from './modules/store/busineesSetuo.component';
+import { MyaccountScreen } from './modules/store/myAccount.component';
+import { UserManageScreen } from './modules/store/userManage.component'
 import { AuthContext } from './modules/utils/auth-context';
 import Loader from './components/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
@@ -35,7 +38,7 @@ function App(e) {
         <Switch>
           <Route path="/" component={Login} exact />
           <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} /> v         
+          <Route path="/dashboard" component={Dashboard} /> v
           <Route path="/addproduct" component={AddProductScreen} />
           <Route path="/productlist" component={ProductListScreen} />
           <Route path="/orderDetails" component={OrderDetails} />
@@ -44,9 +47,12 @@ function App(e) {
           <Route path="/storeRegister" component={StoreRegister} />
           <Route path="/createProduct" component={CreateProduct} />
           <Route path="/orderEdit" component={OrderEditScreen} />
+          <Route path="/businessSetup" component={BusinessSetupScreen} />
+          <Route path="/myAccount" component={MyaccountScreen} />
+          <Route path="/userManage" component={UserManageScreen} />
         </Switch>
         {showHeader(e.location.pathname) ? <BottomNav /> : null}
-        {promiseInProgress ? <Loader/> : null } 
+        {promiseInProgress ? <Loader /> : null}
       </AuthContext.Provider>
     </main>
   )

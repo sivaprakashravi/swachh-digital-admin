@@ -2,7 +2,9 @@ import React from 'react'
 import './addProduct.style.scss'
 import register from "../../services/fetchsvc.service";
 import Switch from "react-switch";
-import Radio from '../../components/radio.component'
+import Radio from '../../components/radio.component';
+import { AiFillPicture, AiFillCamera } from "react-icons/ai";
+import { IoMdClose } from "react-icons/io";
 export class EditScreen extends React.Component {
     fileObj = [];
     fileArray = []
@@ -11,7 +13,7 @@ export class EditScreen extends React.Component {
         this.state = {
             categories: [],
             subCategories: [],
-            image: null,
+            image: [],
             file: null,
             active: true,
             offerTog: false,
@@ -41,13 +43,13 @@ export class EditScreen extends React.Component {
 
     componentDidMount() {
         const { ProductName, RetailPrice, Category, ProductDesc, Offer_Price, Imageurl } = this.props.location.state;
+        this.setState(prevState => ({
+            image: [...prevState.image, Imageurl]
+        }))
         const { type } = this.props.location
-        {
-            type === 'copy' ?
-                this.setState({ description: ProductDesc, offer: Offer_Price, })
-                :
-                this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price, image: Imageurl })
-        }
+
+        this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
+
         this.getCategories()
     }
 
@@ -65,6 +67,13 @@ export class EditScreen extends React.Component {
     }
 
     async uploadControl() {
+        const { state, callBack } = this.props.location;
+        const { DocId } = state
+        const { name, price, active, categoryName, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
+        const fileUrl = imageUrl ? imageUrl : image
+        const data = {
+            name, price, categoryName, offer, description, DocId, active, fileUrl, offerTog
+        }
         const formData = new FormData();
         formData.append("fileName", this.state.file, this.state.file.name);
         var requestOptions = {
@@ -76,7 +85,8 @@ export class EditScreen extends React.Component {
         fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
             .then(response => response.text())
             .then(result => {
-                this.setState({ imageUrl: result })
+                this.setState({ imageUrl: result });
+                callBack(data);
             })
             .catch(error => console.log('error', error));
         // const data = await register.uploadImage('uploadFile',formData);
@@ -113,24 +123,32 @@ export class EditScreen extends React.Component {
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
     }
+    removeImage(index) {
+        const images = this.state.image;
+        const removedIndex = images.filter((im, i) => i !== index);
+        this.setState({ image: removedIndex });
+    }
     uploadImage() {
         return (
-            <div >
-                <div className="inputView">
-                    <input type="file" id="browser" multiple={true}
-                        accept="image/*"
-                        onChange={(e) => this.uploadMultipleFiles(e)}
-                    />
-                    <div className="input">
-                        <button onClick={() => this.uploadControl()} className="primary" disabled={!this.state.image}>
-                            Upload!
-                    </button>
-                    </div>
+            <div>
+                {this.state.image && this.state.image.length ?
+                    this.state.image.map((image, i) => {
+                        return <div key={'img-box' + i} className="uploaded-image">
+                            <IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                            <img width="100%" src={image} alt={'Product ' + (i + 1)} />
+                        </div>
+                    }) : null}
+                <div className="image-placeholder">
+                    <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
+                    <AiFillPicture size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
                 </div>
-                {this.state.image ? <img src={this.state.image} alt="product" className="productImg" /> : null}
+                <div className="camera-placeholder">
+                    <AiFillCamera size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                </div>
             </div>
         )
     }
+
 
     toggleControl() {
         const { type } = this.props.location;
@@ -158,8 +176,7 @@ export class EditScreen extends React.Component {
 
     inputController(optionItems, subItems) {
         const { state, callBack } = this.props.location;
-        const { DocId } = state
-        const { name, price, active, category, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
+        const { name, price, active, categoryName, offer, description, image, imageUrl, offerTog, inventory, shippingRate, taxRate, minQty, maxQty } = this.state;
 
         let offerToint = parseInt(offer);
         let priceToint = parseInt(price)
@@ -255,6 +272,7 @@ export class EditScreen extends React.Component {
         );
         return (
             <div className="editContainer">
+                <h3>Edit Product Details</h3>
                 {this.categoryControls()}
                 {this.inputController(optionItems, subItems)}
                 {this.toggleControl()}

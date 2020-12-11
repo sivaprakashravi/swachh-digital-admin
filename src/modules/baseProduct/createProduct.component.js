@@ -73,7 +73,7 @@ class CreateProduct extends React.Component {
 
             const productId = await register.post('api/checkProductCode', JSON.stringify(proId), idToken);
             const len = Object.keys(productId).length; // 2
-            if (len < 1) {
+            if (len > 1) {
                 const create = await register.post('api/createProduct', JSON.stringify(data), idToken);
                 alert(create.message);
                 this.props.history.push('dashboard')
@@ -153,7 +153,7 @@ class CreateProduct extends React.Component {
             <div>
                 {this.state.image && this.state.image.length ?
                     this.state.image.map((image, i) => {
-                        return <div key={'img-box'+i} className="uploaded-image">
+                        return <div key={'img-box' + i} className="uploaded-image">
                             <IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
                             <img width="100%" src={image} alt={'Product ' + (i + 1)} />
                         </div>
@@ -193,7 +193,7 @@ class CreateProduct extends React.Component {
                         <input type={'text'} value={this.state.price} name="price" onChange={this.handleChange} />
                     </li>
                     {this.uploadImage()}
-                </ul>                
+                </ul>
                 <button disabled={!(this.state.productName && this.state.price && this.state.categoryName && this.state.image)} onClick={() => this.uploadControl()} className="primary">Add Product</button>
             </div>
         )

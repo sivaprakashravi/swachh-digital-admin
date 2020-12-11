@@ -57,14 +57,14 @@ export class ProductListScreen extends React.Component {
                 "DocId": values.DocId, "Brands": "",
                 "Category": values.category,
                 "SubCategory": "",
-                "ImageUrl": values.fileUrl,
+                "ImageUrl": "",
                 "IsActive": values.active,
-                "IsOffer": values.offerTog,
+                "IsOffer": false,
                 "ProductCode": "",
                 "ProductName": values.name,
                 "ProductDesc": "",
                 "RetailPrice": values.price,
-                "Offer_Price": values.offerToint, "StoreId": StoreId, "ModifiedBy": localId
+                "Offer_Price": 0, "StoreId": StoreId, "ModifiedBy": localId
             })
             const editApi = await fetchservices.post('api/updateProduct', list, idToken);
             this.getProducts()
