@@ -13,7 +13,9 @@
     transform: translate(-50%, -50%);
   }
   .spinner {
-    animation: spin 1s linear infinite;
+    // animation: spin 1s linear infinite, pulse 5s infinite;
+    animation: spin 1s linear infinite, pulse 2s infinite;
+    
   }
 
   @-moz-keyframes spin {
@@ -29,6 +31,42 @@
   @keyframes spin {
     to {
       transform: rotate(360deg);
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      fill: #03045eff;
+    }
+    10% {
+      fill: #023e8aff;
+    }
+    20% {
+      fill: #0077b6ff;
+    }
+    30% {
+      fill: #0096c7ff;
+    }
+    40% {
+      fill: #00b4d8ff;
+    }
+    50% {
+      fill: #48cae4ff;
+    }
+    60% {
+      fill: #00b4d8ff;
+    }
+    70% {
+      fill: #0096c7ff;
+    }
+    80% {
+      fill: #0077b6ff;
+    }
+    90% {
+      fill: #023e8aff;
+    }
+    100% {
+      fill: #03045eff;
     }
   }
 }

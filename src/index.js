@@ -8,6 +8,7 @@ ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
         <App />
+        <div id="dom"></div>
     </HashRouter>
   </React.StrictMode>,
   document.getElementById('root')

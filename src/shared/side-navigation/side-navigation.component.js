@@ -12,27 +12,27 @@ class SideNav extends React.Component {
                 label: 'Home',
                 route: 'dashboard',
                 active: true
-            },{
+            }, {
                 label: 'Add Products',
                 route: 'CreateProduct'
-            },{
+            }, {
                 label: 'Add Category',
                 route: ''
             },
             {
                 label: 'Product List',
                 route: 'productlist'
-            },{
+            }, {
                 label: 'Orders',
                 route: 'orderlist'
-            },{
+            }, {
                 label: 'Manage Staff',
                 route: ''
-            },{
+            }, {
                 label: 'Business Settings',
                 route: ''
             }],
-            subList:[{
+            subList: [{
                 label: 'Business Setup',
                 route: 'businessSetup'
             },
@@ -43,9 +43,9 @@ class SideNav extends React.Component {
             {
                 label: 'User management page',
                 route: 'userManage'
-            }      
+            }
             ],
-            storeSet:false
+            storeSet: false
         };
     }
 
@@ -58,7 +58,7 @@ class SideNav extends React.Component {
             <div className={this.props.show ? 'navigation show' : 'navigation'}>
                 <div className="menu">
                     <div className="profile">
-                        <span><FcBusinessman size="24px" style={{verticalAlign: 'middle', marginTop: '2px'}} /></span>
+                        <span><FcBusinessman size="24px" style={{ verticalAlign: 'middle', marginTop: '2px' }} /></span>
                         <label>Username
                             <i>Administrator</i>
                         </label>
@@ -67,29 +67,34 @@ class SideNav extends React.Component {
                         this.props.toggle();
                     }} style={{ margin: '6px 10px 0' }} />
                     <ul>
-                    <li onClick={()=>this.setState({storeSet:!this.state.storeSet})}>Store Setup</li>
-                    <li className={this.state.storeSet ? 'subList': 'none'} >
-                    {
-                            this.state.subList.map(l => {
-                                return <li onClick={() => {
-                                    this.props.toggle();
-                                    this.handleClick(l.route)
-                                }}  key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
-                            })
-                        }
+                        <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>Store Setup</li>
+                        <li className={this.state.storeSet ? 'subList' : 'none'} >
+                            {
+                                <ul>
+                                    {this.state.subList.map(l => {
+                                        return <li onClick={() => {
+                                            this.props.toggle();
+                                            this.handleClick(l.route);
+                                        }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                                    })}
+                                </ul>
+                            }
                         </li>
                         {
-                            this.state.list.map(l => {
-                                return <li onClick={() => {
-                                    this.props.toggle();
-                                    this.handleClick(l.route)
-                                }}  key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
-                            })
+                            <ul>
+                                {
+                                    this.state.list.map(l => {
+                                        return <li onClick={() => {
+                                            this.props.toggle();
+                                            this.handleClick(l.route);
+                                        }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                                    })}
+                            </ul>
                         }
                     </ul>
                     <footer>
                         <a href="/login"><button><CgLogOff size="22px" />Logoff</button></a>
-                        <i>Version: 1.0.0 <span>&copy; Swachh Digital</span></i>
+                        <i>Version: 1.0.0 <label>&copy; Swachh Digital</label></i>
                     </footer>
                 </div>
                 <div className="overlay"></div>
