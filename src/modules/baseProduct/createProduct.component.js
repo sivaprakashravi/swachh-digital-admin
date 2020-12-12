@@ -73,12 +73,12 @@ class CreateProduct extends React.Component {
 
             const productId = await register.post('api/checkProductCode', JSON.stringify(proId), idToken);
             const len = Object.keys(productId).length; // 2
-            if (len > 1) {
+            if (len == 0) {
                 const create = await register.post('api/createProduct', JSON.stringify(data), idToken);
                 alert(create.message);
                 this.props.history.push('dashboard')
             } else {
-                this.CreateProductControl()
+                this.CreateProductControl();
             }
         } catch (error) {
             console.log("create product error", error)
@@ -214,7 +214,7 @@ class CreateProduct extends React.Component {
         );
         return (
             <div className="createProduct">
-                <h3>Enter Product Details</h3>
+                <h3>Add Product</h3>
                 {this.controls(optionItems)}
             </div>
         )

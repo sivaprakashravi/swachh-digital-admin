@@ -55,7 +55,7 @@ export class ProductListScreen extends React.Component {
             const { StoreId } = JSON.parse(store);
             const list = JSON.stringify({
                 "DocId": values.DocId, "Brands": "",
-                "Category": values.category,
+                "Category": values.categoryName,
                 "SubCategory": "",
                 "ImageUrl": "",
                 "IsActive": values.active,
