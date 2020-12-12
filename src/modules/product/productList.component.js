@@ -2,11 +2,16 @@ import React from 'react';
 import List from './List.json';
 import { Listview } from './listView';
 import fetchservices from '../../services/fetchsvc.service';
+import { RiArrowGoBackLine } from 'react-icons/ri';
+import { BsSearch } from 'react-icons/bs';
+import { IoMdClose } from "react-icons/io";
 export class ProductListScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            list: []
+            list: [],
+            isSearch: false,
+            searchText: ''
         }
     }
 
@@ -82,7 +87,10 @@ export class ProductListScreen extends React.Component {
             )
         })
         return (
-            <div className="product-list">
+            <div className="products">
+                <div className="sub-header"><RiArrowGoBackLine className="icon" size="22px" />
+                {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>Products List</label>}
+                {this.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => this.setState({isSearch: false, searchText: ''})} /> : <BsSearch className="search" size="22px" onClick={() => this.setState({isSearch: true, searchText: ''})} />}</div>
                 {list}
             </div>
         )
