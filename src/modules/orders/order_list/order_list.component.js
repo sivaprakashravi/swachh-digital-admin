@@ -1,9 +1,9 @@
 import React from 'react';
-import './orderScreen.style.scss';
-import { VMenu } from '../../components/menu.component'
+import '../order_screen.style.scss';
+import { VMenu } from '../../../components/menu/menu.component';
 export const OrderList = (props) => {
     return (
-        <div className="orderlistContainer">
+        <div className="order-list-container">
             <div className="menu">
                 <VMenu style={{ marginLeft: 50 }} >
                     <li
@@ -12,7 +12,7 @@ export const OrderList = (props) => {
                     <li onClick={() => props.nav.push({ pathname: 'orderEdit', state: props.data })}>Edit</li>
                 </VMenu>
             </div>
-            <div className="listView" >
+            <div className="list-view" >
                 <div>
                     <pre>
                         <ul>

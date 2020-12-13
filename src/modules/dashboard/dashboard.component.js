@@ -5,7 +5,6 @@ import { IoMdClose } from "react-icons/io";
 import { FcPlus, FcLike, FcKey, FcPaid, FcButtingIn, FcBullish, FcServices, FcIdea, FcMultipleInputs } from "react-icons/fc";
 import Carousel from 're-carousel';
 import IndicatorDots from './indicators';
-import {AuthContext} from '../utils/auth-context'
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);

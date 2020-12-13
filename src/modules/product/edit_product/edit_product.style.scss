@@ -1,13 +1,7 @@
-@import "./../../scss/definitions/variables.scss";
+@import "./../../../scss/definitions/variables.scss";
 
-.addProduct {
-  margin: 20px;
-  input {
-    padding: 10px;
-    margin: 10px;
-  }
-}
-.editContainer {
+
+.edit-container {
   margin: 65px 15px;
   h3 {
     color: $primary;
@@ -45,7 +39,7 @@
       width: 100%;
     }
   }
-   .productImg {
+   .product-img {
     height: 150px;
     width: 150px;
     align-items: center;
@@ -109,20 +103,20 @@
       }
     }
   
-  .rowView {
+  .row-view {
     display: -ms-grid;
   }
-  .textRow {
+  .text-row {
     float: left;
   }
-  .switchView {
+  .switch-view {
     float: right;
   }
-  .toggleView {
+  .toggle-view {
     display: grid;
     grid-template-columns: 100px 100px;
   }
-  .listView {
+  .list-view {
     display: grid;
     grid-template-columns: 100px 500px;
     margin: 10px;
@@ -143,11 +137,11 @@
     padding: 10px;
     margin: 10px;
   }
-  .listContainer {
+  .list-container {
     border: 1px solid lightgrey;
     padding: 5px;
   }
-  .inputView {
+  .input-view {
     justify-content: center;
   }
   .radio {
@@ -155,12 +149,12 @@
     margin-top: 10px;
   }
 
-  .productImg {
+  .product-img {
     height: 150px;
     width: 150px;
     align-items: center;
   }
-  .thumbnailImg {
+  .thumbnail-img {
     height: 80px;
     width: 80px;
   }

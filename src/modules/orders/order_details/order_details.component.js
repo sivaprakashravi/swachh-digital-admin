@@ -1,16 +1,16 @@
 import React from 'react';
-import './orderScreen.style.scss';
+import '../order_screen.style.scss';
 
 export const OrderDetails = (props) => {
     const data = props.location.state
     return (
-        <div className="orderDetails">
-            <div className="rowView">
+        <div className="order-details">
+            <div className="row-view">
                 <text style={{ float: 'left', width: '50%', color: 'orange' }}>#{data.id}<br />
                     <text style={{ fontSize: 12, color: 'gray' }}>{data.date}</text></text>
                 <text style={{ float: 'right', width: '50%', color: 'green' }}>Status : <text>{data.status}</text></text>
             </div>
-            <div className="detailsView">
+            <div className="details-view">
                 <ul>
                     <li>
                         <text>Customer Name : {data.customer_name}</text>
@@ -38,7 +38,7 @@ export const OrderDetails = (props) => {
                     </li>
                 </ul>
             </div>
-            <div className="buttonView">
+            <div className="button-view">
                 <button className="primary">Accept</button>
                 <button className="primary">Reject</button>
             </div>

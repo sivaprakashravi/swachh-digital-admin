@@ -1,7 +1,7 @@
 import React from 'react';
 import './createProduct.style.scss';
 import register from '../../services/fetchsvc.service';
-import Radio from '../../components/radio.component';
+import Radio from '../../components/radio_button/radio.component';
 import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 class CreateProduct extends React.Component {
@@ -213,7 +213,7 @@ class CreateProduct extends React.Component {
             <option key={planet}>{planet}</option>
         );
         return (
-            <div className="createProduct">
+            <div className="create-product">
                 <h3>Add Product</h3>
                 {this.controls(optionItems)}
             </div>

@@ -39,7 +39,7 @@ export class BusinessSetupScreen extends React.Component {
                     </li>
                     <li>
                         <label>Pincode:</label>
-                        <input type="number" value={address} onChange={(e) => { this.handleChange(e, 'pincode') }} />
+                        <input type="text" value={address} onChange={(e) => { this.handleChange(e, 'pincode') }} />
                     </li>
                     <li>
                         <label>GST Number:</label>
@@ -55,7 +55,7 @@ export class BusinessSetupScreen extends React.Component {
     }
     render() {
         return (
-            <div className="setupContainer">
+            <div className="setup-container">
                 <h2>Store setup page</h2>
                 {this.inputController()}
             </div>

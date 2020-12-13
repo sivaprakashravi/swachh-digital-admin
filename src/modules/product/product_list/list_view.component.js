@@ -1,6 +1,6 @@
-import React from 'react'
-import './productList.style.scss'
-import { VMenu } from '../../components/menu.component';
+import React from 'react';
+import './product_list.style.scss';
+import { VMenu } from '../../../components/menu/menu.component';
 import { BiRupee } from 'react-icons/bi';
 import { BsImages } from 'react-icons/bs';
 export const Listview = (props) => {
@@ -11,6 +11,7 @@ export const Listview = (props) => {
       <li onClick={() => props.delete(data.DocId)}>Delete</li>
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'move' })}>Move</li>
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'copy' })}>Copy</li>
+      <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'subcategory' })}>Add subcategory</li>
     </VMenu>)
   }
   const tile = (data) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './orderScreen.style.scss';
+import '../order_screen.style.scss';
 export class OrderEditScreen extends React.Component {
     fileObj = [];
     fileArray = []
@@ -36,7 +36,7 @@ export class OrderEditScreen extends React.Component {
                 <div className="input">
                     <label for="status">Choose a Payment status:</label>
                 </div>
-                <select id="status" name="status" onChange={(e) => this.handleChange(e, 'status')} className="dropDown">
+                <select id="status" name="status" onChange={(e) => this.handleChange(e, 'status')} className="drop-down">
                     <option >Pending</option>
                     <option >Processing</option>
                     <option>Credited</option>
@@ -44,7 +44,7 @@ export class OrderEditScreen extends React.Component {
                 <div className="input">
                     <label for="type">Choose a Payment type:</label>
                 </div>
-                <select id="type" name="type" onChange={(e) => this.handleChange(e, 'type')} className="dropDown">
+                <select id="type" name="type" onChange={(e) => this.handleChange(e, 'type')} className="drop-down">
                     <option >COD</option>
                     <option >Online</option>
                 </select>
@@ -102,7 +102,7 @@ export class OrderEditScreen extends React.Component {
 
     render() {
         return (
-            <div className="orderEdit">
+            <div className="order-edit">
                 {this.categoryControl()}
                 {this.inputController()}
 

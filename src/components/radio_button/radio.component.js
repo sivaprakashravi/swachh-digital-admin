@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './radio.style.scss'
+import './radio.style.scss';
 import { MdRadioButtonChecked, MdRadioButtonUnchecked } from "react-icons/md";
 class Radio extends Component {
   

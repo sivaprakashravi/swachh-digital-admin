@@ -1,8 +1,8 @@
 import React from 'react';
-import './addProduct.style.scss';
-import register from "../../services/fetchsvc.service";
+import './edit_product.style.scss';
+import register from "../../../services/fetchsvc.service";
 import Switch from "react-switch";
-import Radio from '../../components/radio.component'
+import Radio from '../../../components/radio_button/radio.component';
 import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 export class EditScreen extends React.Component {
@@ -177,7 +177,7 @@ export class EditScreen extends React.Component {
                             {
 
                                 !this.state.isNewCategory ?
-                                    <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} className="dropDown">
+                                    <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} className="drop-down">
                                         {optionItems}
                                     </select>
                                     :
@@ -186,12 +186,12 @@ export class EditScreen extends React.Component {
                         </li>
                     }
                     {
-                        (type === 'subCategroy' || type === 'copy') &&
+                        (type === 'subcategory' || type === 'copy') &&
                         <li>
                             <label>{this.state.isNewSubCategory ? 'SubCategory Name' : 'Select from SubCategory'}:</label>
                             {
                                 !this.state.isNewSubCategory ?
-                                    <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} className="dropDown">
+                                    <select id="item" name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} className="drop-down">
                                         {subItems}
                                     </select>
                                     :
@@ -287,13 +287,13 @@ export class EditScreen extends React.Component {
         );
         const { type } = this.props.location;
         return (
-            <div className="editContainer">
+            <div className="edit-container">
                 {this.inputController(optionItems, subItems)}
                 { (type === 'edit' || type === 'copy') &&
                     this.toggleControl()}
                 { (type === 'move' || type === 'copy') &&
                     this.categoryControls()}
-                { (type === 'subCategroy' || type === 'copy') &&
+                { (type === 'subcategory' || type === 'copy') &&
                     this.subcategoryControls()}
                 {this.categoryFields(optionItems, subItems)}
                 {(type === 'edit' || type === 'copy') &&

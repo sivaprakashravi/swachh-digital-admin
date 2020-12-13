@@ -1,7 +1,6 @@
 import React from 'react';
-import List from './List.json';
-import { Listview } from './listView';
-import fetchservices from '../../services/fetchsvc.service';
+import { Listview } from './list_view.component';
+import fetchservices from '../../../services/fetchsvc.service';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { BsSearch } from 'react-icons/bs';
 import { IoMdClose } from "react-icons/io";

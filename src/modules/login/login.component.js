@@ -1,10 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import { AuthContext } from '../utils/auth-context';
 import './login.style.scss';
 import session from '../../services/session-manger.service';
+import Toast from '../../components/toast/toast.component';
 
 class Login extends React.Component {
     static contextType = AuthContext;
@@ -49,8 +51,9 @@ class Login extends React.Component {
                     this.setState({ rememberMe: !this.state.rememberMe })
                 }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
                 <li><button className="primary" disabled={!(this.state.username && this.state.password)} 
-                onClick={() => {
-                    session.login({ username, password }, self);
+                onClick={async() => {
+                    await session.login({ username, password }, self);
+                    ReactDOM.render(<Toast message="Logged In" />, document.getElementById('dom'));
                 }}>Login</button></li>
                 <li className="sign-up">Don't have an account? <label onClick={() => this.props.history.push('register')}>Sign up</label></li>
             </ul>

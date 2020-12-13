@@ -1,14 +1,14 @@
 @import "./../../scss/definitions/variables.scss";
-.orderDetails {
+.order-details {
   margin-top: 50px;
   margin-bottom: 50px;
-  .rowView {
+  .row-view {
     flex-direction: row;
     flex-wrap: wrap;
     margin: 10px;
     height: 50px;
   }
-  .detailsView {
+  .details-view {
     ul {
       justify-content: space-evenly;
       margin: 10px;
@@ -25,12 +25,12 @@
   .primary {
     margin: 10px;
   }
-  .buttonView {
+  .button-view {
     justify-content: space-between;
   }
 }
 
-.orderEdit {
+.order-edit {
   //margin: 15px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -127,14 +127,14 @@
   }
 }
 
-.orderlistContainer {
+.order-list-container {
   border: 0.5px solid lightgrey;
   padding: 5px;
   margin: 5px;
   .menu{
     float: right;
   }
-  .listView {
+  .list-view {
     padding: 10px;
     
   }
@@ -143,17 +143,17 @@
   display: flexbox;
   margin: 20px;
   margin-top: 50px;
-  .headText {
+  .head-text {
     background-color: lightgray;
     border-radius: 20px;
     padding: 10px;
     margin: 10px;
   }
-  .headText:active {
+  .head-text:active {
     background-color: blue;
     color: white;
   }
-  .headtextContainer {
+  .headtext-container {
    display: flexbox;
     margin-left: 0.5rem;
     margin-right: 0.5rem;

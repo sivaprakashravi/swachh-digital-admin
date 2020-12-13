@@ -6,7 +6,7 @@ const ItemScreen = (props) => {
     const [price, setPrice] = React.useState('')
     const { data } = props
     return (
-        <div className="rowView" >
+        <div className="row-view" >
             <div >
                 <img src={data} alt="product" width="100" height="100" />
             </div>
