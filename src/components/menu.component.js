@@ -1,7 +1,9 @@
 
 
 import React, { useEffect, useState, useRef } from "react";
-import './menu.style.scss'
+import './menu.style.scss';
+import { FaEllipsisV } from 'react-icons/fa';
+
 const VMenu = props => {
     const menuRef = useRef();
     const [isOpen, setOpen] = useState(false);
@@ -30,9 +32,7 @@ const VMenu = props => {
     }, [menuRef]);
     return (
         <div className={isOpen ? "v-menu show" : "v-menu"} ref={menuRef}>
-            <button className="v-ellipse" onClick={() => onOpen()}>
-                &#8942;
-      </button>
+            <FaEllipsisV onClick={() => onOpen()} />
             <ul className="menu-dropdown">
                 {props.children}
             </ul>

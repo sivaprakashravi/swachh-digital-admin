@@ -36,3 +36,34 @@ input[type=text], input[type=password] {
 select {
     width: 100%;
 }
+
+.sub-header {
+    padding: 10px;
+    background: #e3e3e3;
+    position: fixed;
+    width: calc(100% - 20px);
+    top: 50px;
+    z-index: 99;
+    .icon {
+        float: left;
+        margin-left: 3px;
+        margin-top: -2px;
+    }
+    input {
+        width: calc(100% - 65px);
+        border-bottom: 1px solid #000;
+        background: none;
+        display: inline-block;
+        padding: 0;
+        margin-left: 10px;
+    }
+    label {
+        margin-left: 10px;
+        display: inline-block;
+    }
+    .search {
+        float: right;
+        padding: 2px;
+        margin-top: -3px;
+    }
+}

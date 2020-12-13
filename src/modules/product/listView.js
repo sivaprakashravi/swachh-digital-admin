@@ -1,41 +1,32 @@
 import React from 'react'
 import './productList.style.scss'
-import {VMenu} from '../../components/menu.component'
+import { VMenu } from '../../components/menu.component';
+import { BiRupee } from 'react-icons/bi';
+import { BsImages } from 'react-icons/bs';
 export const Listview = (props) => {
-    const { data, edit } = props;
-  const  onclickMenu=()=>{
-       console.log("V")
-   }
+  const { data, edit } = props;
+  const menu = (data) => {
+    return (<VMenu data={data} >
+      <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'edit' })}>Edit</li>
+      <li onClick={() => props.delete(data.DocId)}>Delete</li>
+      <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'move' })}>Move</li>
+      <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'copy' })}>Copy</li>
+    </VMenu>)
+  }
+  const tile = (data) => {
     return (
-        <div className="listContainer">
-        <div className="listView" >
-            <div>
-            <img src={data.Imageurl} alt="" className="thumbnailImg" />
-            </div>
-            <div >
-                <pre>
-            <text >Product Name : {data.ProductName}</text>
-            <VMenu onSelect={()=>onclickMenu} data={data} >
-            <li
-          onClick={() =>  props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'edit' })}
-        >
-          Edit
-        </li>
-        <li onClick={() => props.delete(data.DocId)}>Delete</li>
-        <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'move' })}>Move</li>
-        <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'copy' })}>Copy</li>
-        <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'subCategroy' })}>Add subcategory</li>
-
-                </VMenu><br/>
-                <text  >Category :{data.Category}</text><br />
-                <text >RetailPrice  : {data.RetailPrice}</text><br />
-                </pre>
-            </div>
+      <div className="tile">
+        {data.Imageurl ? <div className="image-box" style={{ 'background-image': `url(${data.Imageurl})` }}></div> : <div className="image-box"><BsImages size="25px" className="placeholder" /></div>}
+        <div className="elements">
+          <div>Name: {data.ProductName}</div>
+          <div className="options">{menu(data)}</div>
+          <div>Category: {data.Category}</div>
+          <div >Price: <BiRupee size="1.1rem" style={{ 'vertical-align': 'bottom' }} />{data.RetailPrice}</div>
         </div>
-          {/* <div style={{marginLeft:80}}>
-            <button className="button"  onClick={() => {}}>Accept</button>
-            <button className="button"  onClick={() => {}}>Reject</button>
-            </div>   */}
-        </div>
+      </div>
     )
+  }
+  return (
+    <div className="product">{tile(data)}</div>
+  )
 }
