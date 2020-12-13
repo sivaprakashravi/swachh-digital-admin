@@ -38,6 +38,10 @@ export class BusinessSetupScreen extends React.Component {
                         <input type="text" value={address} onChange={(e) => { this.handleChange(e, 'address') }} />
                     </li>
                     <li>
+                        <label>Pincode:</label>
+                        <input type="number" value={address} onChange={(e) => { this.handleChange(e, 'pincode') }} />
+                    </li>
+                    <li>
                         <label>GST Number:</label>
                         <input type="text" value={gst} onChange={(e) => { this.handleChange(e, 'gst') }} />
                     </li>

@@ -14,12 +14,8 @@ export class ProductListScreen extends React.Component {
         console.log("call")
         try {
             const store = await localStorage.getItem('storeUser');
-            const userId = await localStorage.getItem('userToken');
-            const { email, localId, idToken } = JSON.parse(userId);
-            console.log(idToken)
             const { StoreId } = JSON.parse(store);
-            const data = await fetchservices.get(`api/getProducts/${StoreId}`, idToken);
-            console.log("data", data)
+            const data = await fetchservices.get(`api/getProducts/${StoreId}`);
             this.setState({ list: data })
         } catch (error) {
             console.log(error)
@@ -38,7 +34,7 @@ export class ProductListScreen extends React.Component {
             const list = JSON.stringify({
                 "DocId": id
             })
-            const deleteApi = await fetchservices.post('api/deleteProduct', list, idToken);
+            const deleteApi = await fetchservices.post('api/deleteProduct', list);
             alert(deleteApi)
             this.getProducts()
         } catch (error) {
@@ -53,7 +49,7 @@ export class ProductListScreen extends React.Component {
             const userId = await localStorage.getItem('userToken');
             const { email, localId, idToken } = JSON.parse(userId);
             const { StoreId } = JSON.parse(store);
-            const list = JSON.stringify({
+            const list = {
                 "DocId": values.DocId, "Brands": "",
                 "Category": values.categoryName,
                 "SubCategory": "",
@@ -65,8 +61,8 @@ export class ProductListScreen extends React.Component {
                 "ProductDesc": "",
                 "RetailPrice": values.price,
                 "Offer_Price": 0, "StoreId": StoreId, "ModifiedBy": localId
-            })
-            const editApi = await fetchservices.post('api/updateProduct', list, idToken);
+            }
+            const editApi = await fetchservices.post('api/updateProduct', list);
             this.getProducts()
             alert(editApi)
 

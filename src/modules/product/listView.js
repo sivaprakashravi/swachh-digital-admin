@@ -24,6 +24,8 @@ export const Listview = (props) => {
         <li onClick={() => props.delete(data.DocId)}>Delete</li>
         <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'move' })}>Move</li>
         <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'copy' })}>Copy</li>
+        <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit,type:'subCategroy' })}>Add subcategory</li>
+
                 </VMenu><br/>
                 <text  >Category :{data.Category}</text><br />
                 <text >RetailPrice  : {data.RetailPrice}</text><br />

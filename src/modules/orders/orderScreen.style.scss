@@ -154,11 +154,9 @@
     color: white;
   }
   .headtextContainer {
-    display: grid;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px;
-    margin-left: 1rem;
-    margin-right: 2rem;
-    padding-right: 1rem;
+   display: flexbox;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
   }
 
   .button {

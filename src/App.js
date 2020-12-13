@@ -14,7 +14,7 @@ import CreateProduct from './modules/baseProduct/createProduct.component';
 import { OrderScreen } from './modules/orders/orderScreen.component';
 import { OrderDetails } from './modules/orders/orderDetails.component';
 import { OrderEditScreen } from "./modules/orders/orderEdit.component";
-import { BusinessSetupScreen } from './modules/store/busineesSetuo.component';
+import { BusinessSetupScreen } from './modules/store/busineesSetup.component';
 import { MyaccountScreen } from './modules/store/myAccount.component';
 import { UserManageScreen } from './modules/store/userManage.component'
 import { AuthContext } from './modules/utils/auth-context';

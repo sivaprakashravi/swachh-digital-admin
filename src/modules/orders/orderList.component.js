@@ -17,20 +17,16 @@ export const OrderList = (props) => {
                     <pre>
                         <ul>
                             <li>
-                                <text style={{ color: '#008000' }}>Product Name : {props.data.product_name}</text><br />
-                            </li>
-
-                            <li>
-                                <text  >Category :{props.data.category}</text><br />
+                                <text style={{ color: '#008000' }}>ID : {props.data.id}</text><br />
                             </li>
                             <li>
-                                <text >Price  : {props.data.amount}</text><br />
+                                <text  >Amount :{props.data.amount}</text><br />
                             </li>
                             <li>
-                                <text >Payment  : {props.data.paymentType}</text><br />
+                                <text >Customer  : {props.data.customer_name}</text><br />
                             </li>
                             <li>
-                                <text >ID  : {props.data.id}</text><br />
+                                <text >shipping status  : {props.data.status}</text><br />
                             </li>
                         </ul>
 

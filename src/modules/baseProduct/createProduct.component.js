@@ -71,10 +71,10 @@ class CreateProduct extends React.Component {
                 "ProductId": this.state.id
             }
 
-            const productId = await register.post('api/checkProductCode', JSON.stringify(proId), idToken);
+            const productId = await register.post('api/checkProductCode', proId);
             const len = Object.keys(productId).length; // 2
             if (len == 0) {
-                const create = await register.post('api/createProduct', JSON.stringify(data), idToken);
+                const create = await register.post('api/createProduct', data);
                 alert(create.message);
                 this.props.history.push('dashboard')
             } else {
