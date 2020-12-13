@@ -2,7 +2,6 @@ import React from 'react';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
-import register from '../../services/fetchsvc.service';
 import { AuthContext } from '../utils/auth-context';
 import './login.style.scss';
 import session from '../../services/session-manger.service';
@@ -19,6 +18,7 @@ class Login extends React.Component {
             isOTPControl: false,
             rememberMe: false
         };
+        session.logout();
     }
 
     handleChange(event, stateVariable) {
@@ -27,30 +27,6 @@ class Login extends React.Component {
     
     handleClick = (route) => {
         this.props.history.push(route);
-    }
-
-    async loginControl() {
-        try {
-            const data = {
-                "email": this.state.username,
-                "password": this.state.password,
-                "returnSecureToken": true
-            }
-
-            const dataApi = await register.logInpost('signInWithPassword', JSON.stringify(data));
-            const { idToken, email, localId } = dataApi;
-            await localStorage.setItem('userToken', JSON.stringify({ idToken, email, localId }));
-            const user =
-            {
-                "UserId": localId
-            }
-
-            const store = await register.post('api/getStoreInfo', JSON.stringify(user), idToken);
-            await localStorage.setItem('storeUser', JSON.stringify(store))
-            this.props.history.push("dashboard");
-        } catch (error) {
-            console.log('login', error)
-        }
     }
 
     userNameControls() {
