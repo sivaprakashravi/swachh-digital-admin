@@ -44,7 +44,7 @@ export class EditScreen extends React.Component {
         const { ProductName, RetailPrice, Category, ProductDesc, Offer_Price, Imageurl } = this.props.location.state;
         const { type } = this.props.location
         this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
-        this.setState(prevState => ({
+       Imageurl && this.setState(prevState => ({
             image: [...prevState.image, Imageurl]
         }))
         this.getCategories()
