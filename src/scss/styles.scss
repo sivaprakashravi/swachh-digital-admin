@@ -1,69 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-@import './definitions/buttons.scss';
-@import './definitions/form-elements.scss';
-@import './definitions/variables.scss';
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+@import "./definitions/buttons.scss";
+@import "./definitions/form-elements.scss";
+@import "./definitions/variables.scss";
 * {
-    padding: 0;
-    margin: 0;
-    font-family: 'Lato', sans-serif;
+  padding: 0;
+  margin: 0;
+  font-family: "Lato", sans-serif;
 }
 :focus {
-    outline: none;
+  outline: none;
 }
 a {
-    color: $primary;
-    text-decoration: none;
+  color: $primary;
+  text-decoration: none;
 }
 .warning {
-    background: $warn;
+  background: $warn;
 }
 
-input[type=text], input[type=password], input[type=number], select {    
-    padding: 8px 8px 8px 0;
-    display: block;
-    border: none;
-    border-bottom: 2px solid $border-grey;
-    font-size: 1rem;
-    &:focus {
-      border-bottom-color: $primary;
-    }
+input[type="text"],
+input[type="password"],
+input[type="number"],
+select {
+  padding: 8px 8px 8px 0;
+  display: block;
+  border: none;
+  border-bottom: 2px solid $border-grey;
+  font-size: 1rem;
+  &:focus {
+    border-bottom-color: $primary;
+  }
 }
 
-input[type=text], input[type=password], input[type=number] {
-    width: calc(100% - 10px);
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+  width: calc(100% - 10px);
 }
 
 select {
-    width: 100%;
+  width: 100%;
 }
 
 .sub-header {
-    padding: 10px;
-    background: #e3e3e3;
-    position: fixed;
-    width: calc(100% - 20px);
-    top: 50px;
-    z-index: 99;
-    .icon {
-        float: left;
-        margin-left: 3px;
-        margin-top: -2px;
-    }
-    input {
-        width: calc(100% - 65px);
-        border-bottom: 1px solid #000;
-        background: none;
-        display: inline-block;
-        padding: 0;
-        margin-left: 10px;
-    }
-    label {
-        margin-left: 10px;
-        display: inline-block;
-    }
-    .search {
-        float: right;
-        padding: 2px;
-        margin-top: -3px;
-    }
+  padding: 10px;
+  background: #e3e3e3;
+  position: fixed;
+  width: calc(100% - 20px);
+  top: 50px;
+  z-index: 99;
+  .icon {
+    float: left;
+    margin-left: 3px;
+    margin-top: -2px;
+  }
+  input {
+    width: calc(100% - 65px);
+    border-bottom: 1px solid #000;
+    background: none;
+    display: inline-block;
+    padding: 0;
+    margin-left: 10px;
+  }
+  label {
+    margin-left: 10px;
+    display: inline-block;
+  }
+  .search {
+    float: right;
+    padding: 2px;
+    margin-top: -3px;
+  }
+}
+
+.no-list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  button {
+      margin: 15px;
+      padding: 10px;
+  }
 }
