@@ -7,7 +7,7 @@ import Radio from '../../../components/radio_button/radio.component';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
-import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri'
+import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri';
 export class OrderScreen extends React.Component {
     constructor(props) {
         super(props);

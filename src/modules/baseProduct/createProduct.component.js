@@ -6,6 +6,7 @@ import Toast from '../../components/toast/toast.component';
 import ReactDOM from 'react-dom';
 import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
+import { RiArrowGoBackLine } from 'react-icons/ri';
 class CreateProduct extends React.Component {
     fileObj = [];
     fileArray = []
@@ -153,19 +154,21 @@ class CreateProduct extends React.Component {
     uploadImage() {
         return (
             <div>
-                {this.state.image && this.state.image.length ?
-                    this.state.image.map((image, i) => {
-                        return <div key={'img-box' + i} className="uploaded-image">
-                            <IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
-                            <img width="100%" src={image} alt={'Product ' + (i + 1)} />
-                        </div>
-                    }) : null}
+                <div className="image-container">
+                    {this.state.image && this.state.image.length ?
+                        this.state.image.map((image, i) => {
+                            return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                            </div>
+                        }) : null}
+                </div>
                 <div className="image-placeholder">
                     <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
-                    <AiFillPicture size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                    <AiFillPicture size="24px" color="#fff" />
+                    <label>Select Images</label>
                 </div>
                 <div className="camera-placeholder">
-                    <AiFillCamera size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                    <AiFillCamera size="24px" color="#fff" />
+                    <label>Capture Image</label>
                 </div>
             </div>
         )
@@ -216,7 +219,7 @@ class CreateProduct extends React.Component {
         );
         return (
             <div className="create-product">
-                <h3>Add Product</h3>
+            <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Add Product</label></div>
                 {this.controls(optionItems)}
             </div>
         )
