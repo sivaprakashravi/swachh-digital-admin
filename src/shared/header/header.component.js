@@ -10,12 +10,19 @@ class Header extends React.Component {
         };
     }
 
+   componentDidMount(){
+    const store = localStorage.getItem('storeUser');
+    const { StoreName } = JSON.parse(store);
+    this.setState({ StoreName });
+   }
+
     toggleNav(self) {
         self.setState({ showNav: !self.state.showNav })
     }
 
     render() {
         const self = this;
+        const {StoreName} = self.state
         return (
             <div className="header">
                 {
@@ -23,7 +30,7 @@ class Header extends React.Component {
                         <IoMdClose size="26px" onClick={() => { self.setState({ showNav: false }) }} style={{ margin: '6px 10px 0' }} /> :
                         <IoMdMenu size="26px" onClick={() => { self.setState({ showNav: true }) }} style={{ margin: '6px 10px 0' }} />
                 }
-                <span>Swachh Digital {self.state.showNav}</span>
+                <span>{StoreName} {self.state.showNav}</span>
                 <SideNav show={self.state.showNav} toggle={() => {
                     self.toggleNav(self)
                 }} />

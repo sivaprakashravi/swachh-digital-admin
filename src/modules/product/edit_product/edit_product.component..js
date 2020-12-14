@@ -279,7 +279,7 @@ export class EditScreen extends React.Component {
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
-        let optionItems = catList.map((catList) =>
+        let optionItems = catList.map((catList,index) =>
             <option key={catList}>{catList}</option>
         );
         let subItems = subList.map((subList) =>
