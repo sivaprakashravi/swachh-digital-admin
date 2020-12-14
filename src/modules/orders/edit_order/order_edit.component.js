@@ -16,12 +16,12 @@ export class OrderEditScreen extends React.Component {
     };
 
     componentDidMount() {
-        const { id, customer_name, amount, paymentType, paymentStatus, product_name, category,
-            items_count, invoice, email, tracking_link, customer_phone,
+        const { OrderId, customer_name, amount, paymentType, paymentStatus, product_name, category,
+            items_count, invoice, CustomerEmail, tracking_link, CustomerPhone,
         } = this.props.location.state;
         this.setState({
-            id: id, customerName: customer_name, mobile: customer_phone, name: product_name, link: tracking_link
-            , invoice: invoice, price: amount, items: items_count, email: email
+            id: OrderId, customerName: customer_name, mobile: CustomerPhone, name: product_name, link: tracking_link
+            , invoice: invoice, price: amount, items: items_count, email: CustomerEmail
         })
     };
 
@@ -34,7 +34,7 @@ export class OrderEditScreen extends React.Component {
         return (
             <ul>
                 <div className="input">
-                    <label for="status">Choose a Payment status:</label>
+                    <label >Choose a Payment status:</label>
                 </div>
                 <select id="status" name="status" onChange={(e) => this.handleChange(e, 'status')} className="drop-down">
                     <option >Pending</option>
@@ -42,7 +42,7 @@ export class OrderEditScreen extends React.Component {
                     <option>Credited</option>
                 </select><br />
                 <div className="input">
-                    <label for="type">Choose a Payment type:</label>
+                    <label >Choose a Payment type:</label>
                 </div>
                 <select id="type" name="type" onChange={(e) => this.handleChange(e, 'type')} className="drop-down">
                     <option >COD</option>
