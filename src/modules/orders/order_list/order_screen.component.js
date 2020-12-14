@@ -7,7 +7,7 @@ import Radio from '../../../components/radio_button/radio.component';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
-import { RiFilterLine } from 'react-icons/ri'
+import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri'
 export class OrderScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ export class OrderScreen extends React.Component {
         };
         return (
             <div className="orders">
-                <h3>Orders <RiFilterLine onClick={() => this.setState({filter: !this.state.filter})} /></h3>
+                <div className="sub-header"><RiArrowGoBackLine className="icon" size="22px" /><label>Orders</label> <RiFilterLine className="i-filter" size="22px" onClick={() => this.setState({filter: !this.state.filter})} /></div>
                 {this.state.filter ? <div className="filter">
                     <ul>
                         <li>
@@ -61,7 +61,7 @@ export class OrderScreen extends React.Component {
                     
                 <div><button className="primary">Filter</button></div>
                 </div> : null}
-                <div className="listContain">
+                <div className="list">
                     {list}
                 </div>
             </div>

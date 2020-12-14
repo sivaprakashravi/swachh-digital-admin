@@ -231,15 +231,18 @@
 }
 
 .orders {
-  margin: 50px 10px;
-  h3 {
-    color: $primary;
-    padding: 10px 0;
-    svg {
+  margin: 100px 0;
+  .sub-header {
+    .i-filter {
+      margin: 0;
       float: right;
     }
   }
+  .list {
+    margin: 0 10px;
+  }
   .filter {
+    margin: 0 10px;
     ul {
       li {
         display: inline-block;
