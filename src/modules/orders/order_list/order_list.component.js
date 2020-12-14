@@ -3,7 +3,7 @@ import '../order_screen.style.scss';
 import { VMenu } from '../../../components/menu/menu.component';
 export const OrderList = (props) => {
     return (
-        <div className="order-list-container">
+        <div className="order-list">
             <div className="menu">
                 <VMenu style={{ marginLeft: 50 }} >
                     <li
@@ -12,26 +12,13 @@ export const OrderList = (props) => {
                     <li onClick={() => props.nav.push({ pathname: 'orderEdit', state: props.data })}>Edit</li>
                 </VMenu>
             </div>
-            <div className="list-view" >
-                <div>
-                    <pre>
-                        <ul>
-                            <li>
-                                <text style={{ color: '#008000' }}>ID : {props.data.id}</text><br />
-                            </li>
-                            <li>
-                                <text  >Amount :{props.data.amount}</text><br />
-                            </li>
-                            <li>
-                                <text >Customer  : {props.data.customer_name}</text><br />
-                            </li>
-                            <li>
-                                <text >shipping status  : {props.data.status}</text><br />
-                            </li>
-                        </ul>
-
-                    </pre>
-                </div>
+            <div className="list-view">
+                <ul>
+                    <li>ID : {props.data.id}</li>
+                    <li>Amount :{props.data.amount}</li>
+                    <li>Customer  : {props.data.customer_name}</li>
+                    <li>shipping status  : {props.data.status}</li>
+                </ul>
             </div>
             <div style={{}}>
                 <button className="button" onClick={() => { }}>Accept</button>

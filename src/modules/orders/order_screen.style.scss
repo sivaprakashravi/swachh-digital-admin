@@ -127,16 +127,20 @@
   }
 }
 
-.order-list-container {
+.order-list {
   border: 0.5px solid lightgrey;
   padding: 5px;
-  margin: 5px;
-  .menu{
+  margin: 5px 0 5px;
+  .menu {
     float: right;
   }
   .list-view {
     padding: 10px;
-    
+    ul {
+      li {
+        display: block;
+      }
+    }
   }
 }
 .container {
@@ -154,7 +158,7 @@
     color: white;
   }
   .headtext-container {
-   display: flexbox;
+    display: flexbox;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
   }
@@ -170,5 +174,33 @@
     color: $white;
     width: 25%;
     margin-top: 10px;
+  }
+}
+
+.orders {
+  margin: 50px 10px;
+  h3 {
+    color: $primary;
+    padding: 10px 0;
+    svg {
+      float: right;
+    }
+  }
+  .filter {
+    ul {
+      li {
+        display: inline-block;
+      }
+    }
+    select {
+      margin: -10px 0 10px;
+    }
+    .dp {
+      margin-bottom: 10px;
+    }
+  }
+  .rdrCalendarWrapper, .rdrMonths, .rdrMonth {
+    width: 100%;
+    padding: 0;
   }
 }
