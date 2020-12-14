@@ -3,7 +3,7 @@ import './edit_product.style.scss';
 import register from "../../../services/fetchsvc.service";
 import Switch from "react-switch";
 import Radio from '../../../components/radio_button/radio.component';
-import { AiFillPicture, AiFillCamera } from "react-icons/ai";
+import { AiFillPicture, AiFillCamera, AiFillCheckCircle } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 export class EditScreen extends React.Component {
     //static contextType = AuthContext
@@ -122,7 +122,7 @@ export class EditScreen extends React.Component {
     }
     uploadImage() {
         return (
-            <div>
+            <div className="upload">
                 {this.state.image && this.state.image.length ?
                     this.state.image.map((image, i) => {
                         return <div key={'img-box' + i} className="uploaded-image">
@@ -143,24 +143,8 @@ export class EditScreen extends React.Component {
 
 
     toggleControl() {
-        const { type } = this.props.location;
-        const readCheck = type === 'copy' || type === 'move' ? true : false
         return (
-            <div >
-                <label for="active" style={{ marginBottom: 10 }}>IsActive</label>
-                <Switch onChange={this.handleChangeTogActive} checked={this.state.active} id="active" />
-
-                <label for="offer" style={{ marginLeft: 60 }}>IsOffer</label>
-                <Switch onChange={this.handleChangeTogOffer} checked={this.state.offerTog} id="offer" />
-                <div className="input">
-                    <ul>
-                        <li style={{ display: this.state.offerTog ? "inline" : "none" }}>
-                            <label>Offer Price:</label>
-                            <input type="number" value={this.state.offer} onChange={(e) => { this.handleChange(e, 'offer') }} readOnly={readCheck} />
-                        </li>
-
-                    </ul>
-                </div>
+            <div>
             </div>
         )
     }
@@ -217,12 +201,12 @@ export class EditScreen extends React.Component {
         }
         const { type } = this.props.location;
         const readCheck = type === 'copy' || type === 'move' ? true : false
-        const checkType = type === 'move' ? true : false
+        const checkType = type === 'move' ? true : false;
         return (
             <div className="input">
                 <ul>
                     <li>
-                        <label>Product Name:</label>
+                        <label>Name:</label>
                         <input type="text" value={name} onChange={(e) => { this.handleChange(e, 'name') }} readOnly={checkType} />
                     </li>
                     <li>
@@ -234,7 +218,7 @@ export class EditScreen extends React.Component {
                         (type === 'edit' || type === 'copy') &&
                         <ul>
                             <li>
-                                <label>Product Description:</label>
+                                <label>Description:</label>
                                 <input type="text" value={description} onChange={(e) => { this.handleChange(e, 'description') }} readOnly={readCheck} />
                             </li>
                             <li>
@@ -256,6 +240,18 @@ export class EditScreen extends React.Component {
                             <li>
                                 <label>Max Order Qty:</label>
                                 <input type="text" value={maxQty} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
+                            </li>
+                            <li className="options" onClick={() => this.setState({ active: !this.state.active })}>
+                                <AiFillCheckCircle color={this.state.active ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <label style={{ marginBottom: 10 }}>IsActive</label>
+                            </li>
+                            <li className="options" onClick={() => this.setState({ offerTog: !this.state.offerTog })}>
+                                <AiFillCheckCircle color={this.state.offerTog ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <label>IsOffer</label>
+                            </li>
+                            <li style={{ display: this.state.offerTog ? "inline" : "none" }}>
+                                <label>Offer Price:</label>
+                                <input type="number" value={this.state.offer} onChange={(e) => { this.handleChange(e, 'offer') }} readOnly={readCheck} />
                             </li>
                         </ul>
                     }
@@ -288,9 +284,8 @@ export class EditScreen extends React.Component {
         const { type } = this.props.location;
         return (
             <div className="edit-container">
+                <h3>Edit Product</h3>
                 {this.inputController(optionItems, subItems)}
-                { (type === 'edit' || type === 'copy') &&
-                    this.toggleControl()}
                 { (type === 'move' || type === 'copy') &&
                     this.categoryControls()}
                 { (type === 'subcategory' || type === 'copy') &&
