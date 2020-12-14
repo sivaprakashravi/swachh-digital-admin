@@ -1,10 +1,8 @@
 import React from 'react';
 import './edit_product.style.scss';
 import register from "../../../services/fetchsvc.service";
-import Switch from "react-switch";
 import Radio from '../../../components/radio_button/radio.component';
 import { AiFillPicture, AiFillCamera, AiFillCheckCircle } from "react-icons/ai";
-import { GrCheckboxSelected } from "react-icons/gr";
 import { IoMdClose } from "react-icons/io";
 export class EditScreen extends React.Component {
     //static contextType = AuthContext
@@ -47,7 +45,7 @@ export class EditScreen extends React.Component {
         this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
         this.setState(prevState => ({
             image: [...prevState.image, Imageurl]
-        }))
+          }))
         this.getCategories()
     }
 
@@ -241,11 +239,11 @@ export class EditScreen extends React.Component {
                                 <input type="text" value={maxQty} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
                             </li>
                             <li className="options" onClick={() => this.setState({ active: !this.state.active })}>
-                                <GrCheckboxSelected color={this.state.active ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={this.state.active ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>IsActive</label>
                             </li>
                             <li className="options" onClick={() => this.setState({ offerTog: !this.state.offerTog })}>
-                                <GrCheckboxSelected color={this.state.offerTog ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={this.state.offerTog ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label>IsOffer</label>
                             </li>
                             <li style={{ display: this.state.offerTog ? "inline" : "none" }}>
@@ -274,7 +272,7 @@ export class EditScreen extends React.Component {
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
-        let optionItems = catList.map((catList, index) =>
+        let optionItems = catList.map((catList,index) =>
             <option key={catList}>{catList}</option>
         );
         let subItems = subList.map((subList) =>
