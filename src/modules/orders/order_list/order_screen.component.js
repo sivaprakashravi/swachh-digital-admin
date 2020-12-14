@@ -54,7 +54,6 @@ export class OrderScreen extends React.Component {
         this.state.period === 'Today' && this.listFromApi({ "IsCurrentDate": true })
         this.state.period === 'This week' && this.listFromApi({ "IsLastWeek": true })
     }
-
     noList() {
         return (<div className="no-list"><label>No Orders Found</label><button className="primary" onClick={this.props.history.goBack}>Go Back</button></div>)
     }
@@ -72,10 +71,11 @@ export class OrderScreen extends React.Component {
         };
         return (
             <div className="orders">
-                <div className="sub-header">
+                {list && list.length ? <div className="sub-header">
                     <RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
                     <label>Orders</label>
-                    {list && list.length ? <RiFilterLine className="i-filter" size="22px" onClick={() => this.setState({ filter: !this.state.filter })} /> : null}</div>
+                    <RiFilterLine className="i-filter" size="22px" onClick={() => this.setState({ filter: !this.state.filter })} />
+                </div> : null}
                 {this.state.filter ? <div className="filter">
                     <ul>
                         <li>

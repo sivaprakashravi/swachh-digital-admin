@@ -17,12 +17,11 @@ export class ProductListScreen extends React.Component {
     }
 
     async getProducts() {
-        console.log("call")
         try {
             const store = await localStorage.getItem('storeUser');
             const { StoreId } = JSON.parse(store);
             const data = await fetchservices.get(`api/getProducts/${StoreId}`);
-            this.setState({ list: data })
+            this.setState({ list: data });
         } catch (error) {
             console.log(error)
         }
@@ -76,17 +75,23 @@ export class ProductListScreen extends React.Component {
         }
     }
 
+    noList() {
+        return (<div className="no-list"><label>No Products Found</label><button className="primary" onClick={() => {
+            this.props.history.push('CreateProduct');
+        }}>Add a Product</button></div>)
+    }
     render() {
-        let list = this.state.list.map((x, index) => {
+        let list = this.state.list && this.state.list.length ? this.state.list.map((x, index) => {
             return (
                 <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />
             )
-        })
+        }) : this.noList();
         return (
             <div className="products">
-                <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
-                {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>Products List</label>}
-                {this.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => this.setState({isSearch: false, searchText: ''})} /> : <BsSearch className="search" size="22px" onClick={() => this.setState({isSearch: true, searchText: ''})} />}</div>
+                {this.state.list && this.state.list.length ? <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
+                    {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>Products List</label>}
+                    {this.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => this.setState({ isSearch: false, searchText: '' })} /> : <BsSearch className="search" size="22px" onClick={() => this.setState({ isSearch: true, searchText: '' })} />}
+                </div> : null}
                 {list}
             </div>
         )
