@@ -1,6 +1,9 @@
 import React from 'react';
 import '../order_screen.style.scss';
 import { VMenu } from '../../../components/menu/menu.component';
+import { FcShipped } from 'react-icons/fc';
+import { IoIosArrowForward } from 'react-icons/io';
+import { BiEdit } from 'react-icons/bi';
 export const OrderList = (props) => {
     return (
         <div className="order-list">
@@ -14,17 +17,16 @@ export const OrderList = (props) => {
             </div>
             <div className="list-view">
                 <ul>
-                    <li>ID : {props.data.id}</li>
-                    <li>Amount :{props.data.amount}</li>
-                    <li>Customer  : {props.data.customer_name}</li>
-                    <li>shipping status  : {props.data.status}</li>
+                    <li><FcShipped className="shipped" size="22px" /> <label>ID: {props.data.id}</label> <BiEdit className="edit" size="22px" /></li>
+                    <li>Amount: {props.data.amount}</li>
+                    <li>Customer: {props.data.customer_name}</li>
                 </ul>
             </div>
-            <div style={{}}>
-                <button className="button" onClick={() => { }}>Accept</button>
-                <button className="button" onClick={() => { }}>Reject</button>
+            <div className="actions">
+                <button className="accept" onClick={() => { }}>Accept</button>
+                <button className="reject" onClick={() => { }}>Reject</button>
             </div>
-
+            <div className="view" onClick={() => props.nav.push({ pathname: 'orderDetails', state: props.data })}><IoIosArrowForward size="24px" /></div>
         </div>
     )
 }
