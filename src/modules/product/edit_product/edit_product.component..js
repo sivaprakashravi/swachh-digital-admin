@@ -14,7 +14,7 @@ export class EditScreen extends React.Component {
         this.state = {
             categories: [],
             subCategories: [],
-            image: null,
+            image: [],
             file: null,
             active: true,
             offerTog: false,
@@ -43,12 +43,10 @@ export class EditScreen extends React.Component {
     componentDidMount() {
         const { ProductName, RetailPrice, Category, ProductDesc, Offer_Price, Imageurl } = this.props.location.state;
         const { type } = this.props.location
-        {
-            type === 'copy' ?
-                this.setState({ description: ProductDesc, offer: Offer_Price, })
-                :
-                this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
-        }
+        this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
+        this.setState(prevState => ({
+            image: [...prevState.image, Imageurl]
+          }))
         this.getCategories()
     }
 
