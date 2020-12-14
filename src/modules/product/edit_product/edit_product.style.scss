@@ -2,7 +2,10 @@
 
 
 .edit-container {
-  margin: 65px 15px;
+  margin: 100px 0 55px;
+  .elements {
+    margin: 0 10px;
+  }
   h3 {
     color: $primary;
     padding: 0 0 10px;

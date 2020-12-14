@@ -4,6 +4,7 @@ import register from "../../../services/fetchsvc.service";
 import Radio from '../../../components/radio_button/radio.component';
 import { AiFillPicture, AiFillCamera, AiFillCheckCircle } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
+import { RiArrowGoBackLine } from 'react-icons/ri'
 export class EditScreen extends React.Component {
     //static contextType = AuthContext
     fileObj = [];
@@ -45,7 +46,7 @@ export class EditScreen extends React.Component {
         this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
         this.setState(prevState => ({
             image: [...prevState.image, Imageurl]
-          }))
+        }))
         this.getCategories()
     }
 
@@ -272,7 +273,7 @@ export class EditScreen extends React.Component {
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
-        let optionItems = catList.map((catList,index) =>
+        let optionItems = catList.map((catList, index) =>
             <option key={catList}>{catList}</option>
         );
         let subItems = subList.map((subList) =>
@@ -281,7 +282,8 @@ export class EditScreen extends React.Component {
         const { type } = this.props.location;
         return (
             <div className="edit-container">
-                <h3>Edit Product</h3>
+                <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Edit Product</label></div>
+                <div className="elements">
                 {this.inputController(optionItems, subItems)}
                 { (type === 'move' || type === 'copy') &&
                     this.categoryControls()}
@@ -294,7 +296,7 @@ export class EditScreen extends React.Component {
                     <ul>
                         <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
                     </ul>
-                </div>
+                </div></div>
             </div>
         )
     }
