@@ -47,7 +47,7 @@ export class EditScreen extends React.Component {
         this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
         this.setState(prevState => ({
             image: [...prevState.image, Imageurl]
-          }))
+        }))
         this.getCategories()
     }
 
@@ -274,7 +274,7 @@ export class EditScreen extends React.Component {
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
-        let optionItems = catList.map((catList,index) =>
+        let optionItems = catList.map((catList, index) =>
             <option key={catList}>{catList}</option>
         );
         let subItems = subList.map((subList) =>
