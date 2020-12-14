@@ -35,7 +35,7 @@ export class OrderScreen extends React.Component {
         };
         return (
             <div className="orders">
-                <div className="sub-header"><RiArrowGoBackLine className="icon" size="22px" /><label>Orders</label> <RiFilterLine className="i-filter" size="22px" onClick={() => this.setState({filter: !this.state.filter})} /></div>
+                <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Orders</label> <RiFilterLine className="i-filter" size="22px" onClick={() => this.setState({filter: !this.state.filter})} /></div>
                 {this.state.filter ? <div className="filter">
                     <ul>
                         <li>

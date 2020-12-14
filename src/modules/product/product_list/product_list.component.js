@@ -84,7 +84,7 @@ export class ProductListScreen extends React.Component {
         })
         return (
             <div className="products">
-                <div className="sub-header"><RiArrowGoBackLine className="icon" size="22px" />
+                <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
                 {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>Products List</label>}
                 {this.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => this.setState({isSearch: false, searchText: ''})} /> : <BsSearch className="search" size="22px" onClick={() => this.setState({isSearch: true, searchText: ''})} />}</div>
                 {list}
