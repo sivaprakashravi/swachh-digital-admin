@@ -6,9 +6,11 @@ export const OrderDetails = (props) => {
     return (
         <div className="order-details">
             <div className="row-view">
-                <text style={{ float: 'left', width: '50%', color: 'orange' }}>#{data.id}<br />
-                    <text style={{ fontSize: 12, color: 'gray' }}>{data.date}</text></text>
-                <text style={{ float: 'right', width: '50%', color: 'green' }}>Status : <text>{data.status}</text></text>
+                <div>
+                <text style={{ float: 'left', width: '50%', color: 'orange',fontSize:12 }}>#{data.OrderId}</text><br />
+                    <text style={{ fontSize: 12, color: 'gray' }}>{data.InvoiceDate}</text>
+                    </div>
+                <text style={{ float: 'right', width: '50%', color: 'green' }}>Status : <text>{data.OrderStatus}</text></text>
             </div>
             <div className="details-view">
                 <ul>
@@ -16,13 +18,13 @@ export const OrderDetails = (props) => {
                         <text>Customer Name : {data.customer_name}</text>
                     </li>
                     <li>
-                        <text>Customer Mobile : {data.customer_phone}</text>
+                        <text>Customer Mobile : {data.CustomerPhone}</text>
                     </li>
                     <li>
-                        <text>Email : {data.email}</text>
+                        <text>Email : {data.CustomerEmail}</text>
                     </li>
                     <li>
-                        <text>Amount : {data.amount}</text>
+                        <text>Amount : {data.TotalAmount}</text>
                     </li>
                     <li>
                         <text>Link : {data.tracking_link}</text>
@@ -34,7 +36,7 @@ export const OrderDetails = (props) => {
                         <text>Category : {data.category}</text>
                     </li>
                     <li>
-                        <text>Payment Through : {data.paymentType}</text>
+                        <text>Payment Through : {data.ModeDelivery}</text>
                     </li>
                 </ul>
             </div>

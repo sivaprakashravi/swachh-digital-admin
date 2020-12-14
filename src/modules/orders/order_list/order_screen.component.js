@@ -1,30 +1,61 @@
 import React from 'react';
 import '../order_screen.style.scss';
-import List from '../ordersList.json';
 import { OrderList } from './order_list.component';
 import Radio from '../../../components/radio_button/radio.component';
-
+import fetchservices from '../../../services/fetchsvc.service'
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
-import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri'
+import moment from 'moment';
+import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri';
 export class OrderScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             filter: false,
             recent: true,
-            detailed: false
+            detailed: false,
+            list:[]
         }
     }
-    handleSelect(select, date){
-        date.startDate = select.range1.startDate;
-        date.endDate = select.range1.endDate;
-        console.log(select, date); // native Date object
+
+    componentDidMount(){
+      this.listFromApi({
+        "IsCurrentDate" : true
+    });
+    }
+
+   async listFromApi(values){
+    const store =  localStorage.getItem('storeUser');
+    const { StoreId } = JSON.parse(store)
+       const data = {
+        "StoreId" : StoreId,
+        ...values
+       }
+      const listdata = await fetchservices.post('api/getOrders',data);
+      this.setState({
+          list:listdata
+      })
+    }
+
+   async handleSelect(select, date){
+      let  startDate = moment(select.range1.startDate).format('DD-MM-YYYY');
+       let endDate = moment(select.range1.endDate).format('DD-MM-YYYY');
+        this.listFromApi({  "FromDate" : startDate,
+        "ToDate" : endDate,
+        "IsCustomDate" : true})
+        await this.setState({filter:false})
       }
+
+     async handleChange(event, stateVariable) {
+       await this.setState({ [stateVariable]: event.target.value });
+        this.state.period === 'Today' && this.listFromApi({ "IsCurrentDate" : true})
+        this.state.period === 'This week' && this.listFromApi({ "IsLastWeek" : true})
+       }
     render() {
         const self = this;
-        let list = List.map((x, index) => {
+        const {list} = self.state
+        let listMap = list.map((x, index) => {
             return (
                 <OrderList data={x} key={index} nav={self.props.history} />
             )
@@ -46,7 +77,7 @@ export class OrderScreen extends React.Component {
                             } /></li>
                     </ul>
                     {self.state.recent ?
-                        <select>
+                        <select onChange={(e) => this.handleChange(e, 'period')}>
                             <option>Today</option>
                             <option>This week</option>
                             <option>This month</option>
@@ -62,7 +93,7 @@ export class OrderScreen extends React.Component {
                 <div><button className="primary">Filter</button></div>
                 </div> : null}
                 <div className="list">
-                    {list}
+                    {listMap}
                 </div>
             </div>
         )
