@@ -1,32 +1,87 @@
 @import "./../../scss/definitions/variables.scss";
-.order-details {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  .row-view {
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 10px;
-    height: 50px;
-  }
-  .details-view {
-    ul {
-      justify-content: space-evenly;
-      margin: 10px;
+.order {
+  margin: 90px 0 55px;
+  .sub-header {
+    span {
+      float: right;
     }
+  }
+  .details {
+    margin: 10px;
+    ul.status {
+      display: block;
+      li {
+        text-align: center;
+        position: relative;
+        svg {
+          margin: 15px 0;
+          filter: drop-shadow(10px 0 5px $lbl-grey);
+        }
+        label {
+          display: block;
+          font-size: 1.1rem;
+        }
+      }
+    }
+    ul.by {
+      margin: 20px;
+      text-align: center;
+      li {
+        font-size: 0.9rem;
+        display: inline-block;
+        text-align: center;
+        padding: 5px;
+      }
+    }
+    .customer {
+      border-radius: 5px;
+      padding: 5px;
+      margin: 20px;
+      box-shadow: 0px 5px 10px -5px #aaaaaa;
+      border: 1px solid #eee;
+      div {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 1.2rem;
+        margin-right: 10px;
+        text-transform: uppercase;
+        label {
+          display: block;
+          font-size: 0.8rem;
+        }
+      }
+      .call {
+        float: right;
+        margin: 16px;
+      }
+    }
+  }
+  .actions {
+    margin: 0 30px;
+    position: fixed;
+    width: calc(100% - 60px);
+    bottom: 65px;
     li {
-      color: gray;
-      padding: 10px;
+      width: calc(50% - 5px);
+      display: inline-block;
+      text-align: center;
+      border-radius: 5px;
+      &:first-child {
+        background: #ddffde;
+        margin-right: 5px;
+      }
+      &:last-child {
+        background: #ffd8cb;
+        margin-left: 5px;
+      }
+      button {
+        margin: 15px;
+        border-radius: 50%;
+        label {
+          display: block;
+        }
+      }
     }
-    border: 0.5px solid lightgrey;
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px;
-  }
-  .primary {
-    margin: 10px;
-  }
-  .button-view {
-    justify-content: space-between;
   }
 }
 
