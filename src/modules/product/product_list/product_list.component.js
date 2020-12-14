@@ -4,6 +4,8 @@ import fetchservices from '../../../services/fetchsvc.service';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { BsSearch } from 'react-icons/bs';
 import { IoMdClose } from "react-icons/io";
+import Toast from '../../../components/toast/toast.component';
+import ReactDOM from 'react-dom';
 export class ProductListScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +41,7 @@ export class ProductListScreen extends React.Component {
                 "DocId": id
             })
             const deleteApi = await fetchservices.post('api/deleteProduct', list);
-            alert(deleteApi)
+            ReactDOM.render(<Toast message="Deleted Product" />, document.getElementById('dom'));
             this.getProducts()
         } catch (error) {
 
@@ -67,9 +69,8 @@ export class ProductListScreen extends React.Component {
                 "Offer_Price": 0, "StoreId": StoreId, "ModifiedBy": localId
             }
             const editApi = await fetchservices.post('api/updateProduct', list);
+            ReactDOM.render(<Toast message="Product Updated Successfully" />, document.getElementById('dom'));
             this.getProducts()
-            alert(editApi)
-
         } catch (error) {
             console.log(error);
         }

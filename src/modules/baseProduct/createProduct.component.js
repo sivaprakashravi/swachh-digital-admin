@@ -2,6 +2,8 @@ import React from 'react';
 import './createProduct.style.scss';
 import register from '../../services/fetchsvc.service';
 import Radio from '../../components/radio_button/radio.component';
+import Toast from '../../components/toast/toast.component';
+import ReactDOM from 'react-dom';
 import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 class CreateProduct extends React.Component {
@@ -73,10 +75,10 @@ class CreateProduct extends React.Component {
 
             const productId = await register.post('api/checkProductCode', proId);
             const len = Object.keys(productId).length; // 2
-            if (len == 0) {
+            if (len === 0) {
                 const create = await register.post('api/createProduct', data);
-                alert(create.message);
-                this.props.history.push('dashboard')
+                ReactDOM.render(<Toast message={create} />, document.getElementById('dom'));
+                this.props.history.push('productlist')
             } else {
                 this.CreateProductControl();
             }
