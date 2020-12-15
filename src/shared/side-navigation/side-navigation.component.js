@@ -97,11 +97,12 @@ class SideNav extends React.Component {
                         }
                     </ul>
                     <footer>
-                        <a href="/login"><button><CgLogOff size="22px" />Logoff</button></a>
+                        <div onClick={() => this.props.history.push('/login')}><CgLogOff size="18px" />Logoff</div>
                         <i>Version: 1.0.0 <label>&copy; Swachh Digital</label></i>
                     </footer>
                 </div>
-                <div className="overlay"></div>
+                {this.props.show ? <div className="overlay" onClick={this.props.toggle}></div> : null}
+                
             </div>
         );
     }
