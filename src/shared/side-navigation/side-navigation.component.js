@@ -94,7 +94,7 @@ class SideNav extends React.Component {
                         }
                     </ul>
                     <footer>
-                        <div onClick={() => this.props.history.push('/login')}><CgLogOff size="18px" />Logoff</div>
+                        <div onClick={() => this.props.history.push('')}><CgLogOff size="18px" />Logoff</div>
                         <i>Version: 1.0.0 <label>&copy; Swachh Digital</label></i>
                     </footer>
                 </div>

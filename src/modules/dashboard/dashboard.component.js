@@ -57,12 +57,14 @@ class Dashboard extends React.Component {
     }
 
     banner() {
+        const carousel = ['frame1', 'frame2', 'frame3'];
         return (
             <div className="scroll-banner">
-                <Carousel loop auto widgets={[IndicatorDots]}>
-                    <div className="scroll-item">Frame 1</div>
-                    <div className="scroll-item">Frame 2</div>
-                    <div className="scroll-item">Frame 3</div>
+                <Carousel loop={true} auto={true} widgets={[IndicatorDots]}>
+                    {carousel.map(s => {
+                        // android_asset/www -> for android build
+                        return <div className="scroll-item frame" style={{'backgroundImage': `url(/images/banner/${s}.jpg)`}}></div>
+                    })}
                 </Carousel>
             </div>
         )

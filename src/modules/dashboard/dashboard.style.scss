@@ -13,6 +13,8 @@
     .scroll-item {
       height: 100%;
       text-align: center;
+      background-position: center;
+      background-size: cover;
     }
     ul {
       text-align: center;
@@ -48,8 +50,8 @@
     padding: 15px;
     margin-top: 15px;
     h5 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
     }
     ul {
       display: block;
@@ -76,7 +78,7 @@
           display: block;
           font-size: 0.75rem;
         }
-        &:nth-child(3n+2) {
+        &:nth-child(3n + 2) {
           margin: 0 15px 15px;
         }
       }
