@@ -167,7 +167,7 @@ export class EditScreen extends React.Component {
                                         {optionItems}
                                     </select>
                                     :
-                                    <input type="text" value={this.state.categoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} />
+                                    <input type="text" value={this.state.categoryName || ''} name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} />
                             }
                         </li>
                     }
@@ -181,7 +181,7 @@ export class EditScreen extends React.Component {
                                         {subItems}
                                     </select>
                                     :
-                                    <input type="text" value={this.state.subcategoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} />
+                                    <input type="text" value={this.state.subcategoryName || ''} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} />
                             }
                         </li>
                     }
@@ -209,11 +209,11 @@ export class EditScreen extends React.Component {
                 <ul>
                     <li>
                         <label>Name:</label>
-                        <input type="text" value={name} onChange={(e) => { this.handleChange(e, 'name') }} readOnly={checkType} />
+                        <input type="text" value={name || ''} onChange={(e) => { this.handleChange(e, 'name') }} readOnly={checkType} />
                     </li>
                     <li>
                         <label>Price:</label>
-                        <input type="number" value={price} onChange={(e) => { this.handleChange(e, 'price') }} readOnly={checkType} />
+                        <input type="number" value={price || ''} onChange={(e) => { this.handleChange(e, 'price') }} readOnly={checkType} />
                     </li>
 
                     {
@@ -221,27 +221,27 @@ export class EditScreen extends React.Component {
                         <ul>
                             <li>
                                 <label>Description:</label>
-                                <input type="text" value={description} onChange={(e) => { this.handleChange(e, 'description') }} readOnly={readCheck} />
+                                <input type="text" value={description || ''} onChange={(e) => { this.handleChange(e, 'description') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Inventory:</label>
-                                <input type="text" value={inventory} onChange={(e) => { this.handleChange(e, 'inventory') }} readOnly={readCheck} />
+                                <input type="text" value={inventory || ''} onChange={(e) => { this.handleChange(e, 'inventory') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Tax rate:</label>
-                                <input type="text" value={taxRate} onChange={(e) => { this.handleChange(e, 'taxRate') }} readOnly={readCheck} />
+                                <input type="text" value={taxRate || ''} onChange={(e) => { this.handleChange(e, 'taxRate') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>shipping rate:</label>
-                                <input type="text" value={shippingRate} onChange={(e) => { this.handleChange(e, 'shippingRate') }} readOnly={readCheck} />
+                                <input type="text" value={shippingRate || ''} onChange={(e) => { this.handleChange(e, 'shippingRate') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Min Order Qty:</label>
-                                <input type="text" value={minQty} onChange={(e) => { this.handleChange(e, 'minQty') }} readOnly={readCheck} />
+                                <input type="text" value={minQty || ''} onChange={(e) => { this.handleChange(e, 'minQty') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Max Order Qty:</label>
-                                <input type="text" value={maxQty} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
+                                <input type="text" value={maxQty || ''} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
                             </li>
                             <li className="options" onClick={() => this.setState({ active: !this.state.active })}>
                                 <AiFillCheckCircle color={this.state.active ? '#3f51b5' : '#ccc'} size="1.5rem" />
@@ -253,7 +253,7 @@ export class EditScreen extends React.Component {
                             </li>
                             <li style={{ display: this.state.offerTog ? "inline" : "none" }}>
                                 <label>Offer Price:</label>
-                                <input type="number" value={this.state.offer} onChange={(e) => { this.handleChange(e, 'offer') }} readOnly={readCheck} />
+                                <input type="number" value={this.state.offer || ''} onChange={(e) => { this.handleChange(e, 'offer') }} readOnly={readCheck} />
                             </li>
                         </ul>
                     }
