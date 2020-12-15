@@ -1,5 +1,5 @@
 import React from 'react';
-import  register  from "../../services/fetchsvc.service";
+import register from "../../services/fetchsvc.service";
 
 import './register.style.scss';
 class Register extends React.Component {
@@ -19,28 +19,33 @@ class Register extends React.Component {
         this.setState({ [stateVariable]: event.target.value });
     }
 
-async signUP(){
-   try {
-    const data={
-        "email":this.state.email,
-        "password":this.state.password,
-        "returnSecureToken":true
+    validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
     }
-  const dataApi =await register.logInpost('signUp',JSON.stringify(data));
-  const {idToken,email,localId} = dataApi;
-  await localStorage.setItem('userToken',JSON.stringify({idToken,email,localId}))
-  this.props.history.push('storeRegister');
-   } catch (error) {
-      console.log("signup error",error) 
-   }
-}
+
+    async signUP() {
+        try {
+            const data = {
+                "email": this.state.email,
+                "password": this.state.password,
+                "returnSecureToken": true
+            }
+            const dataApi = await register.post('signUp', data);
+            const { idToken, email, localId } = dataApi;
+            await localStorage.setItem('userToken', JSON.stringify({ idToken, email, localId }));
+            this.props.history.push('storeRegister');
+        } catch (error) {
+            console.log("signup error", error)
+        }
+    }
 
     userNameControls() {
         return (
             <ul>
                 <li>
                     <label>Email:</label>
-                    <input type="text" value={this.state.email} onChange={(e) => { this.handleChange(e, 'email') }} />
+                    <input type="text" value={this.state.email} onChange={(e) => { this.handleChange(e, 'email'); }} />
                 </li>
                 <li>
                     <label>Password:</label>
@@ -50,9 +55,9 @@ async signUP(){
                     <label>Confirm Password:</label>
                     <input type="text" value={this.state.confirmPassword} onChange={(e) => { this.handleChange(e, 'confirmPassword') }} />
                 </li>
-                <li><button className="primary" disabled={!(this.state.confirmPassword && this.state.password && this.state.email.includes(`@gmail.com`) )}
-                onClick={()=>this.signUP()}>
-                    Save & continue</button></li>
+                <li><button className="primary" disabled={!(this.validateEmail(this.state.email) && this.state.password && this.state.confirmPassword && this.state.password === this.state.confirmPassword)}
+                    onClick={() => this.signUP()}>
+                    Save &amp; continue</button></li>
             </ul>
         )
     }
@@ -66,12 +71,14 @@ async signUP(){
 
     render() {
         return (
-            <div className="container">
-                <h3>Welcome To</h3>
-                <h1>Swachh Digital</h1>
-            <div className="register">
-                {this.controls()}
-            </div>
+            <div>
+                <div className="greet">
+                    <h3>Welcome to</h3>
+                    <h1>Swachh Digital</h1>
+                </div>
+                <div className="register">
+                    {this.controls()}
+                </div>
             </div>
         );
     }
