@@ -13,10 +13,10 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'shanu@gmail.com',
-            password: 'shanu4l',
-            // username: '',
-            // password: '',
+            // username: 'shanu@gmail.com',
+            // password: 'shanu4l',
+            username: '',
+            password: '',
             mobile: '',
             showPassword: false,
             isOTPControl: false,
@@ -47,9 +47,9 @@ class Login extends React.Component {
     }
 
     rememberHandler() {
-        storage.set('username', this.state.username);
-        storage.set('password', this.state.password);
-        storage.set('rememberMe', this.state.rememberMe);
+        storage.put('username', this.state.username);
+        storage.put('password', this.state.password);
+        storage.put('rememberMe', this.state.rememberMe);
     }
 
     userNameControls() {
@@ -74,8 +74,8 @@ class Login extends React.Component {
                 <li><button className="primary" disabled={!(this.state.username && this.state.password)} 
                 onClick={async() => {
                     await session.login({ username, password }, self);
+                    self.rememberHandler();
                     ReactDOM.render(<Toast message="Logged In" />, document.getElementById('dom'));
-                    this.rememberHandler();
                 }}>Login</button></li>
                 <li className="sign-up">Don't have an account? <label onClick={() => this.props.history.push('register')}>Sign up</label></li>
             </ul>
