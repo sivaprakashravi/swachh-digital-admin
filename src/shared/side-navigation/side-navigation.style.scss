@@ -62,7 +62,9 @@
           font-weight: bold;
           border-left: 2.5px solid $primary;
         };
-        &.none{
+        }
+     span{
+          &.none{
           display: none;
         };
         &.subList{

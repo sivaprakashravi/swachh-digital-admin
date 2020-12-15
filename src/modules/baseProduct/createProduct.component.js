@@ -78,7 +78,7 @@ class CreateProduct extends React.Component {
             const len = Object.keys(productId).length; // 2
             if (len === 0) {
                 const create = await register.post('api/createProduct', data);
-                ReactDOM.render(<Toast message={create} />, document.getElementById('dom'));
+                ReactDOM.render(<Toast message={"Product Created Successfully"} />, document.getElementById('dom'));
                 this.props.history.push('productlist')
             } else {
                 this.CreateProductControl();

@@ -49,18 +49,21 @@ class SideNav extends React.Component {
         };
     }
 
+
     handleClick = (route) => {
         this.props.history.push(route);
     }
 
     render() {
+        const store =  localStorage.getItem('storeUser');
+        const { Role,Email } = JSON.parse(store);
         return (
             <div className={this.props.show ? 'navigation show' : 'navigation'}>
                 <div className="menu">
                     <div className="profile">
                         <span><FcBusinessman size="24px" style={{ verticalAlign: 'middle', marginTop: '2px' }} /></span>
-                        <label>Username
-                            <i>Administrator</i>
+                        <label>{Email}
+                            <i>{Role}</i>
                         </label>
                     </div>
                     <IoMdClose className="close" size="26px" onClick={() => {
@@ -78,7 +81,7 @@ class SideNav extends React.Component {
                                         }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
                                     })}
                                      <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>Store Setup</li>
-                        <li className={this.state.storeSet ? 'subList' : 'none'} >
+                        <span className={this.state.storeSet ? 'subList' : 'none'} >
                             {
                                 <>
                                     {this.state.subList.map(l => {
@@ -89,7 +92,7 @@ class SideNav extends React.Component {
                                     })}
                                 </>
                             }
-                        </li>
+                        </span>
                             </ul>
                         }
                     </ul>

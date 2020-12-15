@@ -23,6 +23,7 @@ export class EditScreen extends React.Component {
         }
         this.handleChangeTogActive = this.handleChangeTogActive.bind(this);
         this.handleChangeTogOffer = this.handleChangeTogOffer.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChangeTogActive(active) {
@@ -44,7 +45,7 @@ export class EditScreen extends React.Component {
         const { ProductName, RetailPrice, Category, ProductDesc, Offer_Price, Imageurl } = this.props.location.state;
         const { type } = this.props.location
         this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
-       Imageurl && this.setState(prevState => ({
+        Imageurl && this.setState(prevState => ({
             image: [...prevState.image, Imageurl]
         }))
         this.getCategories()
@@ -120,22 +121,25 @@ export class EditScreen extends React.Component {
     }
     uploadImage() {
         return (
-            <div className="upload">
-                {this.state.image && this.state.image.length ?
-                    this.state.image.map((image, i) => {
-                        return <div key={'img-box' + i} className="uploaded-image">
-                            <IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
-                            <img width="100%" src={image} alt={'Product ' + (i + 1)} />
-                        </div>
-                    }) : null}
+            <div>
+                <div className="image-container">
+                    {this.state.image && this.state.image.length ?
+                        this.state.image.map((image, i) => {
+                            return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                            </div>
+                        }) : null}
+                </div>
                 <div className="image-placeholder">
                     <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
-                    <AiFillPicture size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                    <AiFillPicture size="24px" color="#fff" />
+                    <label>Select Images</label>
                 </div>
                 <div className="camera-placeholder">
-                    <AiFillCamera size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                    <AiFillCamera size="24px" color="#fff" />
+                    <label>Capture Image</label>
                 </div>
             </div>
+
         )
     }
 
@@ -284,19 +288,19 @@ export class EditScreen extends React.Component {
             <div className="edit-container">
                 <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Edit Product</label></div>
                 <div className="elements">
-                {this.inputController(optionItems, subItems)}
-                { (type === 'move' || type === 'copy') &&
-                    this.categoryControls()}
-                { (type === 'subcategory' || type === 'copy') &&
-                    this.subcategoryControls()}
-                {this.categoryFields(optionItems, subItems)}
-                {(type === 'edit' || type === 'copy') &&
-                    this.uploadImage()}
-                <div className="input">
-                    <ul>
-                        <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
-                    </ul>
-                </div></div>
+                    {this.inputController(optionItems, subItems)}
+                    {(type === 'move' || type === 'copy') &&
+                        this.categoryControls()}
+                    {(type === 'subcategory' || type === 'copy') &&
+                        this.subcategoryControls()}
+                    {this.categoryFields(optionItems, subItems)}
+                    {(type === 'edit' || type === 'copy') &&
+                        this.uploadImage()}
+                    <div className="input">
+                        <ul>
+                            <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
+                        </ul>
+                    </div></div>
             </div>
         )
     }
