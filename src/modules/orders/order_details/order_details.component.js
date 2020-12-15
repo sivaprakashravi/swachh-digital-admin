@@ -14,7 +14,7 @@ export const OrderDetails = (props) => {
         <div className="order">
             <div className="sub-header">
                 <RiArrowGoBackLine onClick={props.history.goBack} className="icon" size="22px" />
-                <label>Order Details - {data.id} </label><span>{moment().format('L')}</span>
+                <label>Order Details - {data.OrderId} </label><span>{moment().format('L')}</span>
             </div>
             <div className="details">
                 <ul className="status">
@@ -27,13 +27,13 @@ export const OrderDetails = (props) => {
                 </ul>
                 <div className="customer" onClick={toggle}>
                     <div><FcButtingIn size="50px" /></div>
-                    <div>{data.customer_name} <label>{data.customer_phone}</label></div>
+                    <div>{data.CustomerEmail} <label>{data.CustomerPhone}</label></div>
                     <FaPhoneAlt className="call" color="green" size="20px" />
                     <FcMoneyTransfer className="call" size="20px" />
                 </div>
                 {isShowDetails ?
                     <ul className="by">
-                        <li>{data.items_count} Item for <FaRupeeSign /> {data.amount}</li>
+                        <li>{data.items_count} Item for <FaRupeeSign /> {data.TotalAmount}</li>
                     </ul> : null}
             </div>
             <div className="actions">
