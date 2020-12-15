@@ -26,9 +26,9 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
-        const username = storage.get('username');
-        const password = storage.get('password');
-        const rememberMe = storage.get('rememberMe');
+        const username = storage.get('_qw_ju');
+        const password = storage.get('_ds_nh');
+        const rememberMe = storage.get('_oi_re');
         if(username && password && rememberMe) {
             this.setState({
                 username,
@@ -47,9 +47,15 @@ class Login extends React.Component {
     }
 
     rememberHandler() {
-        storage.put('username', this.state.username);
-        storage.put('password', this.state.password);
-        storage.put('rememberMe', this.state.rememberMe);
+        if(this.state.rememberMe) {
+            storage.put('_qw_ju', this.state.username);
+            storage.put('_ds_nh', this.state.password);
+            storage.put('_oi_re', this.state.rememberMe);
+        } else {
+            storage.remove('_qw_ju');
+            storage.remove('_ds_nh');
+            storage.remove('_oi_re');
+        }
     }
 
     userNameControls() {
