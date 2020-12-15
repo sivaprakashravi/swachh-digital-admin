@@ -8,7 +8,7 @@ export const OrderList = (props) => {
         <div className="order-list">
             <div className="list-view">
                 <ul>
-                    <li><FcShipped className="shipped" size="22px" /> <label>ID: {props.data.Id}</label> <BiEdit className="edit" size="22px" onClick={() => props.nav.push({ pathname: 'orderEdit', state: props.data })} /></li>
+                    <li><FcShipped className="shipped" size="22px" /> <label>ID: {props.data.OrderId}</label> <BiEdit className="edit" size="22px" onClick={() => props.nav.push({ pathname: 'orderEdit', state: props.data })} /></li>
                     <li>Amount: {props.data.TotalAmount}</li>
                     <li>Customer: {props.data.CustomerPhone}</li>
                 </ul>

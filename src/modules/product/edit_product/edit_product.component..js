@@ -23,6 +23,7 @@ export class EditScreen extends React.Component {
         }
         this.handleChangeTogActive = this.handleChangeTogActive.bind(this);
         this.handleChangeTogOffer = this.handleChangeTogOffer.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleChangeTogActive(active) {
@@ -44,7 +45,7 @@ export class EditScreen extends React.Component {
         const { ProductName, RetailPrice, Category, ProductDesc, Offer_Price, Imageurl } = this.props.location.state;
         const { type } = this.props.location
         this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
-       Imageurl && this.setState(prevState => ({
+        Imageurl && this.setState(prevState => ({
             image: [...prevState.image, Imageurl]
         }))
         this.getCategories()
@@ -120,22 +121,25 @@ export class EditScreen extends React.Component {
     }
     uploadImage() {
         return (
-            <div className="upload">
-                {this.state.image && this.state.image.length ?
-                    this.state.image.map((image, i) => {
-                        return <div key={'img-box' + i} className="uploaded-image">
-                            <IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
-                            <img width="100%" src={image} alt={'Product ' + (i + 1)} />
-                        </div>
-                    }) : null}
+            <div>
+                <div className="image-container">
+                    {this.state.image && this.state.image.length ?
+                        this.state.image.map((image, i) => {
+                            return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                            </div>
+                        }) : null}
+                </div>
                 <div className="image-placeholder">
                     <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
-                    <AiFillPicture size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                    <AiFillPicture size="24px" color="#fff" />
+                    <label>Select Images</label>
                 </div>
                 <div className="camera-placeholder">
-                    <AiFillCamera size="100px" color="#fff" style={{ textAlign: 'center', marginTop: '10px' }} />
+                    <AiFillCamera size="24px" color="#fff" />
+                    <label>Capture Image</label>
                 </div>
             </div>
+
         )
     }
 
@@ -163,7 +167,7 @@ export class EditScreen extends React.Component {
                                         {optionItems}
                                     </select>
                                     :
-                                    <input type="text" value={this.state.categoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} />
+                                    <input type="text" value={this.state.categoryName || ''} name="categoryName" onChange={(e) => this.handleChange(e, 'categoryName')} />
                             }
                         </li>
                     }
@@ -177,7 +181,7 @@ export class EditScreen extends React.Component {
                                         {subItems}
                                     </select>
                                     :
-                                    <input type="text" value={this.state.subcategoryName} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} />
+                                    <input type="text" value={this.state.subcategoryName || ''} name="categoryName" onChange={(e) => this.handleChange(e, 'subcategoryName')} />
                             }
                         </li>
                     }
@@ -205,11 +209,11 @@ export class EditScreen extends React.Component {
                 <ul>
                     <li>
                         <label>Name:</label>
-                        <input type="text" value={name} onChange={(e) => { this.handleChange(e, 'name') }} readOnly={checkType} />
+                        <input type="text" value={name || ''} onChange={(e) => { this.handleChange(e, 'name') }} readOnly={checkType} />
                     </li>
                     <li>
                         <label>Price:</label>
-                        <input type="number" value={price} onChange={(e) => { this.handleChange(e, 'price') }} readOnly={checkType} />
+                        <input type="number" value={price || ''} onChange={(e) => { this.handleChange(e, 'price') }} readOnly={checkType} />
                     </li>
 
                     {
@@ -217,27 +221,27 @@ export class EditScreen extends React.Component {
                         <ul>
                             <li>
                                 <label>Description:</label>
-                                <input type="text" value={description} onChange={(e) => { this.handleChange(e, 'description') }} readOnly={readCheck} />
+                                <input type="text" value={description || ''} onChange={(e) => { this.handleChange(e, 'description') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Inventory:</label>
-                                <input type="text" value={inventory} onChange={(e) => { this.handleChange(e, 'inventory') }} readOnly={readCheck} />
+                                <input type="text" value={inventory || ''} onChange={(e) => { this.handleChange(e, 'inventory') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Tax rate:</label>
-                                <input type="text" value={taxRate} onChange={(e) => { this.handleChange(e, 'taxRate') }} readOnly={readCheck} />
+                                <input type="text" value={taxRate || ''} onChange={(e) => { this.handleChange(e, 'taxRate') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>shipping rate:</label>
-                                <input type="text" value={shippingRate} onChange={(e) => { this.handleChange(e, 'shippingRate') }} readOnly={readCheck} />
+                                <input type="text" value={shippingRate || ''} onChange={(e) => { this.handleChange(e, 'shippingRate') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Min Order Qty:</label>
-                                <input type="text" value={minQty} onChange={(e) => { this.handleChange(e, 'minQty') }} readOnly={readCheck} />
+                                <input type="text" value={minQty || ''} onChange={(e) => { this.handleChange(e, 'minQty') }} readOnly={readCheck} />
                             </li>
                             <li>
                                 <label>Max Order Qty:</label>
-                                <input type="text" value={maxQty} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
+                                <input type="text" value={maxQty || ''} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
                             </li>
                             <li className="options" onClick={() => this.setState({ active: !this.state.active })}>
                                 <AiFillCheckCircle color={this.state.active ? '#3f51b5' : '#ccc'} size="1.5rem" />
@@ -249,7 +253,7 @@ export class EditScreen extends React.Component {
                             </li>
                             <li style={{ display: this.state.offerTog ? "inline" : "none" }}>
                                 <label>Offer Price:</label>
-                                <input type="number" value={this.state.offer} onChange={(e) => { this.handleChange(e, 'offer') }} readOnly={readCheck} />
+                                <input type="number" value={this.state.offer || ''} onChange={(e) => { this.handleChange(e, 'offer') }} readOnly={readCheck} />
                             </li>
                         </ul>
                     }
@@ -284,19 +288,19 @@ export class EditScreen extends React.Component {
             <div className="edit-container">
                 <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Edit Product</label></div>
                 <div className="elements">
-                {this.inputController(optionItems, subItems)}
-                { (type === 'move' || type === 'copy') &&
-                    this.categoryControls()}
-                { (type === 'subcategory' || type === 'copy') &&
-                    this.subcategoryControls()}
-                {this.categoryFields(optionItems, subItems)}
-                {(type === 'edit' || type === 'copy') &&
-                    this.uploadImage()}
-                <div className="input">
-                    <ul>
-                        <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
-                    </ul>
-                </div></div>
+                    {this.inputController(optionItems, subItems)}
+                    {(type === 'move' || type === 'copy') &&
+                        this.categoryControls()}
+                    {(type === 'subcategory' || type === 'copy') &&
+                        this.subcategoryControls()}
+                    {this.categoryFields(optionItems, subItems)}
+                    {(type === 'edit' || type === 'copy') &&
+                        this.uploadImage()}
+                    <div className="input">
+                        <ul>
+                            <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
+                        </ul>
+                    </div></div>
             </div>
         )
     }
