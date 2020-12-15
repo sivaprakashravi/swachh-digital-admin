@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { FcBusinessman } from "react-icons/fc";
 import { CgLogOff } from "react-icons/cg";
 import { withRouter } from "react-router-dom";
+import storage from '../../services/storage-manager.service';
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
@@ -55,8 +56,8 @@ class SideNav extends React.Component {
     }
 
     render() {
-        const store =  localStorage.getItem('storeUser');
-        const { Role,Email } = JSON.parse(store);
+        const store =  storage.get('storeUser');
+        const { Role,Email } = store;
         return (
             <div className={this.props.show ? 'navigation show' : 'navigation'}>
                 <div className="menu">

@@ -1,6 +1,7 @@
 import React from 'react';
 import '../register.style.scss';
 import register from '../../../services/fetchsvc.service';
+import storage from '../../../services/storage-manager.service';
 class StoreRegister extends React.Component {
     constructor(props) {
         super(props);
@@ -14,14 +15,15 @@ class StoreRegister extends React.Component {
     }
 
     componentDidMount() {
-        const data = localStorage.getItem('userToken');
-        const { email, localId, idToken } = JSON.parse(data);
-        console.log(email, localId, idToken)
+        const data = storage.get('userToken');
+        if(!data) {
+            // this.props.history.go('register');
+        }
     }
 
     async registerControl() {
-        const { storename, address, id, contact } = this.state;
-        const data = await localStorage.getItem('userToken');
+        const { storename, address, contact } = this.state;
+        const data = storage.get('userToken');
         const { email, localId, idToken } = JSON.parse(data);
         await this.setState({ id: this.state.storename.substring(0, 4) + this.randomString(4, '0123456789') });
         try {
@@ -41,7 +43,7 @@ class StoreRegister extends React.Component {
             const len = Object.keys(checkId).length;
             if (len < 1) {
                 const dataApi = await register.post('api/createStore', JSON.stringify(data), idToken);
-                await localStorage.setItem('storeUser', JSON.stringify(dataApi))
+                await storage.put('storeUser', dataApi)
                 this.props.history.push('createProduct');
             } else {
                 this.registerControl()

@@ -4,7 +4,8 @@ import register from "../../../services/fetchsvc.service";
 import Radio from '../../../components/radio_button/radio.component';
 import { AiFillPicture, AiFillCamera, AiFillCheckCircle } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
-import { RiArrowGoBackLine } from 'react-icons/ri'
+import { RiArrowGoBackLine } from 'react-icons/ri';
+import storage from '../../../services/storage-manager.service';
 export class EditScreen extends React.Component {
     //static contextType = AuthContext
     fileObj = [];
@@ -35,8 +36,8 @@ export class EditScreen extends React.Component {
         this.setState({ offerTog });
     }
     async getCategories() {
-        const store = await localStorage.getItem('storeUser');
-        const { StoreId } = JSON.parse(store);
+        const store = await storage.get('storeUser');
+        const { StoreId } = store;
         const category = await register.get(`api/getCategories/${StoreId}`);
         this.setState({ categories: category.Category, subCategories: category.SubCategory })
     }

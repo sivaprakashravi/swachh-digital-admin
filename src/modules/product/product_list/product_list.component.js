@@ -6,6 +6,8 @@ import { BsSearch } from 'react-icons/bs';
 import { IoMdClose } from "react-icons/io";
 import Toast from '../../../components/toast/toast.component';
 import ReactDOM from 'react-dom';
+
+import storage from '../../../services/storage-manager.service';
 export class ProductListScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -18,8 +20,8 @@ export class ProductListScreen extends React.Component {
 
     async getProducts() {
         try {
-            const store = await localStorage.getItem('storeUser');
-            const { StoreId } = JSON.parse(store);
+            const store = storage.get('storeUser');
+            const { StoreId } = store;
             const data = await fetchservices.get(`api/getProducts/${StoreId}`);
             this.setState({ list: data });
         } catch (error) {
@@ -32,10 +34,10 @@ export class ProductListScreen extends React.Component {
 
     async deleteProduct(id) {
         try {
-            const store = await localStorage.getItem('storeUser');
-            const userId = await localStorage.getItem('userToken');
-            const { email, localId, idToken } = JSON.parse(userId);
-            const { StoreId } = JSON.parse(store);
+            const store = storage.get('storeUser');
+            const userId = storage.get('userToken');
+            const { email, localId, idToken } = userId;
+            const { StoreId } = store;
             const list = JSON.stringify({
                 "DocId": id
             })
@@ -50,10 +52,10 @@ export class ProductListScreen extends React.Component {
     async editProduct(values) {
         console.log("values", values)
         try {
-            const store = await localStorage.getItem('storeUser');
-            const userId = await localStorage.getItem('userToken');
-            const { email, localId, idToken } = JSON.parse(userId);
-            const { StoreId } = JSON.parse(store);
+            const store = storage.get('storeUser');
+            const userId = storage.get('userToken');
+            const { email, localId, idToken } = userId;
+            const { StoreId } = store;
             const list = {
                 "DocId": values.DocId, "Brands": "",
                 "Category": values.categoryName,

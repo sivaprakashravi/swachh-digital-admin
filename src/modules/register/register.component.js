@@ -1,7 +1,8 @@
 import React from 'react';
 import register from "../../services/fetchsvc.service";
-
+import {GrStatusInfo} from 'react-icons/gr';
 import './register.style.scss';
+import storage from '../../services/storage-manager.service';
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -12,6 +13,8 @@ class Register extends React.Component {
             password: '',
             showPassword: '',
             confirmPassword: '',
+            submitted: false,
+            validate: {}
         };
     }
 
@@ -24,6 +27,11 @@ class Register extends React.Component {
         return re.test(email);
     }
 
+    validatePassword(pw) {
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        return re.match(pw);
+    }
+
     async signUP() {
         try {
             const data = {
@@ -33,31 +41,36 @@ class Register extends React.Component {
             }
             const dataApi = await register.post('signUp', data);
             const { idToken, email, localId } = dataApi;
-            await localStorage.setItem('userToken', JSON.stringify({ idToken, email, localId }));
+            storage.put('userToken', JSON.stringify({ idToken, email, localId }));
             this.props.history.push('storeRegister');
         } catch (error) {
             console.log("signup error", error)
         }
     }
 
+    disableSubmit() {
+        return !(this.validateEmail(this.state.email) && this.state.password && this.state.confirmPassword && this.state.password === this.state.confirmPassword);
+    }
+
     userNameControls() {
         return (
-            <ul>
-                <li>
+            <ul className={this.state.submitted ? 'submitted' : ''}>
+                <li className={this.state.validate.email}>
                     <label>Email:</label>
                     <input type="text" value={this.state.email} onChange={(e) => { this.handleChange(e, 'email'); }} />
                 </li>
-                <li>
-                    <label>Password:</label>
+                <li className={this.state.validate.password ? 'error' : ''}>
+                    <label>Password: <i data-title="Password should be 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter"><GrStatusInfo /></i></label>
                     <input type={!this.state.showPassword ? 'password' : 'text'} value={this.state.password} onChange={(e) => { this.handleChange(e, 'password') }} />
                 </li>
-                <li>
+                <li className={this.state.validate.password ? 'error' : ''}>
                     <label>Confirm Password:</label>
                     <input type="text" value={this.state.confirmPassword} onChange={(e) => { this.handleChange(e, 'confirmPassword') }} />
                 </li>
-                <li><button className="primary" disabled={!(this.validateEmail(this.state.email) && this.state.password && this.state.confirmPassword && this.state.password === this.state.confirmPassword)}
-                    onClick={() => this.signUP()}>
-                    Save &amp; continue</button></li>
+                <li>
+                    <button className="primary" disabled={this.disableSubmit()} onClick={() => this.signUP()}>Save &amp; continue</button>
+                </li>
+                <li className="sign-up">Already have an account? <label onClick={() => this.props.history.push('')}>Login</label></li>
             </ul>
         )
     }

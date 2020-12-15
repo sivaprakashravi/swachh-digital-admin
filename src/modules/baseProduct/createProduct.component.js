@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom';
 import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { RiArrowGoBackLine } from 'react-icons/ri';
+import storage from '../../services/storage-manager.service';
 class CreateProduct extends React.Component {
     fileObj = [];
     fileArray = []
@@ -30,10 +31,10 @@ class CreateProduct extends React.Component {
     };
 
     async getCategories() {
-        const store = await localStorage.getItem('storeUser');
-        const { StoreId } = JSON.parse(store)
-        const dataId = await localStorage.getItem('userToken');
-        const { email, localId, idToken } = JSON.parse(dataId);
+        const store = storage.get('storeUser');
+        const { StoreId } = store;
+        const dataId = storage.get('userToken');
+        const { email, localId, idToken } = dataId;
         const category = await register.get(`api/getCategories/${StoreId}`, idToken);
         this.setState({ categories: category.Category })
     }
@@ -46,11 +47,11 @@ class CreateProduct extends React.Component {
     async CreateProductControl() {
         const { imageUrl, productName, price, categoryName } = this.state
         await this.setState({ id: productName.substring(0, 3) + this.randomString(3, '0123456789') });
-        const store = await localStorage.getItem('storeUser');
-        const dataId = await localStorage.getItem('userToken');
-        const { email, localId, idToken } = JSON.parse(dataId);
-        const { StoreId } = JSON.parse(store);
-        const { ImageUrl } = JSON.parse(this.state.imageUrl);
+        const store = storage.get('storeUser');
+        const dataId = storage.get('userToken');
+        const { email, localId, idToken } = dataId;
+        const { StoreId } = store;
+        const { ImageUrl } = this.state.imageUrl;
         try {
             const data = {
                 "Brands": "",

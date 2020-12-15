@@ -7,16 +7,16 @@ import { AuthContext } from '../utils/auth-context';
 import './login.style.scss';
 import session from '../../services/session-manger.service';
 import Toast from '../../components/toast/toast.component';
-
+import storage from '../../services/storage-manager.service';
 class Login extends React.Component {
     static contextType = AuthContext;
     constructor(props) {
         super(props);
         this.state = {
-            // username: 'shanu@gmail.com',
-            // password: 'shanu4l',
-            username: '',
-            password: '',
+            username: 'shanu@gmail.com',
+            password: 'shanu4l',
+            // username: '',
+            // password: '',
             mobile: '',
             showPassword: false,
             isOTPControl: false,
@@ -25,12 +25,31 @@ class Login extends React.Component {
         session.logout();
     }
 
+    componentDidMount() {
+        const username = storage.get('username');
+        const password = storage.get('password');
+        const rememberMe = storage.get('rememberMe');
+        if(username && password && rememberMe) {
+            this.setState({
+                username,
+                password,
+                rememberMe
+            });
+        }
+    }
+
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
     }
     
     handleClick = (route) => {
         this.props.history.push(route);
+    }
+
+    rememberHandler() {
+        storage.set('username', this.state.username);
+        storage.set('password', this.state.password);
+        storage.set('rememberMe', this.state.rememberMe);
     }
 
     userNameControls() {
@@ -56,6 +75,7 @@ class Login extends React.Component {
                 onClick={async() => {
                     await session.login({ username, password }, self);
                     ReactDOM.render(<Toast message="Logged In" />, document.getElementById('dom'));
+                    this.rememberHandler();
                 }}>Login</button></li>
                 <li className="sign-up">Don't have an account? <label onClick={() => this.props.history.push('register')}>Sign up</label></li>
             </ul>

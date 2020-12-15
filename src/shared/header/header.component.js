@@ -2,6 +2,7 @@ import React from 'react';
 import { IoMdMenu, IoMdClose } from "react-icons/io";
 import './header.style.scss';
 import SideNav from './../side-navigation/side-navigation.component';
+import storage from '../../services/storage-manager.service';
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -11,8 +12,8 @@ class Header extends React.Component {
     }
 
    componentDidMount(){
-    const store = localStorage.getItem('storeUser');
-    const { StoreName } = JSON.parse(store);
+    const store = storage.get('storeUser');
+    const { StoreName } = store;
     this.setState({ StoreName });
    }
 
@@ -31,9 +32,9 @@ class Header extends React.Component {
                         <IoMdMenu size="26px" onClick={() => { self.setState({ showNav: true }) }} style={{ margin: '6px 10px 0' }} />
                 }
                 <span>{StoreName} {self.state.showNav}</span>
-                <SideNav show={self.state.showNav} toggle={() => {
+                {self.state.showNav ? <SideNav show={self.state.showNav} toggle={() => {
                     self.toggleNav(self)
-                }} />
+                }} /> : null }
             </div>
         );
     }

@@ -8,6 +8,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
 import moment from 'moment';
 import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri';
+import storage from '../../../services/storage-manager.service';
 export class OrderScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -26,8 +27,8 @@ export class OrderScreen extends React.Component {
     }
 
     async listFromApi(values) {
-        const store = localStorage.getItem('storeUser');
-        const { StoreId } = JSON.parse(store)
+        const store = storage.getItem('storeUser');
+        const { StoreId } = store;
         const data = {
             "StoreId": StoreId,
             ...values

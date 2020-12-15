@@ -1,5 +1,6 @@
 import fetchApi from './fetchsvc.service';
 import constants from './constant.service';
+import storage from './storage-manager.service';
 
 var login = async (values, self) => {
     try {
@@ -10,13 +11,13 @@ var login = async (values, self) => {
         }
         const dataApi = await fetchApi.post('signInWithPassword', data, { key: constants.key });
         const { idToken, email, localId } = dataApi;
-        await localStorage.setItem('userToken', JSON.stringify({ idToken, email, localId }));
+        storage.put('userToken', { idToken, email, localId });
         const user =
         {
             "UserId": localId
         }
         const store = await fetchApi.post('api/getStoreInfo', user);
-        await localStorage.setItem('storeUser', JSON.stringify(store));
+        storage.put('storeUser', store);
         self.handleClick('dashboard');
     } catch (error) {
         console.log('login', error)
@@ -25,13 +26,15 @@ var login = async (values, self) => {
 };
 
 var logout = () => {
-    localStorage.clear();
+    storage.clear();
 };
 
 var user = {
-    storeUser: localStorage.getItem('storeUser') ? JSON.parse(localStorage.getItem('storeUser')) : {},
+    storeUser: () => {
+        return storage.get('storeUser') ? storage.get('storeUser') : {};
+    },
     userToken: () => {
-        return localStorage.getItem('userToken') ? JSON.parse(localStorage.getItem('userToken')) : {};
+        return storage.get('userToken') ? storage.get('userToken') : {};
     },
 }
 

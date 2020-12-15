@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { FcPlus, FcLike, FcKey, FcPaid, FcButtingIn, FcBullish, FcServices, FcIdea, FcMultipleInputs } from "react-icons/fc";
 import Carousel from 're-carousel';
 import IndicatorDots from './indicators';
+import storage from '../../services/storage-manager.service';
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -51,8 +52,8 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-        const store = localStorage.getItem('storeUser');
-        const { StoreLink } = JSON.parse(store);
+        const store = storage.get('storeUser');
+        const { StoreLink } = store;
         this.setState({ StoreLink });
     }
 
@@ -63,7 +64,7 @@ class Dashboard extends React.Component {
                 <Carousel loop={true} auto={true} widgets={[IndicatorDots]}>
                     {carousel.map(s => {
                         // android_asset/www -> for android build
-                        return <div className="scroll-item frame" style={{'backgroundImage': `url(/images/banner/${s}.jpg)`}}></div>
+                        return <div key={s} className="scroll-item frame" style={{'backgroundImage': `url(/images/banner/${s}.jpg)`}}></div>
                     })}
                 </Carousel>
             </div>
