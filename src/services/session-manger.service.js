@@ -26,8 +26,7 @@ var login = async (values, self) => {
 };
 
 var logout = () => {
-    storage.remove('storeUser');
-    storage.remove('userToken');
+    storage.clear();
 };
 
 var user = {
