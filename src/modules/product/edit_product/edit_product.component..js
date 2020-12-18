@@ -126,7 +126,7 @@ export class EditScreen extends React.Component {
                 <div className="image-container">
                     {this.state.image && this.state.image.length ?
                         this.state.image.map((image, i) => {
-                            return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                            return <div key={'img-box' + i} className="uploaded-image" style={{ backgroundImage: `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
                             </div>
                         }) : null}
                 </div>

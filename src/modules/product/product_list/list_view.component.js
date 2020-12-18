@@ -17,12 +17,12 @@ export const Listview = (props) => {
   const tile = (data) => {
     return (
       <div className="tile">
-        {data.Imageurl ? <div className="image-box" style={{ 'background-image': `url(${data.Imageurl})` }}></div> : <div className="image-box"><BsImages size="25px" className="placeholder" /></div>}
+        {data.Imageurl ? <div className="image-box" style={{ backgroundImage: `url(${data.Imageurl})` }}></div> : <div className="image-box"><BsImages size="25px" className="placeholder" /></div>}
         <div className="elements">
           <div>Name: {data.ProductName}</div>
           <div className="options">{menu(data)}</div>
           <div>Category: {data.Category}</div>
-          <div >Price: <BiRupee size="1.1rem" style={{ 'vertical-align': 'bottom' }} />{data.RetailPrice}</div>
+          <div >Price: <BiRupee size="1.1rem" style={{ verticalAlign: 'bottom' }} />{data.RetailPrice}</div>
         </div>
       </div>
     )
