@@ -103,14 +103,15 @@ export class OrderEditScreen extends React.Component {
     render() {
         return (
             <div className="order-edit">
-                {this.categoryControl()}
+                {/* {this.categoryControl()} */}
+                <div className="elements">
                 {this.inputController()}
-
-                <div className="input">
-                    <ul>
-                        <li><button className="primary" onClick={() => { }}>Save</button></li>
-                    </ul>
                 </div>
+                <div className="input">
+                        <ul>
+                            <li><button className="primary" onClick={() => { }}>Save</button></li>
+                        </ul>
+                    </div>                
             </div>
         )
     }

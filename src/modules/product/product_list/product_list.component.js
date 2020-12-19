@@ -60,7 +60,7 @@ export class ProductListScreen extends React.Component {
                 "DocId": values.DocId, "Brands": "",
                 "Category": values.categoryName,
                 "SubCategory": "",
-                "ImageUrl": "",
+                "ImageUrl": values.fileUrl,
                 "IsActive": values.active,
                 "IsOffer": false,
                 "ProductCode": "",

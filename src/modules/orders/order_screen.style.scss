@@ -86,100 +86,91 @@
 }
 
 .order-edit {
-  //margin: 15px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  //  position: absolute;
-  //  top: calc(100% - 10px);
-  //  left: calc(50% - 5px);
-  //  transform: translate(-50%, -50%);
-  //  width: calc(100% - 30px);
-  div.input {
-    margin: 10px;
-    input {
-      padding: 8px 8px 8px 0;
-      display: block;
-      width: calc(100% - 10px);
-      border: none;
-      border-bottom: 2px solid $border-grey;
-      font-size: 1rem;
-      &:focus {
-        border-bottom-color: $primary;
-      }
-      &[type="password"] {
-        padding: 8px 28px 8px 0;
-        width: calc(100% - 30px);
-      }
-    }
+  margin: 80px 0 55px;
+  .elements {
+    margin: 0 10px;
+  }
+  h3 {
+    color: $primary;
+    padding: 0 0 10px;
+  }
+  .options {
+    display: inline-block !important;
+    width: 50%;
     label {
-      display: block;
-      font-size: 1rem;
-      color: $lbl-grey;
+      margin: 0 0 0 5px;
     }
+    svg {
+      vertical-align: sub;
+    }
+  }
+  div.input {
     ul {
       li {
         display: block;
         margin-bottom: 10px;
         position: relative;
-        span {
-          font-size: 1rem;
-          color: $lbl-grey;
+      
           label {
             display: inline-block;
             vertical-align: super;
             margin-left: 3px;
           }
-        }
-        span,
-        a,
-        label {
-          font-weight: bold;
-        }
-        a.fp {
-          float: right;
-          font-size: 1rem;
-        }
-        button {
-          padding: 12px;
-          margin-right: 10px;
-          border: none;
-          border-radius: 5px;
-          background: none;
-          font-size: 1rem;
-          background: $primary;
-          color: $white;
-          width: 80%;
-        }
+          button {
+            padding: 12px;
+        margin-right: 10px;
+        margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background: none;
+            font-size: 1rem;
+            background: $primary;
+            color: $white;
+            width: 100%;
+          }
       }
     }
+  
+  .row-view {
+    display: -ms-grid;
   }
-  select {
+  .text-row {
+    float: left;
+  }
+  .switch-view {
+    float: right;
+  }
+  .toggle-view {
+    display: grid;
+    grid-template-columns: 100px 100px;
+  }
+  .list-view {
+    display: grid;
+    grid-template-columns: 100px 500px;
     margin: 10px;
-    width: 50%;
-    height: 30px;
-    font-weight: 700;
   }
-  option {
-    font-size: 20;
-    font-weight: 600;
-    font-family: Arial, Helvetica, sans-serif;
+  .list-container {
+    border: 1px solid lightgrey;
+    padding: 5px;
   }
-  button {
-    padding: 6px;
-    border: none;
-    border-radius: 5px;
-    background: none;
-    font-size: 16px;
-    background: $primary;
-    margin-left: 20px;
-    color: $white;
-    width: 25%;
+  .input-view {
+    justify-content: center;
+  }
+  .radio {
+    justify-content: space-between;
     margin-top: 10px;
   }
-  input {
-    padding: 10px;
-    margin: 10px;
+
+  .product-img {
+    height: 150px;
+    width: 150px;
+    align-items: center;
   }
+  .thumbnail-img {
+    height: 80px;
+    width: 80px;
+  }
+}
 }
 
 .order-list {
