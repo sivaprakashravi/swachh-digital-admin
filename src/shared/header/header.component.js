@@ -3,6 +3,7 @@ import { IoMdMenu, IoMdClose } from "react-icons/io";
 import './header.style.scss';
 import SideNav from './../side-navigation/side-navigation.component';
 import storage from '../../services/storage-manager.service';
+import translate from '../../locale/translate';
 class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -31,7 +32,7 @@ class Header extends React.Component {
                         <IoMdClose size="26px" onClick={() => { self.setState({ showNav: false }) }} style={{ margin: '6px 10px 0' }} /> :
                         <IoMdMenu size="26px" onClick={() => { self.setState({ showNav: true }) }} style={{ margin: '6px 10px 0' }} />
                 }
-                <span>{StoreName} {self.state.showNav}</span>
+                <span>{translate("text_user_name",{name:StoreName})} {self.state.showNav} </span>
                 {self.state.showNav ? <SideNav show={self.state.showNav} toggle={() => {
                     self.toggleNav(self)
                 }} /> : null }

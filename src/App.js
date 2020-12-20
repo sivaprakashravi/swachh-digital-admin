@@ -19,7 +19,7 @@ import { UserManageScreen } from './modules/store/user_manage/user_manage.compon
 import { AuthContext } from './modules/utils/auth-context';
 import Loader from './components/loader/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
-
+import {LocalProvider} from './locale'
 function showHeader(route) {
   const noAuth = ['', 'login', 'register'];
   const has = noAuth.filter(auth => {
@@ -33,6 +33,7 @@ function App(e) {
   return (
     <main>
       <AuthContext.Provider>
+        <LocalProvider locale={'en'}>
         {showHeader(e.location.pathname) ? <Header /> : null}
         <Switch>
           <Route path="/" component={Login} exact />
@@ -51,6 +52,7 @@ function App(e) {
         </Switch>
         {showHeader(e.location.pathname) ? <BottomNav /> : null}
         {promiseInProgress ? <Loader /> : null}
+        </LocalProvider>
       </AuthContext.Provider>
     </main>
   )

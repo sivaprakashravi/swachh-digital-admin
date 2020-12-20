@@ -1,0 +1,11 @@
+{  
+        "text_user_name":"hi,{name}",
+        "text_add_product":"Add Product",
+        "text_orders":"Orders",
+        "text_store_setup":"Store Setup",
+        "text_offers":"Offers",
+        "text_access_management":"Access Management",
+        "text_customers":"Customers",
+        "text_reports":"Reports",
+        "text_more_services":"More Services"   
+}
