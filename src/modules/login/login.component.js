@@ -13,10 +13,10 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // username: 'shanu@gmail.com',
-            // password: 'shanu4l',
-            username: '',
-            password: '',
+            username: 'shanu@gmail.com',
+            password: 'shanu4l',
+            // username: '',
+            // password: '',
             mobile: '',
             showPassword: false,
             isOTPControl: false,
@@ -29,25 +29,26 @@ class Login extends React.Component {
         const username = storage.get('_qw_ju');
         const password = storage.get('_ds_nh');
         const rememberMe = storage.get('_oi_re');
-        if(username && password && rememberMe) {
+        if (username && password && rememberMe) {
             this.setState({
                 username,
                 password,
                 rememberMe
             });
+            this.doLogin();
         }
     }
 
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
     }
-    
+
     handleClick = (route) => {
         this.props.history.push(route);
     }
 
     rememberHandler() {
-        if(this.state.rememberMe) {
+        if (this.state.rememberMe) {
             storage.put('_qw_ju', this.state.username);
             storage.put('_ds_nh', this.state.password);
             storage.put('_oi_re', this.state.rememberMe);
@@ -58,32 +59,35 @@ class Login extends React.Component {
         }
     }
 
-    userNameControls() {
+    async doLogin() {
         const self = this;
         const { username, password } = self.state;
+        await session.login({ username, password }, self);
+        self.rememberHandler();
+        ReactDOM.render(<Toast message="Logged In Successfully!" />, document.getElementById('dom'));
+    }
+
+    userNameControls() {
+        const self = this;
         return (
             <ul>
                 <li>
                     <label>Username</label>
-                    <input type="text" value={this.state.username} onChange={(e) => { this.handleChange(e, 'username') }} />
+                    <input type="text" value={self.state.username} onChange={(e) => { self.handleChange(e, 'username') }} />
                 </li>
                 <li>
                     <label>Password</label>
-                    <input type={!this.state.showPassword ? 'password' : 'text'} value={this.state.password} onChange={(e) => { this.handleChange(e, 'password') }} />
-                    {this.state.showPassword ?
-                        <BsEyeSlash className="eye" onClick={() => { this.setState({ showPassword: !this.state.showPassword }) }} /> :
-                        <BsEye className="eye" onClick={() => { this.setState({ showPassword: !this.state.showPassword }) }} />}
+                    <input type={!self.state.showPassword ? 'password' : 'text'} value={self.state.password} onChange={(e) => { self.handleChange(e, 'password') }} />
+                    {self.state.showPassword ?
+                        <BsEyeSlash className="eye" onClick={() => { self.setState({ showPassword: !self.state.showPassword }) }} /> :
+                        <BsEye className="eye" onClick={() => { self.setState({ showPassword: !self.state.showPassword }) }} />}
                 </li>
                 <li><span onClick={() => {
-                    this.setState({ rememberMe: !this.state.rememberMe })
-                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={this.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
-                <li><button className="primary" disabled={!(this.state.username && this.state.password)} 
-                onClick={async() => {
-                    await session.login({ username, password }, self);
-                    self.rememberHandler();
-                    ReactDOM.render(<Toast message="Logged In" />, document.getElementById('dom'));
-                }}>Login</button></li>
-                <li className="sign-up">Don't have an account? <label onClick={() => this.props.history.push('register')}>Sign up</label></li>
+                    self.setState({ rememberMe: !self.state.rememberMe })
+                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={self.state.rememberMe ? '#3f51b5' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
+                <li><button className="primary" disabled={!(self.state.username && self.state.password)}
+                    onClick={() => self.doLogin()}>Login</button></li>
+                <li className="sign-up">Don't have an account? <label onClick={() => self.props.history.push('register')}>Sign up</label></li>
             </ul>
         )
     }

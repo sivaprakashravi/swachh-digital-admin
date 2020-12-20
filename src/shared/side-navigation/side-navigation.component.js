@@ -5,6 +5,7 @@ import { FcBusinessman } from "react-icons/fc";
 import { CgLogOff } from "react-icons/cg";
 import { withRouter } from "react-router-dom";
 import storage from '../../services/storage-manager.service';
+import session from '../../services/session-manger.service';
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
@@ -55,9 +56,14 @@ class SideNav extends React.Component {
         this.props.history.push(route);
     }
 
+    logout() {
+        session.logout();
+        this.props.history.push('');
+    }
+
     render() {
-        const store =  storage.get('storeUser');
-        const { Role,Email } = store;
+        const store = storage.get('storeUser');
+        const { Role, Email } = store;
         return (
             <div className={this.props.show ? 'navigation show' : 'navigation'}>
                 <div className="menu">
@@ -97,12 +103,12 @@ class SideNav extends React.Component {
                         }
                     </ul>
                     <footer>
-                        <div onClick={() => this.props.history.push('')}><CgLogOff size="18px" />Logoff</div>
+                        <div onClick={() => this.logout()}><CgLogOff size="18px" />Logoff</div>
                         <i>Version: 1.0.0 <label>&copy; Swachh Digital</label></i>
                     </footer>
                 </div>
                 {this.props.show ? <div className="overlay" onClick={this.props.toggle}></div> : null}
-                
+
             </div>
         );
     }
