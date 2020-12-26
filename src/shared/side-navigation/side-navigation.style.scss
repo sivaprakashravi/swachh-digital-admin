@@ -10,7 +10,7 @@
   transition: background 1s ease, left 0.2s;
   &.show {
     left: 0;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
   }
   .menu {
     width: 75%;
@@ -51,30 +51,33 @@
       color: $black;
     }
     ul {
-      margin-top: 60px;
+      border-radius: 5px; 
+      &.sub-nav {
+        background: $whiteOP1;
+      }     
       li {
         display: block;
-        padding: 10px 5px;
-        margin-bottom: 10px;
-        color: $black;
-        border-left: 2.5px solid $menu-bg;
+        padding: 0 5px;
+        color: $white;
+        border-left: 2.5px solid $primary;
+        font-size: 0.8rem;
+        line-height: 35px;
         &.active {
           font-weight: bold;
-          border-left: 2.5px solid $primary;
-        };
-        }
-     span{
-          &.none{
-          display: none;
-        };
-        &.subList{
-          li{
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-top: -15px;
-          }
+          border-left: 2.5px solid $white;
         }
       }
+      span {
+        &.none {
+          display: none;
+        }
+      }
+    }
+    > ul {
+      margin: 5px;
+      overflow: auto;
+      height: calc(100% - 175px);
+      background: $primary;
     }
   }
   .overlay {
