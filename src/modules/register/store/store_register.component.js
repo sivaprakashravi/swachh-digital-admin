@@ -37,7 +37,10 @@ class StoreRegister extends React.Component {
                 "ModifiedBy": localId,
                 "LogoUrl": "",
                 "Pincode": "500072",
-                "UserId": localId
+                "UserId": localId,
+                "GST": "ASDFKKPP1234",
+            "TagLine": "super sales",
+            "StoreTheme": "White"
             };
             const checkId = await register.get(`api/getStoreDetails/${this.state.id}`, idToken);
             const len = Object.keys(checkId).length;

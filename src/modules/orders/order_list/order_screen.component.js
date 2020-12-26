@@ -39,9 +39,24 @@ export class OrderScreen extends React.Component {
         })
     }
 
+    async orderUpdate(Id,status,reason){
+        try {
+            let data = {
+                "DocId" : Id,
+                "Status" : status,
+                "Reason" : reason??null
+            }
+            const dataApi = await fetchservices.post('api/updateOrderStatus',data);
+            console.log("order succesfull",dataApi)
+          } catch (error) {
+              console.log("error",error)
+          } 
+    }
+
     async handleSelect(select, date) {
         let startDate = moment(select.range1.startDate).format('DD-MM-YYYY');
-        let endDate = moment(select.range1.endDate).format('DD-MM-YYYY');
+        let endDate = moment(date.endDate).format('DD-MM-YYYY');
+        console.log(startDate,endDate)
         this.listFromApi({
             "FromDate": startDate,
             "ToDate": endDate,
@@ -56,14 +71,14 @@ export class OrderScreen extends React.Component {
         this.state.period === 'This week' && this.listFromApi({ "IsLastWeek": true })
     }
     noList() {
-        return (<div className="no-list"><label>No Orders Found</label><button className="primary" onClick={this.props.history.goBack}>Go Back</button></div>)
+        return (<div className="no-list"><label>No Orders Found</label></div>)
     }
     render() {
         const self = this;
         const { list } = self.state;
         let listMap = list && !list.length ? this.noList() : list.map((x, index) => {
             return (
-                <OrderList data={x} key={index} nav={self.props.history} />
+                <OrderList data={x} key={index} nav={self.props.history} update={this.orderUpdate}/>
             )
         });
         var dateSelection = {
@@ -99,8 +114,6 @@ export class OrderScreen extends React.Component {
                             maxDate={new Date()}
                         /></div>
                     }
-
-                    <div><button className="primary">Filter</button></div>
                 </div> : null}
                 <div className="list">
                     {listMap}

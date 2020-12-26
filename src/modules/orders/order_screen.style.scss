@@ -1,4 +1,5 @@
 @import "./../../scss/definitions/variables.scss";
+
 .order {
   margin: 90px 0 55px;
   .sub-header {
@@ -6,8 +7,45 @@
       float: right;
     }
   }
+  .reject-modal{
+    border: 0.5px solid lightgrey;
+    border-radius: 5px;
+    padding: 15px 15px 15px 15px;
+    margin: 150px 0 15px 65px;
+    position: fixed;
+    background-color: white;
+   //@debug background-attachment: fixed;
+    ul {
+      li {
+        display: block;
+        font-size: 0.9rem;
+        label {
+          font-size: 0.8rem;
+          padding: 2px 5px;
+          color: #4caf50;
+          border-radius: 5px;
+        }
+      }
+    }
+  }
   .details {
     margin: 10px;
+    .order-id{
+      label{
+        float: left;
+      }
+      span{
+        float: right;
+      }
+    }
+    a{
+      font-size: 0.8rem;
+      color: $primary;
+      float: left;
+      margin-left: 15px;
+    }:hover{
+      color: #4caf50;
+    }
     ul.status {
       display: block;
       li {
@@ -23,15 +61,57 @@
         }
       }
     }
+    
     ul.by {
-      margin: 20px;
+      //margin: 20px;
+      padding-top: 10px;
       text-align: center;
+      .table-row{
+        width: 100%;
+        align-self: center;
+        label{
+        padding: 5px 20px 5px 20px;
+        border: 1px solid black;
+        text-align: center;
+        display: inline;
+      }
+      }
+      .table-head {
+        margin-top: 5px;
+        margin-bottom: 12px;
+        width: 100%;
+        align-self: center;
+        label{
+        padding: 5px 20px 5px 20px;
+        border: 1px solid black;
+        text-align: center;
+        width: 100%;
+      }
+      
+      }
       li {
         font-size: 0.9rem;
         display: inline-block;
         text-align: center;
         padding: 5px;
+        padding-left: 30px;
       }
+    }
+    .view-all{
+      float: right;
+      margin-right: 25px;
+      font-size: 0.8rem;
+      color: $primary;
+      margin-bottom: 20%;
+    }
+    .product div{
+      // border-radius: 5px;
+      display: flexbox;
+      padding: 3px;
+      // margin: 20px;
+      float: left;
+      //box-shadow: 0px 5px 10px -5px #aaaaaa;
+      border: 1px solid black;
     }
     .customer {
       border-radius: 5px;
@@ -42,7 +122,7 @@
       div {
         display: inline-block;
         vertical-align: middle;
-        font-size: 1.2rem;
+        font-size: 0.6rem;
         margin-right: 10px;
         text-transform: uppercase;
         label {
@@ -85,93 +165,6 @@
   }
 }
 
-.order-edit {
-  margin: 80px 0 55px;
-  .elements {
-    margin: 0 10px;
-  }
-  h3 {
-    color: $primary;
-    padding: 0 0 10px;
-  }
-  .options {
-    display: inline-block !important;
-    width: 50%;
-    label {
-      margin: 0 0 0 5px;
-    }
-    svg {
-      vertical-align: sub;
-    }
-  }
-  div.input {
-    ul {
-      li {
-        display: block;
-        margin-bottom: 10px;
-        position: relative;
-      
-          label {
-            display: inline-block;
-            vertical-align: super;
-            margin-left: 3px;
-          }
-          button {
-            padding: 12px;
-        margin-right: 10px;
-        margin-left: 10px;
-            border: none;
-            border-radius: 5px;
-            background: none;
-            font-size: 1rem;
-            background: $primary;
-            color: $white;
-            width: 100%;
-          }
-      }
-    }
-  
-  .row-view {
-    display: -ms-grid;
-  }
-  .text-row {
-    float: left;
-  }
-  .switch-view {
-    float: right;
-  }
-  .toggle-view {
-    display: grid;
-    grid-template-columns: 100px 100px;
-  }
-  .list-view {
-    display: grid;
-    grid-template-columns: 100px 500px;
-    margin: 10px;
-  }
-  .list-container {
-    border: 1px solid lightgrey;
-    padding: 5px;
-  }
-  .input-view {
-    justify-content: center;
-  }
-  .radio {
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-
-  .product-img {
-    height: 150px;
-    width: 150px;
-    align-items: center;
-  }
-  .thumbnail-img {
-    height: 80px;
-    width: 80px;
-  }
-}
-}
 
 .order-list {
   border: 0.5px solid lightgrey;
