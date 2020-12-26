@@ -96,7 +96,7 @@ export class BusinessSetupScreen extends React.Component {
     }
     render() {
         return (
-            <div className="setup-container">
+            <div className="business-setup">
                 <div className="sub-header">
                     <RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
                     <label>Business setup</label>

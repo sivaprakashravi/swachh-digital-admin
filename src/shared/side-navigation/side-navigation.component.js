@@ -65,20 +65,21 @@ class SideNav extends React.Component {
             if (lt.label === l.label && !lt.subMenu) {
                 lt.active = true;
                 if (!noroute) {
-                    this.props.selected(l);
                     this.props.toggle();
+                    this.props.selected(l);
                     if (l && l.route) {
                         this.props.history.push(l.route);
                     }
                 }
             }
             else if (lt.label === l.label) {
-                lt.active = true;
+                l.active = true;
                 if (noroute) {
+                    l.toggle = true;
                     lt = l;
                 } else {
-                    this.props.selected(l);
                     lt.toggle = !lt.toggle;
+                    this.props.selected(l);
                 }
             }
             return lt;

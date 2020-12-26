@@ -1,7 +1,7 @@
 @import "./../../../scss/definitions/variables.scss";
 
-.setup-container {
-  margin: 90px 0 55px;
+.business-setup {
+  margin: 95px 0 55px;
   .sub-header {
     span {
       float: right;
@@ -13,7 +13,7 @@
     font-weight: 600;
     font-family: sans-serif;
   }
-  div.input ul {
+  ul {
     li {
       display: block;
       margin: 0 10px 10px 10px;
@@ -23,9 +23,6 @@
         vertical-align: super;
         margin-left: 2px;
         color: grey;
-      }
-      input {
-        text-indent: 8px;
       }
       button {
         width: 100%;
