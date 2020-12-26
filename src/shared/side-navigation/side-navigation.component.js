@@ -6,44 +6,46 @@ import { CgLogOff } from "react-icons/cg";
 import { withRouter } from "react-router-dom";
 import storage from '../../services/storage-manager.service';
 import session from '../../services/session-manger.service';
+import translate from '../../locale/translate'
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [{
-                label: 'Home',
+                label: 'HOME',
                 route: 'dashboard',
                 active: true
             }, {
-                label: 'Add Products',
+                label: 'ADDPRODUCT',
                 route: 'CreateProduct'
             }, {
-                label: 'Add Category',
+                label: 'ADDCATEGORY',
                 route: ''
             },
             {
-                label: 'Product List',
+                label: 'PRODUCTLIST',
                 route: 'productlist'
             }, {
-                label: 'Orders',
+                label: 'ORDERS',
                 route: 'orderlist'
             }, {
-                label: 'Manage Staff',
-                route: ''
-            }, {
-                label: 'Business Settings',
+                label: 'MANAGESTAFF',
                 route: ''
             }],
+            // }, {
+            //     label: 'Business Settings',
+            //     route: ''
+            // }],
             subList: [{
-                label: 'Business Setup',
+                label: 'BUSINESSSETUP',
                 route: 'businessSetup'
             },
             {
-                label: 'My account page',
+                label: 'ACCOUNTPAGE',
                 route: 'myAccount'
             },
             {
-                label: 'User management page',
+                label: 'USERMANAGEMENT',
                 route: 'userManage'
             }
             ],
@@ -84,11 +86,11 @@ class SideNav extends React.Component {
                                         return <li onClick={() => {
                                             this.props.toggle();
                                             this.handleClick(l.route);
-                                        }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                                        }} key={l.label} className={l.active ? 'active' : ''}>{translate(l.label)}</li>;
                                     })}
                             </ul>
                         }
-                        <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>Store Setup</li>
+                        <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>{translate('STORESETUP')}</li>
                         <span className={this.state.storeSet ? 'subList' : 'none'} >
                             {
                                 <>
@@ -96,7 +98,7 @@ class SideNav extends React.Component {
                                         return <li onClick={() => {
                                             this.props.toggle();
                                             this.handleClick(l.route);
-                                        }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                                        }} key={l.label} className={l.active ? 'active' : ''}>{translate(l.label)}</li>;
                                     })}
                                 </>
                             }

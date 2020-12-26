@@ -7,6 +7,7 @@ import { FaPhoneAlt, FaRupeeSign } from 'react-icons/fa';
 import * as moment from 'moment';
 import { useState } from 'react';
 import OrderProducts from './order_products.component';
+import translate from '../../../locale/translate'
 export const OrderDetails = (props) => {
     const [isShowDetails, setShowDetails] = useState(false);
     const [reason, setReason] = useState('');
@@ -39,11 +40,11 @@ export const OrderDetails = (props) => {
             </div> */}
             <div className="sub-header">
                 <RiArrowGoBackLine onClick={props.history.goBack} className="icon" size="22px" />
-                <label>Order Details</label>
+                <label>{translate('ORDERDETAILS')}</label>
             </div>
             <div className="details">
                 <div className="order-id">
-                <label>Order-ID - {data.OrderId}</label>
+                <label>{translate('ORDERID')} - {data.OrderId}</label>
                 <span>{moment(data.InvoiceDate).format('L')}</span>
                 </div>
                 <ul className="status">
@@ -60,10 +61,10 @@ export const OrderDetails = (props) => {
                     <FaPhoneAlt className="call" color="green" size="20px" />
                     <FcMoneyTransfer className="call" size="20px" />
                 </div>
-                <a href="">Invoice</a>
-                <div onClick={toggle} className="view-all">View all<br/></div>
+                <a href="">{translate('INVOICE')}</a>
+                <div onClick={toggle} className="view-all">{translate('VIEWALL')}<br/></div>
                     <ul className="by">
-                        <li>{products.length} Item for <FaRupeeSign /> {data.TotalAmount}</li>
+                        <li>{products.length} {translate('ITEMFOR')} <FaRupeeSign /> {data.TotalAmount}</li>
                         {isShowDetails ?
                         <div>
                         <div className="table-head">
@@ -79,8 +80,8 @@ export const OrderDetails = (props) => {
             {
                 data.OrderStatus === 'Placed' &&
                 <div className="actions">
-                    <li><button onClick={() => callBack(data.Id, "Accept", '')}><FcCheckmark /><label>Accept</label></button></li>
-                    <li><button onClick={() => callBack(data.Id, "Reject", '')}><FcCancel /><label>Reject</label></button></li>
+                    <li><button onClick={() => callBack(data.Id, "Accept", '')}><FcCheckmark /><label>{translate('ACCEPT')}</label></button></li>
+                    <li><button onClick={() => callBack(data.Id, "Reject", '')}><FcCancel /><label>{translate('REJECT')}</label></button></li>
                 </div>
             }
 

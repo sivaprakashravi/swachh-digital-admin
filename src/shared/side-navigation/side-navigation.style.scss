@@ -8,6 +8,7 @@
   top: 0;
   left: -100%;
   transition: background 1s ease, left 0.2s;
+  
   &.show {
     left: 0;
     background: rgba(0,0,0,0.7);

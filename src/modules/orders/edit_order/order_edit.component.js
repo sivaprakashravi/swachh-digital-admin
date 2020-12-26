@@ -17,18 +17,20 @@ export class OrderEditScreen extends React.Component {
             active: true,
             offerTog: false,
             Productlength:0,
-            accept:true,
-            shipped:false
+            accept:false,
+            shipped:false,
+            delivered:false,
+            placed:true,
         }
     };
 
     componentDidMount() {
         const { OrderId, customer_name, amount, paymentType, paymentStatus, product_name, category,
-            items_count, invoice, CustomerEmail, tracking_link, CustomerPhone,
+            items_count, invoice, CustomerEmail, tracking_link, CustomerPhone,OrderStatus
         } = this.props.location.state;
         this.setState({
             id: OrderId, customerName: customer_name, mobile: CustomerPhone, name: product_name, link: tracking_link
-            , invoice: invoice, price: amount, items: items_count, email: CustomerEmail
+            , invoice: invoice, price: amount, items: items_count, email: CustomerEmail,status:OrderStatus
         });
         this.orderList()
     };
@@ -71,7 +73,7 @@ export class OrderEditScreen extends React.Component {
 
 
     inputController() {
-        const { name, id, price, link, customerName, mobile, Productlength,email, invoice } = this.state;
+        const { name, id, price, link, customerName, mobile, Productlength,email, invoice,status } = this.state;
         return (
             <div className="input">
                 <ul>
@@ -99,25 +101,27 @@ export class OrderEditScreen extends React.Component {
                         <label>No.Of Items:</label>
                         <input type="text" value={Productlength}  readOnly={true} />
                     </li>
+                    <li>
+                    <label>Order Status:</label>
+                    </li>
                     <div className="option-view">
-                    <li className="options" onClick={() => this.setState({ accept: !this.state.accept })}>
-                                <AiFillCheckCircle color={this.state.accept ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                   {status === 'New' && <li className="options" >
+                                <AiFillCheckCircle color={this.state.placed ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <label style={{ marginBottom: 10 }}>New</label>
+                            </li>}
+                   {(status === 'New' || status === 'Accept') && <li className="options" onClick={() => this.setState({ accept: !this.state.accept })}>
+                                <AiFillCheckCircle color={(this.state.accept || status === 'Accept') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>Accept</label>
-                            </li>
+                            </li>}
                             <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped })}>
-                                <AiFillCheckCircle color={this.state.shipped ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label>shipped</label>
                             </li>
+                           {(status === 'Accept' || status === 'Shipped') && <li className="options" onClick={() => this.setState({ delivered: !this.state.delivered })}>
+                                <AiFillCheckCircle color={this.state.delivered ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <label>Delivered</label>
+                            </li>}
                             </div>
-                    <li>
-                        <label>Order Status:</label>
-                        <select id="status" name="status" onChange={(e) => this.handleChange(e, 'status')} >
-                    <option >New</option>
-                    <option >Accept</option>
-                    <option>Shipped</option>
-                    <option>Delivered</option>
-                </select>
-                    </li>
                     <li>
                         <label>Payment type:</label>
                         <select id="status" name="status" defaultValue="COD" onChange={(e) => this.handleChange(e, 'payment')} >
