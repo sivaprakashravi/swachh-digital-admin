@@ -77,7 +77,18 @@ class SideNav extends React.Component {
                         this.props.toggle();
                     }} style={{ margin: '6px 10px 0' }} />
                     <ul>
-                    <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>Store Setup</li>
+                        {
+                            <ul>
+                                {
+                                    this.state.list.map(l => {
+                                        return <li onClick={() => {
+                                            this.props.toggle();
+                                            this.handleClick(l.route);
+                                        }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
+                                    })}
+                            </ul>
+                        }
+                        <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>Store Setup</li>
                         <span className={this.state.storeSet ? 'subList' : 'none'} >
                             {
                                 <>
@@ -90,17 +101,7 @@ class SideNav extends React.Component {
                                 </>
                             }
                         </span>
-                        {
-                            <ul>
-                                {
-                                    this.state.list.map(l => {
-                                        return <li onClick={() => {
-                                            this.props.toggle();
-                                            this.handleClick(l.route);
-                                        }} key={l.label} className={l.active ? 'active' : ''}>{l.label}</li>;
-                                    })}
-                            </ul>
-                        }
+
                     </ul>
                     <footer>
                         <div onClick={() => this.logout()}><CgLogOff size="18px" />Logoff</div>

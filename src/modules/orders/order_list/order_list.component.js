@@ -8,16 +8,20 @@ export const OrderList = (props) => {
         <div className="order-list">
             <div className="list-view">
                 <ul>
-                    <li><FcShipped className="shipped" size="22px" /> <label>ID: {props.data.OrderId}</label> <BiEdit className="edit" size="22px" onClick={() => props.nav.push({ pathname: 'orderEdit', state: props.data })} /></li>
+                    <li><FcShipped className="shipped" size="22px" /> <label>Order ID: {props.data.OrderId}</label> <BiEdit className="edit" size="22px" onClick={() => props.nav.push({ pathname: 'orderEdit', state: props.data })} /></li>
                     <li>Amount: {props.data.TotalAmount}</li>
                     <li>Customer: {props.data.CustomerPhone}</li>
                 </ul>
             </div>
-            <div className="actions">
-                <button className="accept" onClick={() => { }}>Accept</button>
-                <button className="reject" onClick={() => { }}>Reject</button>
+            {
+                props.data.OrderStatus === 'Placed' &&
+                <div className="actions">
+                <button className="accept" onClick={() => props.update(props.data.Id,'Accept','')}>Accept</button>
+                <button className="reject" onClick={() => props.update(props.data.Id,'Reject','')}>Reject</button>
             </div>
-            <div className="view" onClick={() => props.nav.push({ pathname: 'orderDetails', state: props.data })}><IoIosArrowForward size="24px" /></div>
+            }
+           
+            <div className="view" onClick={() => props.nav.push({ pathname: 'orderDetails', state: props.data,callBack : props.update })}><IoIosArrowForward size="24px" /></div>
         </div>
     )
 }
