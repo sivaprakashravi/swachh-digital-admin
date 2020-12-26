@@ -7,7 +7,8 @@ import { FaPhoneAlt, FaRupeeSign } from 'react-icons/fa';
 import { GrDocumentPdf } from 'react-icons/gr';
 import * as moment from 'moment';
 import { useState } from 'react';
-import OrderProducts from './order_products.component';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 export const OrderDetails = (props) => {
     const [reason, setReason] = useState('');
     const [products, setProducts] = useState([]);
@@ -23,6 +24,12 @@ export const OrderDetails = (props) => {
     if (!data) {
         return null;
     };
+    const download = async () => {
+        const doc = new jsPDF();
+        doc.text(`Invoice - ${data.OrderId}`, 15, 10);
+        doc.autoTable({ html: '#invoice' });
+        doc.save(`${data.OrderId}.pdf`);
+    }
     return (
         <div className="order">
             {/* <div className="reject-modal">
@@ -60,24 +67,28 @@ export const OrderDetails = (props) => {
                     <FcMoneyTransfer className="call" size="20px" />
                 </div>
                 <div className="table">
-                    <table>
-                        <tr className="table-head">
-                            <th>Product</th>
-                            <th>Nos</th>
-                            <th>Price</th>
-                        </tr>
-                        {products.map((product) =>
-                            <tr>
-                                <td>{product.ProductDesc}</td>
-                                <td>{product.Qty}</td>
-                                <td>{product.UnitPrice}</td>
+                    <table id="invoice">
+                        <thead>
+                            <tr className="table-head">
+                                <th>Product</th>
+                                <th>Nos</th>
+                                <th>Price</th>
                             </tr>
-                        )}
+                        </thead>
+                        <tbody>
+                            {products.map((product, i) =>
+                                <tr key={`orders-${i}`}>
+                                    <td>{product.ProductDesc}</td>
+                                    <td>{product.Qty}</td>
+                                    <td>{product.UnitPrice}</td>
+                                </tr>
+                            )}
+                        </tbody>
                     </table>
                 </div>
             </div>
             <div className="sum-download">
-                <div className="download"><GrDocumentPdf size="20px" /> Download</div>
+                <div className="download" onClick={download}><GrDocumentPdf size="20px" /> Download</div>
                 <div className="by">{products.length} Item for <FaRupeeSign /> {data.TotalAmount}</div>
             </div>
             {
