@@ -41,8 +41,23 @@
         border-radius: 3px;
         float: right;
         margin-top: -5px;
-        &.new {
+        &.New {
           background: $new;
+          color: $white;
+        }
+        &.Reject {
+          background: $reject;
+          color: $white;
+        }
+        &.Accept {
+          background: $accept;
+          color: $white;
+        }
+        &.Shipped {
+          background: $shipped;
+        }
+        &.Delivered {
+          background: $delivered;
           color: $white;
         }
       }
@@ -171,8 +186,9 @@
           vertical-align: top;
           height: 22px;
         }
-        .shipped {
+        svg:first-child {
           float: left;
+          margin-left: -5px;
         }
         .edit {
           float: right;
@@ -183,6 +199,46 @@
           padding: 2px 5px;
           color: #4caf50;
           border-radius: 5px;
+        }
+        span {
+          padding: 5px;
+          border-radius: 3px;
+          float: right;
+          margin-top: -5px;
+          &::after {
+            display: inline-block;            
+            content: '';
+            height: 10px;
+            width: 10px;
+            border-radius: 5px;
+            margin-left: 5px;
+            vertical-align: baseline;
+          }
+          &.New {
+            &::after {
+              background: $new;
+            }
+          }
+          &.Reject {
+            &::after {
+              background: $reject;
+            }
+          }
+          &.Accept {
+            &::after {
+              background: $accept;
+            }
+          }
+          &.Shipped {
+            &::after {
+              background: $shipped;
+            }
+          }
+          &.Delivered {
+            &::after {
+              background: $delivered;
+            }
+          }
         }
       }
     }
