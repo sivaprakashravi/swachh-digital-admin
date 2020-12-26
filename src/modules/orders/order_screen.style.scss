@@ -3,18 +3,21 @@
 .order {
   margin: 90px 0 55px;
   .sub-header {
+    label {
+      display: block;
+    }
     span {
       float: right;
     }
   }
-  .reject-modal{
+  .reject-modal {
     border: 0.5px solid lightgrey;
     border-radius: 5px;
     padding: 15px 15px 15px 15px;
     margin: 150px 0 15px 65px;
     position: fixed;
     background-color: white;
-   //@debug background-attachment: fixed;
+    //@debug background-attachment: fixed;
     ul {
       li {
         display: block;
@@ -30,21 +33,25 @@
   }
   .details {
     margin: 10px;
-    .order-id{
-      label{
-        float: left;
-      }
-      span{
+    .order-date {
+      padding: 15px 0 15px 5px;
+      font-size: 0.9rem;
+      label {
+        padding: 5px;
+        border-radius: 3px;
         float: right;
+        margin-top: -5px;
+        &.new {
+          background: $new;
+          color: $white;
+        }
       }
     }
-    a{
+    a {
       font-size: 0.8rem;
       color: $primary;
       float: left;
       margin-left: 15px;
-    }:hover{
-      color: #4caf50;
     }
     ul.status {
       display: block;
@@ -52,7 +59,6 @@
         text-align: center;
         position: relative;
         svg {
-          margin: 15px 0;
           filter: drop-shadow(10px 0 5px $lbl-grey);
         }
         label {
@@ -61,62 +67,21 @@
         }
       }
     }
-    
-    ul.by {
-      //margin: 20px;
-      padding-top: 10px;
-      text-align: center;
-      .table-row{
-        width: 100%;
-        align-self: center;
-        label{
-        padding: 5px 20px 5px 20px;
-        border: 1px solid black;
-        text-align: center;
-        display: inline;
-      }
-      }
-      .table-head {
-        margin-top: 5px;
-        margin-bottom: 12px;
-        width: 100%;
-        align-self: center;
-        label{
-        padding: 5px 20px 5px 20px;
-        border: 1px solid black;
-        text-align: center;
-        width: 100%;
-      }
-      
-      }
-      li {
-        font-size: 0.9rem;
-        display: inline-block;
-        text-align: center;
+    table {
+      font-size: 0.9rem;
+      margin-top: 20px;
+      th,
+      td {
         padding: 5px;
-        padding-left: 30px;
+        text-align: left;
+        &:last-child {
+          text-align: right;
+        }
       }
-    }
-    .view-all{
-      float: right;
-      margin-right: 25px;
-      font-size: 0.8rem;
-      color: $primary;
-      margin-bottom: 20%;
-    }
-    .product div{
-      // border-radius: 5px;
-      display: flexbox;
-      padding: 3px;
-      // margin: 20px;
-      float: left;
-      //box-shadow: 0px 5px 10px -5px #aaaaaa;
-      border: 1px solid black;
     }
     .customer {
       border-radius: 5px;
-      padding: 5px;
-      margin: 20px;
+      padding: 10px;
       box-shadow: 0px 5px 10px -5px #aaaaaa;
       border: 1px solid #eee;
       div {
@@ -133,6 +98,27 @@
       .call {
         float: right;
         margin: 16px;
+      }
+    }
+  }
+  .sum-download {
+    margin: 0 10px;
+    .download {
+      padding: 10px 0;
+      float: left;
+      svg {
+        vertical-align: bottom;
+        path {
+          stroke: red;
+        }
+      }
+    }
+    .by {
+      font-size: 0.9rem;
+      padding: 10px 5px;
+      float: right;
+      svg {
+        vertical-align: bottom;
       }
     }
   }
@@ -155,7 +141,7 @@
         margin-left: 5px;
       }
       button {
-        margin: 15px;
+        margin: 0 15px;
         border-radius: 50%;
         label {
           display: block;
@@ -164,7 +150,6 @@
     }
   }
 }
-
 
 .order-list {
   border: 0.5px solid lightgrey;
