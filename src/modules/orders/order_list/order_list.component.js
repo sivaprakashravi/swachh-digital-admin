@@ -15,7 +15,7 @@ export const OrderList = (props) => {
                 </ul>
             </div>
             {
-                props.data.OrderStatus === 'Placed' &&
+                props.data.OrderStatus === 'New' &&
                 <div className="actions">
                 <button className="accept" onClick={() => props.update(props.data.Id,'Accept','')}>{t('ACCEPT')}</button>
                 <button className="reject" onClick={() => props.update(props.data.Id,'Reject','')}>{t('REJECT')}</button>

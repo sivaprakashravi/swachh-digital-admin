@@ -42,7 +42,7 @@ class Dashboard extends React.Component {
                 icon: <FcBullish size="35px" />
             }, {
                 label: 'STOREDESIGN',
-                route: '',
+                route: 'storeDesign',
                 icon: <FcIdea size="35px" />
             }, {
                 label: 'MORESERVICES',

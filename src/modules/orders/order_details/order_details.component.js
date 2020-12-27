@@ -4,15 +4,15 @@ import fetchservices from '../../../services/fetchsvc.service'
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import { FcCheckmark, FcCancel, FcShop, FcFeedIn, FcShipped, FcCallback, FcButtingIn, FcMoneyTransfer } from 'react-icons/fc';
 import { FaPhoneAlt, FaRupeeSign } from 'react-icons/fa';
+import { GrDocumentPdf } from 'react-icons/gr';
 import * as moment from 'moment';
 import { useState } from 'react';
-import OrderProducts from './order_products.component';
-import translate from '../../../locale/translate'
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 export const OrderDetails = (props) => {
-    const [isShowDetails, setShowDetails] = useState(false);
     const [reason, setReason] = useState('');
+    const [showreject,setShowReject] = useState(false);
     const [products, setProducts] = useState([]);
-    const toggle = React.useCallback(() => setShowDetails(!isShowDetails));
     const data = props.location.state;
     const { callBack } = props.location;
     const itemList = async () => {
@@ -22,38 +22,49 @@ export const OrderDetails = (props) => {
     React.useEffect(() => {
         itemList();
     }, [data]);
-    if(!data){
+    if (!data) {
         return null;
     };
+    const download = async () => {
+        const doc = new jsPDF();
+        doc.text(`Invoice - ${data.OrderId}`, 15, 10);
+        doc.autoTable({ html: '#invoice' });
+        doc.save(`${data.OrderId}.pdf`);
+    }
     return (
         <div className="order">
-            {/* <div className="reject-modal">
+           {/* { 
+             showreject ?
+           <div className="reject-modal">
             <ul>
                 <li>
                     <label>Reason for reject</label>
-                    <input type="text"/>
+                    <input type="text" value={reason} onChange={(text)=>setReason(text)}/>
                 </li>
                 <li>
-                    <button className="primary">Reject</button>
+                    <button className="primary" onClick={() => callBack(data.Id, "Reject", reason)}>Reject</button>
                 </li>
             </ul>
-            </div> */}
+            </div>
+            : 
+            null
+            } */}
             <div className="sub-header">
                 <RiArrowGoBackLine onClick={props.history.goBack} className="icon" size="22px" />
-                <label>{translate('ORDERDETAILS')}</label>
+                <label>Order Details <span>{data.OrderId}</span></label>
             </div>
             <div className="details">
-                <div className="order-id">
-                <label>{translate('ORDERID')} - {data.OrderId}</label>
-                <span>{moment(data.InvoiceDate).format('L')}</span>
+                <div className="order-date">
+                    Order placed on: {moment(data.InvoiceDate).format('L')}
+                    <label className="new">{data.OrderStatus}</label>
                 </div>
                 <ul className="status">
                     {/* <li><div><FcCheckmark size="35px" /></div></li>
                     <li><div><FcShop size="35px" /></div></li>
                     <li><div><FcFeedIn size="35px" /></div></li> */}
                     <li>
-                        <FcShipped size="100px" />
-                        <label>{data.OrderStatus}</label></li>
+                        <FcShipped size="80px" />
+                    </li>
                 </ul>
                 <div className="customer" >
                     <div><FcButtingIn size="50px" /></div>
@@ -61,27 +72,36 @@ export const OrderDetails = (props) => {
                     <FaPhoneAlt className="call" color="green" size="20px" />
                     <FcMoneyTransfer className="call" size="20px" />
                 </div>
-                <a href="">{translate('INVOICE')}</a>
-                <div onClick={toggle} className="view-all">{translate('VIEWALL')}<br/></div>
-                    <ul className="by">
-                        <li>{products.length} {translate('ITEMFOR')} <FaRupeeSign /> {data.TotalAmount}</li>
-                        {isShowDetails ?
-                        <div>
-                        <div className="table-head">
-                          <label>Product</label>
-                          <label>Quntatity</label>
-                          <label>Price</label>
-                        </div>
-         { products.map((x,index)=><OrderProducts data={x} key={index}/>)}
-         </div>
-                            : null}
-                    </ul> 
+                <div className="table">
+                    <table id="invoice">
+                        <thead>
+                            <tr className="table-head">
+                                <th>Product</th>
+                                <th>Nos</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {products.map((product, i) =>
+                                <tr key={`orders-${i}`}>
+                                    <td>{product.ProductDesc}</td>
+                                    <td>{product.Qty}</td>
+                                    <td>{product.UnitPrice}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div className="sum-download">
+                <div className="download" onClick={download}><GrDocumentPdf size="20px" /> Download</div>
+                <div className="by">{products.length} Item for <FaRupeeSign /> {data.TotalAmount}</div>
             </div>
             {
-                data.OrderStatus === 'Placed' &&
+                data.OrderStatus === 'New' &&
                 <div className="actions">
-                    <li><button onClick={() => callBack(data.Id, "Accept", '')}><FcCheckmark /><label>{translate('ACCEPT')}</label></button></li>
-                    <li><button onClick={() => callBack(data.Id, "Reject", '')}><FcCancel /><label>{translate('REJECT')}</label></button></li>
+                    <li><button onClick={() => callBack(data.Id, "Accept", '')}><FcCheckmark size="35px" /><label>Accept</label></button></li>
+                    <li><button onClick={() =>  callBack(data.Id, "Reject", reason)}><FcCancel size="35px" /><label>Reject</label></button></li>
                 </div>
             }
 
