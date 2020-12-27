@@ -2,13 +2,18 @@ import React from 'react';
 import '../order_screen.style.scss';
 import fetchservices from '../../../services/fetchsvc.service'
 import { RiArrowGoBackLine } from 'react-icons/ri';
-import { FcCheckmark, FcCancel, FcShop, FcFeedIn, FcShipped, FcCallback, FcButtingIn, FcMoneyTransfer } from 'react-icons/fc';
+import { FcExport, FcCheckmark, FcCancel, FcShop, FcFeedIn, FcShipped, FcCallback, FcHome, FcButtingIn, FcMoneyTransfer } from 'react-icons/fc';
+import { GiShoppingCart, } from 'react-icons/gi';
 import { FaPhoneAlt, FaRupeeSign } from 'react-icons/fa';
 import { GrDocumentPdf } from 'react-icons/gr';
+import {MdRemoveShoppingCart} from 'react-icons/md';
+import {FiTruck} from 'react-icons/fi';
 import * as moment from 'moment';
 import { useState } from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import ReactDOM from 'react-dom';
+import Toast from '../../../components/toast/toast.component';
 export const OrderDetails = (props) => {
     const [reason, setReason] = useState('');
     const [showreject,setShowReject] = useState(false);
@@ -30,6 +35,12 @@ export const OrderDetails = (props) => {
         doc.text(`Invoice - ${data.OrderId}`, 15, 10);
         doc.autoTable({ html: '#invoice' });
         doc.save(`${data.OrderId}.pdf`);
+    }
+    const updateOrder = async (Id, status, reason) => {
+        const msg = `Order ${status}!`;
+        await callBack(Id, status, reason);
+        ReactDOM.render(<Toast message={msg} />, document.getElementById('dom'));
+        props.history.push('orderlist');
     }
     return (
         <div className="order">
@@ -55,15 +66,19 @@ export const OrderDetails = (props) => {
             </div>
             <div className="details">
                 <div className="order-date">
-                    Order placed on: {moment(data.InvoiceDate).format('L')}
-                    <label className="new">{data.OrderStatus}</label>
+                    Order placed on: {moment(new Date(data.InvoiceDate)).format('L')}
+                    <label className={data.OrderStatus}>{data.OrderStatus}</label>
                 </div>
                 <ul className="status">
                     {/* <li><div><FcCheckmark size="35px" /></div></li>
                     <li><div><FcShop size="35px" /></div></li>
                     <li><div><FcFeedIn size="35px" /></div></li> */}
                     <li>
-                        <FcShipped size="80px" />
+                        {data.OrderStatus === 'New' && <FcExport color="orange" size="80px" />}
+                        {data.OrderStatus === 'Accepted' && <FcShop color="orange" size="80px" />}
+                        {data.OrderStatus === 'Rejected' && <FcCancel color="orange" size="80px" />}
+                        {data.OrderStatus === 'Shipped' && <FcShipped color="orange" size="80px" />}
+                        {data.OrderStatus === 'Delivered' && <FcHome color="orange" size="80px" />}
                     </li>
                 </ul>
                 <div className="customer" >
@@ -94,14 +109,28 @@ export const OrderDetails = (props) => {
                 </div>
             </div>
             <div className="sum-download">
-                <div className="download" onClick={download}><GrDocumentPdf size="20px" /> Download</div>
+                {(data.OrderStatus === 'Shipped' || data.OrderStatus === 'Delivered') && <div className="download" onClick={download}><GrDocumentPdf size="20px" /> Download</div>}
                 <div className="by">{products.length} Item for <FaRupeeSign /> {data.TotalAmount}</div>
             </div>
             {
                 data.OrderStatus === 'New' &&
                 <div className="actions">
-                    <li><button onClick={() => callBack(data.Id, "Accept", '')}><FcCheckmark size="35px" /><label>Accept</label></button></li>
-                    <li><button onClick={() =>  callBack(data.Id, "Reject", reason)}><FcCancel size="35px" /><label>Reject</label></button></li>
+                    <li><button onClick={() => updateOrder(data.Id, "Accepted", '')}><FcCheckmark size="35px" /><label>Accept</label></button></li>
+                    <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Reject</label></button></li>
+                </div>
+            }
+            {
+                data.OrderStatus === 'Accepted' &&
+                <div className="actions">
+                    <li><button onClick={() => updateOrder(data.Id, "Shipped", '')}><FcShipped size="35px" /><label>Ship</label></button></li>
+                    <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Cancel</label></button></li>
+                </div>
+            }
+            {
+                data.OrderStatus === 'Shipped' &&
+                <div className="actions">
+                    <li><button onClick={() => updateOrder(data.Id, "Delivered", '')}><FcCheckmark size="35px" /><label>Delivered</label></button></li>
+                    <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Reject</label></button></li>
                 </div>
             }
 

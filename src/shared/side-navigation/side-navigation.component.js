@@ -29,33 +29,85 @@ class SideNav extends React.Component {
                 label: 'ORDERS',
                 route: 'orderlist'
             }, {
-                label: 'MANAGESTAFF',
+                label: 'Manage Staff',
                 route: ''
-            }],
-            // }, {
-            //     label: 'Business Settings',
-            //     route: ''
-            // }],
-            subList: [{
-                label: 'BUSINESSSETUP',
-                route: 'businessSetup'
-            },
-            {
-                label: 'ACCOUNTPAGE',
-                route: 'myAccount'
-            },
-            {
-                label: 'USERMANAGEMENT',
-                route: 'userManage'
-            }
-            ],
-            storeSet: false
+            }, {
+                label: 'Store Setup',
+                route: '',
+                subMenu: [{
+                    label: 'Business Setup',
+                    route: 'businessSetup'
+                },
+                {
+                    label: 'My account page',
+                    route: 'myAccount'
+                },
+                {
+                    label: 'User management page',
+                    route: 'userManage'
+                }]
+            }, {
+                label: 'Business Settings',
+                route: ''
+            }]
         };
     }
 
+    componentDidMount() {
+        const { props } = this;
+        if (props && props.active && props.active.label) {
+            this.handleClick(props.active, true);
+        }
+    }
 
-    handleClick = (route) => {
-        this.props.history.push(route);
+    handleClick(l, noroute) {
+        const list = this.state.list.map(lt => {
+            lt.active = false;
+            if (lt.label === l.label && !lt.subMenu) {
+                lt.active = true;
+                if (!noroute) {
+                    this.props.toggle();
+                    this.props.selected(l);
+                    if (l && l.route) {
+                        this.props.history.push(l.route);
+                    }
+                }
+            }
+            else if (lt.label === l.label) {
+                l.active = true;
+                if (noroute) {
+                    l.toggle = true;
+                    lt = l;
+                } else {
+                    lt.toggle = !lt.toggle;
+                    this.props.selected(l);
+                }
+            }
+            return lt;
+        });
+        this.setState({ list });
+    }
+
+    handleSubClick(l, sub) {
+        const list = this.state.list.map(lt => {
+            lt.active = false;
+            if (lt.label === l.label) {
+                l.subMenu.map(sbt => {
+                    sbt.active = false;
+                    if (sbt.label === sub.label) {
+                        sbt.active = true;
+                        this.props.selected(l);
+                        this.props.toggle();
+                        if (sbt && sbt.route) {
+                            this.props.history.push(sbt.route);
+                        }
+                    }
+                    return sbt;
+                });
+            }
+            return lt;
+        });
+        this.setState({ list });
     }
 
     logout() {
@@ -78,32 +130,22 @@ class SideNav extends React.Component {
                     <IoMdClose className="close" size="26px" onClick={() => {
                         this.props.toggle();
                     }} style={{ margin: '6px 10px 0' }} />
-                    <ul>
+                    <ul className="main-nav">
                         {
-                            <ul>
-                                {
-                                    this.state.list.map(l => {
-                                        return <li onClick={() => {
-                                            this.props.toggle();
-                                            this.handleClick(l.route);
-                                        }} key={l.label} className={l.active ? 'active' : ''}>{translate(l.label)}</li>;
-                                    })}
-                            </ul>
-                        }
-                        <li onClick={() => this.setState({ storeSet: !this.state.storeSet })}>{translate('STORESETUP')}</li>
-                        <span className={this.state.storeSet ? 'subList' : 'none'} >
-                            {
-                                <>
-                                    {this.state.subList.map(l => {
-                                        return <li onClick={() => {
-                                            this.props.toggle();
-                                            this.handleClick(l.route);
-                                        }} key={l.label} className={l.active ? 'active' : ''}>{translate(l.label)}</li>;
-                                    })}
-                                </>
-                            }
-                        </span>
-
+                            this.state.list.map(l => {
+                                return <li onClick={() => { this.handleClick(l) }} key={l.label} className={l.active ? 'active' : ''}><label>{l.label} {l.toggle}</label>
+                                    {(l.subMenu && l.toggle) &&
+                                        <ul className="sub-nav">
+                                            {l.toggle}
+                                            {l.subMenu.map(sub => {
+                                                return <li onClick={() => {
+                                                    this.props.toggle();
+                                                    this.handleSubClick(l, sub);
+                                                }} key={sub.label} className={sub.active ? 'active' : ''}>{sub.label} {sub.active}</li>;
+                                            })}
+                                        </ul>}
+                                </li>;
+                            })}
                     </ul>
                     <footer>
                         <div onClick={() => this.logout()}><CgLogOff size="18px" />Logoff</div>

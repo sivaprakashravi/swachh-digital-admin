@@ -8,7 +8,8 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showNav: false
+            showNav: false,
+            activeNav: {}
         };
     }
 
@@ -21,7 +22,9 @@ class Header extends React.Component {
     toggleNav(self) {
         self.setState({ showNav: !self.state.showNav })
     }
-
+    updateNavSelection(e) {
+        this.setState({activeNav: e});
+    }
     render() {
         const self = this;
         const {StoreName} = self.state
@@ -33,7 +36,9 @@ class Header extends React.Component {
                         <IoMdMenu size="26px" onClick={() => { self.setState({ showNav: true }) }} style={{ margin: '6px 10px 0' }} />
                 }
                 <span>{translate("HIUSERNAME",{name:StoreName})} {self.state.showNav} </span>
-                {self.state.showNav ? <SideNav show={self.state.showNav} toggle={() => {
+                {self.state.showNav ? <SideNav selected={(e) => {
+                    self.updateNavSelection(e)
+                }} active={self.state.activeNav} show={self.state.showNav} toggle={() => {
                     self.toggleNav(self)
                 }} /> : null }
             </div>
