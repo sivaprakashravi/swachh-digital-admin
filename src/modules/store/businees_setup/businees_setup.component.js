@@ -72,7 +72,7 @@ export class BusinessSetupScreen extends React.Component {
                     </li>
                     <li>
                         <label>PhoneNbr:</label>
-                        <input type="text" value={PhoneNbr} onChange={(e) => { this.handleChange(e, 'PhoneNbr') }} />
+                        <input type="text" maxLength={12} value={PhoneNbr} onChange={(e) => { this.handleChange(e, 'PhoneNbr') }} />
                     </li>
                     <li>
                         <label>StoreAddress:</label>
@@ -80,7 +80,7 @@ export class BusinessSetupScreen extends React.Component {
                     </li>
                     <li>
                         <label>Pincode:</label>
-                        <input type="text" value={Pincode} onChange={(e) => { this.handleChange(e, 'Pincode') }} />
+                        <input type="text" maxLength={6} value={Pincode} onChange={(e) => { this.handleChange(e, 'Pincode') }} />
                     </li>
                     <li>
                         <label>GST Number:</label>

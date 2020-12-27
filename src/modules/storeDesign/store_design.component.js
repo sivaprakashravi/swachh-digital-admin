@@ -23,7 +23,7 @@ class Storedesign extends React.Component{
             <ul>
       {  this.state.services.map((x,index)=>{
             return(
-                <li className="item-view">
+                <li className="item-view" key={x.label}>
                    {x.icon}
                    <label>{x.label}</label>
                 </li>
