@@ -6,26 +6,27 @@ import { CgLogOff } from "react-icons/cg";
 import { withRouter } from "react-router-dom";
 import storage from '../../services/storage-manager.service';
 import session from '../../services/session-manger.service';
+import translate from '../../locale/translate'
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [{
-                label: 'Home',
+                label: 'HOME',
                 route: 'dashboard',
                 active: true
             }, {
-                label: 'Add Products',
+                label: 'ADDPRODUCT',
                 route: 'CreateProduct'
             }, {
-                label: 'Add Category',
+                label: 'ADDCATEGORY',
                 route: ''
             },
             {
-                label: 'Product List',
+                label: 'PRODUCTLIST',
                 route: 'productlist'
             }, {
-                label: 'Orders',
+                label: 'ORDERS',
                 route: 'orderlist'
             }, {
                 label: 'Manage Staff',

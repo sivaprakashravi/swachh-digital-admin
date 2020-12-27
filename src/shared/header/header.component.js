@@ -35,7 +35,7 @@ class Header extends React.Component {
                         <IoMdClose size="26px" onClick={() => { self.setState({ showNav: false }) }} style={{ margin: '6px 10px 0' }} /> :
                         <IoMdMenu size="26px" onClick={() => { self.setState({ showNav: true }) }} style={{ margin: '6px 10px 0' }} />
                 }
-                <span>{translate("text_user_name",{name:StoreName})} {self.state.showNav} </span>
+                <span>{translate("HIUSERNAME",{name:StoreName})} {self.state.showNav} </span>
                 {self.state.showNav ? <SideNav selected={(e) => {
                     self.updateNavSelection(e)
                 }} active={self.state.activeNav} show={self.state.showNav} toggle={() => {

@@ -9,6 +9,7 @@ import { DateRange } from 'react-date-range';
 import moment from 'moment';
 import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri';
 import storage from '../../../services/storage-manager.service';
+import t from '../../../locale/translate'
 export class OrderScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -71,7 +72,7 @@ export class OrderScreen extends React.Component {
         this.state.period === 'This week' && this.listFromApi({ "IsLastWeek": true })
     }
     noList() {
-        return (<div className="no-list"><label>No Orders Found</label></div>)
+        return (<div className="no-list"><label>{t('NOORDERS')}</label></div>)
     }
     render() {
         const self = this;
@@ -89,7 +90,7 @@ export class OrderScreen extends React.Component {
             <div className="orders">
                 <div className="sub-header">
                     <RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
-                    <label>Orders</label>
+                    <label>{t('ORDERS')}</label>
                     <RiFilterLine className="i-filter" size="22px" onClick={() => this.setState({ filter: !this.state.filter })} />
                 </div>
                 {this.state.filter ? <div className="filter">

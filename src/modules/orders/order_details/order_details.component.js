@@ -16,6 +16,7 @@ import ReactDOM from 'react-dom';
 import Toast from '../../../components/toast/toast.component';
 export const OrderDetails = (props) => {
     const [reason, setReason] = useState('');
+    const [showreject,setShowReject] = useState(false);
     const [products, setProducts] = useState([]);
     const data = props.location.state;
     const { callBack } = props.location;
@@ -43,17 +44,22 @@ export const OrderDetails = (props) => {
     }
     return (
         <div className="order">
-            {/* <div className="reject-modal">
+           {/* { 
+             showreject ?
+           <div className="reject-modal">
             <ul>
                 <li>
                     <label>Reason for reject</label>
-                    <input type="text"/>
+                    <input type="text" value={reason} onChange={(text)=>setReason(text)}/>
                 </li>
                 <li>
-                    <button className="primary">Reject</button>
+                    <button className="primary" onClick={() => callBack(data.Id, "Reject", reason)}>Reject</button>
                 </li>
             </ul>
-            </div> */}
+            </div>
+            : 
+            null
+            } */}
             <div className="sub-header">
                 <RiArrowGoBackLine onClick={props.history.goBack} className="icon" size="22px" />
                 <label>Order Details <span>{data.OrderId}</span></label>

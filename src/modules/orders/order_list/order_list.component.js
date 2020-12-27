@@ -2,7 +2,8 @@ import React from 'react';
 import '../order_screen.style.scss';
 import { IoIosArrowForward } from 'react-icons/io';
 import { BiEdit } from 'react-icons/bi';
-import { FcExternal, FcCancel, FcShop, FcShipped, FcHome } from 'react-icons/fc';
+import {FcExternal,FcShop,FcCancel,FcShipped,FcHome} from 'react-icons/fc'
+import t from '../../../locale/translate'
 export const OrderList = (props) => {
     return (
         <div className="order-list">
@@ -20,7 +21,7 @@ export const OrderList = (props) => {
                 </ul>
             </div>
             {
-                props.data.OrderStatus === 'Placed' &&
+                props.data.OrderStatus === 'New' &&
                 <div className="actions">
                     <button className="accept" onClick={() => props.update(props.data.Id, 'Accepted', '')}>Accept</button>
                     <button className="reject" onClick={() => props.update(props.data.Id, 'Rejected', '')}>Reject</button>

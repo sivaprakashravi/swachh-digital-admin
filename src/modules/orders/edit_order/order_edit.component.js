@@ -3,7 +3,8 @@ import './order_edit.style.scss';
 import SubHead from '../../../components/subHeader/subHeader.component';
 import fetchservices from '../../../services/fetchsvc.service';
 import {AiFillCheckCircle } from "react-icons/ai";
-
+import ReactDOM from 'react-dom';
+import Toast from '../../../components/toast/toast.component'
 export class OrderEditScreen extends React.Component {
     fileObj = [];
     fileArray = [];
@@ -17,18 +18,22 @@ export class OrderEditScreen extends React.Component {
             active: true,
             offerTog: false,
             Productlength:0,
-            accept:true,
-            shipped:false
+            accept:false,
+            shipped:false,
+            delivered:false,
+            placed:true,
+           link:"",
+           payment:'COD'
         }
     };
 
     componentDidMount() {
         const { OrderId, customer_name, amount, paymentType, paymentStatus, product_name, category,
-            items_count, invoice, CustomerEmail, tracking_link, CustomerPhone,
+            items_count, invoice, CustomerEmail,  CustomerPhone,OrderStatus,Id
         } = this.props.location.state;
         this.setState({
-            id: OrderId, customerName: customer_name, mobile: CustomerPhone, name: product_name, link: tracking_link
-            , invoice: invoice, price: amount, items: items_count, email: CustomerEmail
+            id: OrderId, customerName: customer_name, mobile: CustomerPhone, name: product_name
+            , invoice: invoice, price: amount, items: items_count, email: CustomerEmail,status:OrderStatus,DocId:Id
         });
         this.orderList()
     };
@@ -47,31 +52,23 @@ export class OrderEditScreen extends React.Component {
         this.setState({ [stateVariable]: event.target.value });
     };
 
-    categoryControl() {
-        return (
-            <ul>
-                <div className="input">
-                    <label >Choose a Payment status:</label>
-                </div>
-                <select id="status" name="status" onChange={(e) => this.handleChange(e, 'status')} className="drop-down">
-                    <option >Pending</option>
-                    <option >Processing</option>
-                    <option>Credited</option>
-                </select><br />
-                <div className="input">
-                    <label >Choose a Payment type:</label>
-                </div>
-                <select id="type" name="type" onChange={(e) => this.handleChange(e, 'type')} className="drop-down">
-                    <option >COD</option>
-                    <option >Online</option>
-                </select>
-            </ul>
-        )
-    };
-
+   async handleSubmit(){
+        try {
+            const data = {
+                "DocId" : this.state.DocId,
+                "TrackingLink" : this.state.link,
+                "OrderStatus" : this.state.status,
+                "PaymentType" : this.state.payment
+            };
+           const dataApi = await fetchservices.post('api/editOrder',data);
+           ReactDOM.render(<Toast message={dataApi.msg} />, document.getElementById('dom'));
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     inputController() {
-        const { name, id, price, link, customerName, mobile, Productlength,email, invoice } = this.state;
+        const { name, id, price, link, customerName, mobile, Productlength,email, invoice,status } = this.state;
         return (
             <div className="input">
                 <ul>
@@ -83,7 +80,7 @@ export class OrderEditScreen extends React.Component {
                         <label>tracking Link:</label>
                         <input type="text" value={link?? ''} onChange={(e) => { this.handleChange(e, 'link') }} />
                     </li>
-                    <li>
+                    {/* <li>
                         <label>Customer Name:</label>
                         <input type="text" value={customerName ?? ''} onChange={(e) => { this.handleChange(e, 'customerName') }} />
                     </li>
@@ -94,37 +91,39 @@ export class OrderEditScreen extends React.Component {
                     <li>
                         <label>Email:</label>
                         <input type="text" value={email??''} onChange={(e) => { this.handleChange(e, 'email') }} readOnly={true} />
-                    </li>
+                    </li> */}
                     <li>
                         <label>No.Of Items:</label>
                         <input type="text" value={Productlength}  readOnly={true} />
                     </li>
+                    <li>
+                    <label>Order Status:</label>
+                    </li>
                     <div className="option-view">
-                    <li className="options" onClick={() => this.setState({ accept: !this.state.accept })}>
-                                <AiFillCheckCircle color={this.state.accept ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                   {status === 'New' && <li className="options" >
+                                <AiFillCheckCircle color={this.state.placed ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <label style={{ marginBottom: 10 }}>New</label>
+                            </li>}
+                   {(status === 'New' || status === 'Accept') && <li className="options" onClick={() => this.setState({ accept: !this.state.accept,status:(this.state.accept ? null : 'Accept')})}>
+                                <AiFillCheckCircle color={(this.state.accept || status === 'Accept') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>Accept</label>
-                            </li>
-                            <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped })}>
-                                <AiFillCheckCircle color={this.state.shipped ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                            </li>}
+                            <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? null : 'Shipped') })}>
+                                <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label>shipped</label>
                             </li>
+                           {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li className="options" onClick={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? null :'Delivered') })}>
+                                <AiFillCheckCircle color={(this.state.delivered || status==='Delivered') ? '#3f51b5' : '#ccc'} size="1.5rem" />
+                                <label>Delivered</label>
+                            </li>}
                             </div>
-                    <li>
-                        <label>Order Status:</label>
-                        <select id="status" name="status" onChange={(e) => this.handleChange(e, 'status')} >
-                    <option >New</option>
-                    <option >Accept</option>
-                    <option>Shipped</option>
-                    <option>Delivered</option>
-                </select>
-                    </li>
                     <li>
                         <label>Payment type:</label>
                         <select id="status" name="status" defaultValue="COD" onChange={(e) => this.handleChange(e, 'payment')} >
-                    <option >COD</option>
+                    <option >COD(Cash on delivery)</option>
                 </select>
                     </li>
-                    <li><button className="primary" onClick={() => { }}>Save</button></li>
+                    <li><button className="primary" onClick={() => this.handleSubmit()}>Save</button></li>
                 </ul> 
             </div>
         )

@@ -6,45 +6,46 @@ import { FcPlus, FcLike, FcKey, FcPaid, FcButtingIn, FcBullish, FcServices, FcId
 import Carousel from 're-carousel';
 import IndicatorDots from './indicators';
 import storage from '../../services/storage-manager.service';
+import translate from '../../locale/translate';
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             showActions: true,
             services: [{
-                label: 'Add Products',
+                label: 'ADDPRODUCT',
                 route: 'CreateProduct',
                 icon: <FcPlus size="35px" />
             }, {
-                label: 'Offers',
+                label: 'OFFERS',
                 route: '',
                 icon: <FcLike size="35px" />
             }, {
-                label: 'Access management',
+                label: 'ACCESSMANAGEMENT',
                 route: '',
                 icon: <FcKey size="35px" />
             }, {
-                label: 'Orders',
+                label: 'ORDERS',
                 route: 'orderlist',
                 icon: <FcPaid size="35px" />
             }, {
-                label: 'Customers',
+                label: 'CUSTOMERS',
                 route: '',
                 icon: <FcButtingIn size="35px" />
             }, {
-                label: 'Store Setup',
+                label: 'STORESETUP',
                 route: '',
                 icon: <FcServices size="35px" />
             }, {
-                label: 'Reports',
+                label: 'REPORTS',
                 route: '',
                 icon: <FcBullish size="35px" />
             }, {
-                label: 'Store Design',
-                route: '',
+                label: 'STOREDESIGN',
+                route: 'storeDesign',
                 icon: <FcIdea size="35px" />
             }, {
-                label: 'More Services',
+                label: 'MORESERVICES',
                 route: '',
                 icon: <FcMultipleInputs size="35px" />
             }]
@@ -94,7 +95,7 @@ class Dashboard extends React.Component {
                 <ul>
                     {
                         this.state.services.map(s => {
-                            return <li key={s.label} onClick={() => this.props.history.push(s.route)}>{s.icon}<label>{s.label}</label></li>
+                            return <li key={s.label} onClick={() => this.props.history.push(s.route)}>{s.icon}<label>{translate(s.label)}</label></li>
                         })
                     }
                 </ul>
