@@ -28,6 +28,7 @@ select {
   border: none;
   border-bottom: 2px solid $border-grey;
   font-size: 1rem;
+  background: none;
   &:focus {
     border-bottom-color: $primary;
   }
