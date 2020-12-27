@@ -133,7 +133,7 @@ class SideNav extends React.Component {
                     <ul className="main-nav">
                         {
                             this.state.list.map(l => {
-                                return <li onClick={() => { this.handleClick(l) }} key={l.label} className={l.active ? 'active' : ''}><label>{l.label} {l.toggle}</label>
+                                return <li onClick={() => { this.handleClick(l) }} key={l.label} className={l.active ? 'active' : ''}><label>{l.label}</label>
                                     {(l.subMenu && l.toggle) &&
                                         <ul className="sub-nav">
                                             {l.toggle}
@@ -141,7 +141,7 @@ class SideNav extends React.Component {
                                                 return <li onClick={() => {
                                                     this.props.toggle();
                                                     this.handleSubClick(l, sub);
-                                                }} key={sub.label} className={sub.active ? 'active' : ''}>{sub.label} {sub.active}</li>;
+                                                }} key={sub.label} className={sub.active ? 'active' : ''}>{sub.label}</li>;
                                             })}
                                         </ul>}
                                 </li>;
