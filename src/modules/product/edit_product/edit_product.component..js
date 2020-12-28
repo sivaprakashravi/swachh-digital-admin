@@ -94,7 +94,7 @@ export class EditScreen extends React.Component {
       const { Imageurl } = this.props.location.state;
       if(Imageurl){
           console.log(Imageurl);
-         const name = Imageurl.split(/([!,?,/])/)
+         const name = Imageurl.split(/([!,?,/])/);
           const imgData = {
             "FileName" : name[14]
         }
