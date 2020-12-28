@@ -28,7 +28,7 @@ class Register extends React.Component {
     }
 
     validatePassword(pw) {
-        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
         return re.match(pw);
     }
 

@@ -1,7 +1,16 @@
 .user-manage {
   margin: 100px 0 55px;
-  button {
-    width: 100%;
-    margin-top: 10px;
-  }
+ .user-list{
+   margin: 10px;
+   display: flex;
+   padding: 10px;
+   border-bottom:1px solid lightgray;
+   label{
+    padding: 10px 0 0 20px;
+    display: block;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+   }
+ }
 }

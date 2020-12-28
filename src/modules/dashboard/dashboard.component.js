@@ -6,7 +6,7 @@ import { FcPlus, FcLike, FcKey, FcPaid, FcButtingIn, FcBullish, FcServices, FcId
 import Carousel from 're-carousel';
 import IndicatorDots from './indicators';
 import storage from '../../services/storage-manager.service';
-import translate from '../../locale/translate';
+import t from '../../locale/translate';
 class Dashboard extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
                 icon: <FcPlus size="35px" />
             }, {
                 label: 'OFFERS',
-                route: '',
+                route: 'productlist',
                 icon: <FcLike size="35px" />
             }, {
                 label: 'ACCESSMANAGEMENT',
@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
                 <ul>
                     {
                         this.state.services.map(s => {
-                            return <li key={s.label} onClick={() => this.props.history.push(s.route)}>{s.icon}<label>{translate(s.label)}</label></li>
+                            return <li key={s.label} onClick={() => this.props.history.push(s.route)}>{s.icon}<label>{t(s.label)}</label></li>
                         })
                     }
                 </ul>
