@@ -93,9 +93,10 @@ export class EditScreen extends React.Component {
         this.setState({ image: removedIndex }); 
       const { Imageurl } = this.props.location.state;
       if(Imageurl){
-          console.log(Imageurl.split('/'));
+          console.log(Imageurl);
+         const name = Imageurl.split(/([!,?,/])/)
           const imgData = {
-            "FileName" : "spectacles.jpg"
+            "FileName" : name[14]
         }
           const delImage = await fetchservices.post('api/deleteProdImage',imgData);
           console.log(delImage);
