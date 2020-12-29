@@ -20,7 +20,7 @@ export const OrderList = (props) => {
     return (
         <div className="order-list">
             <div className="list-view">
-                {renderModal()}
+                {renderModal(reason)}
                 <ul>
                     <li>
                         {props.data.OrderStatus === 'New' && <FcExternal color="orange" size="22px" />}

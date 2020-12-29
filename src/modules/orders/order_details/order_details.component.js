@@ -14,12 +14,13 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import ReactDOM from 'react-dom';
 import Toast from '../../../components/toast/toast.component';
+import ModalView from "../../../components/modal/modal.component";
 export const OrderDetails = (props) => {
     const [reason, setReason] = useState('');
     const [showreject, setShowReject] = useState(false);
     const [products, setProducts] = useState([]);
     const data = props.location.state;
-    const { callBack } = props.location;
+    const { callBack,rejModal } = props.location;
     const itemList = async () => {
         const items = await fetchservices.get(`api/getOrdersbyId/${data.Id}`);
         setProducts(items);
@@ -41,7 +42,17 @@ export const OrderDetails = (props) => {
         await callBack(Id, status, reason);
         ReactDOM.render(<Toast message={msg} />, document.getElementById('dom'));
         props.history.push('orderlist');
+    };
+    const renderModal = () => {
+        return (
+            <ModalView>
+                <label>Reason for reject</label>
+                <input type="text" onChange={(text) => setReason(text)} />
+                <button className="primary" onClick={() => props.update(props.data.Id, 'Rejected', reason)}>reject</button>
+            </ModalView>
+        )
     }
+    let modal = document.getElementById("myModal");
     return (
         <div className="order">
             {/* { 
@@ -64,6 +75,7 @@ export const OrderDetails = (props) => {
                 <RiArrowGoBackLine onClick={props.history.goBack} className="icon" size="22px" />
                 <label>Order Details <span>{data.OrderId}</span></label>
             </div>
+            {renderModal()}
             <div className="details">
                 <div className="order-date">
                     Order placed on: {moment(new Date(data.InvoiceDate)).format('L')}
@@ -126,13 +138,13 @@ export const OrderDetails = (props) => {
                     <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Cancel</label></button></li>
                 </div>
             }
-            {
-                data.OrderStatus === 'Shipped' &&
+            {/* {
+                data.OrderStatus === 'Shipped' && */}
                 <div className="actions">
                     <li><button onClick={() => updateOrder(data.Id, "Delivered", '')}><FcCheckmark size="35px" /><label>Delivered</label></button></li>
-                    <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Reject</label></button></li>
+                    <li><button onClick={() => modal.style.display = "block"}><FcCancel size="35px" /><label>Reject</label></button></li>
                 </div>
-            }
+            {/* } */}
 
         </div>
     )

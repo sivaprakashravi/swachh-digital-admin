@@ -108,10 +108,12 @@ export class OrderEditScreen extends React.Component {
                                 <AiFillCheckCircle color={(this.state.accept || status === 'Accept') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>Accept</label>
                             </li>}
+                           { (status === 'Accept' || status === 'Shipped' || status=== 'New')
+                                    &&
                             <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? null : 'Shipped') })}>
                                 <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label>shipped</label>
-                            </li>
+                            </li>}
                            {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li className="options" onClick={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? null :'Delivered') })}>
                                 <AiFillCheckCircle color={(this.state.delivered || status==='Delivered') ? '#3f51b5' : '#ccc'} size="1.5rem" />
                                 <label>Delivered</label>
