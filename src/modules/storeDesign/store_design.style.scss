@@ -1,17 +1,30 @@
 @import "./../../scss/definitions/variables.scss";
 
-.store-design{
-    margin: 55px 0px 55px;
-    .item-view{
-        display: flex;
-        padding: 20px;
-        margin: 0 10px 0 10px;
-        border-bottom: 0.5px solid lightgray;
-        label{
-            padding: 10px 0 0 20px;
-            display: block;
-            font-size: 1rem;
-        }
+.store-design {
+  margin: 50px 0;
+  .tabs {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 0.5px solid $lbl-grey;
+    > div {
+      text-align: center;
+      padding: 10px 0;
+      &:not(:last-child) {
+        border-right: 0.5px solid $lbl-grey;
+      }
+      svg {
+        vertical-align: middle;
+      }
+      label {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 5px;
+      }
+      &.active {
+        background: $lbl-grey;
+        color: $white;
+        fill: $white;
+      }
     }
-
+  }
 }
