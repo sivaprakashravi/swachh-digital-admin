@@ -5,7 +5,7 @@ class Radio extends Component {
   
      static defaultProps = {
         size: '22px',
-        color: '#3f51b5'
+        color: '#3d91ff'
      };
     render() {
         return (

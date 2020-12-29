@@ -13,7 +13,7 @@ class Toast extends Component {
     static defaultProps = {
         action: false,
         message: 'Toast Message',
-        background: '#3f51b5',
+        background: '#3d91ff',
         timeout: 5,
         color: '#fff'
     };

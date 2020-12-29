@@ -9,6 +9,16 @@ button {
     background: $primary;
     color: $white;
   }
+  &.secondary {
+    background: $secondary;
+    color: $dark;
+  }
+  &.min {
+    padding: 6px;
+  }
+  &.ml {
+    margin-left: 5px;
+  }
   &:disabled {
     background: $lbl-grey;
     cursor: not-allowed;

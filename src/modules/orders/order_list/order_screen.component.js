@@ -12,12 +12,17 @@ import storage from '../../../services/storage-manager.service';
 import t from '../../../locale/translate'
 export class OrderScreen extends React.Component {
     constructor(props) {
+        const defaultRange = { startDate: new Date(), endDate: new Date() };
         super(props);
         this.state = {
             filter: false,
             recent: true,
             detailed: false,
-            list: []
+            list: [],
+            dateSelection: {
+                selection: { range1: defaultRange},
+                defaults: defaultRange
+            }
         }
     }
 
@@ -54,22 +59,26 @@ export class OrderScreen extends React.Component {
         }
     }
 
-    async handleSelect(select, date) {
-        let startDate = moment(select.range1.startDate).format('DD-MM-YYYY');
-        let endDate = moment(date.endDate).format('DD-MM-YYYY');
-        console.log(startDate, endDate)
-        this.listFromApi({
-            "FromDate": startDate,
-            "ToDate": endDate,
-            "IsCustomDate": true
-        })
-        await this.setState({ filter: false })
+    handleSelect(selection, defaults) {
+        this.setState({ dateSelection: { selection, defaults } });
     }
 
-    async handleChange(event, stateVariable) {
-        await this.setState({ [stateVariable]: event.target.value });
-        this.state.period === 'Today' && this.listFromApi({ "IsCurrentDate": true })
-        this.state.period === 'This week' && this.listFromApi({ "IsLastWeek": true })
+    handleChange(event, stateVariable) {
+        this.setState({ [stateVariable]: event.target.value });
+    }
+
+    applyFilter() {
+        if (this.state.recent) {
+            this.state.period === 'Today' && this.listFromApi({ "IsCurrentDate": true });
+            this.state.period === 'This week' && this.listFromApi({ "IsLastWeek": true });
+        } else {
+            this.listFromApi({
+                "FromDate": this.state.dateSelection.selection.range1.startDate,
+                "ToDate": this.state.dateSelection.selection.range1.endDate,
+                "IsCustomDate": true
+            });
+        }        
+        this.setState({ filter: false });
     }
     noList() {
         return (<div className="no-list"><label>{t('NOORDERS')}</label></div>)
@@ -103,18 +112,30 @@ export class OrderScreen extends React.Component {
                             } /></li>
                     </ul>
                     {self.state.recent ?
-                        <select onChange={(e) => this.handleChange(e, 'period')}>
-                            <option>Today</option>
-                            <option>This week</option>
-                            <option>This month</option>
-                        </select>
+                        <div>
+                            <select onChange={(e) => this.handleChange(e, 'period')}>
+                                <option>Today</option>
+                                <option>This week</option>
+                                <option>This month</option>
+                            </select>
+                            <select>
+                                <option>New</option>
+                                <option>Accepted</option>
+                                <option>Rejected</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                            </select>
+                        </div>
                         :
                         <div className="dp"><DateRange
                             onChange={(select) => self.handleSelect(select, dateSelection)}
-                            ranges={[dateSelection]}
+                            ranges={[this.state.dateSelection.selection.range1]}
                             maxDate={new Date()}
+                            moveRangeOnFirstSelection={false}
                         /></div>
                     }
+                    <button className="secondary min" onClick={() => this.setState({ filter: false })}>Cancel</button>
+                    <button className="primary min ml" onClick={() => this.applyFilter()}>Apply</button>
                 </div> : null}
                 <div className="list">
                     {listMap}
