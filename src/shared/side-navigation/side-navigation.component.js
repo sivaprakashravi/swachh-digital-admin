@@ -6,7 +6,7 @@ import { CgLogOff } from "react-icons/cg";
 import { withRouter } from "react-router-dom";
 import storage from '../../services/storage-manager.service';
 import session from '../../services/session-manger.service';
-import translate from '../../locale/translate'
+import t from '../../locale/translate'
 class SideNav extends React.Component {
     constructor(props) {
         super(props);
@@ -29,25 +29,25 @@ class SideNav extends React.Component {
                 label: 'ORDERS',
                 route: 'orderlist'
             }, {
-                label: 'Manage Staff',
+                label: 'MANAGESTAFF',
                 route: ''
             }, {
-                label: 'Store Setup',
+                label: 'STORESETUP',
                 route: '',
                 subMenu: [{
-                    label: 'Business Setup',
+                    label: 'BUSINESSSETUP',
                     route: 'businessSetup'
                 },
                 {
-                    label: 'My account page',
+                    label: 'ACCOUNTPAGE',
                     route: 'myAccount'
                 },
                 {
-                    label: 'User management page',
+                    label: 'USERMANAGEMENT',
                     route: 'userManage'
                 }]
             }, {
-                label: 'Business Settings',
+                label: 'BUSINESSETTINGS',
                 route: ''
             }]
         };
@@ -133,7 +133,7 @@ class SideNav extends React.Component {
                     <ul className="main-nav">
                         {
                             this.state.list.map(l => {
-                                return <li onClick={() => { this.handleClick(l) }} key={l.label} className={l.active ? 'active' : ''}><label>{l.label}</label>
+                                return <li onClick={() => { this.handleClick(l) }} key={l.label} className={l.active ? 'active' : ''}><label>{t(l.label)} {l.toggle}</label>
                                     {(l.subMenu && l.toggle) &&
                                         <ul className="sub-nav">
                                             {l.toggle}
@@ -141,7 +141,7 @@ class SideNav extends React.Component {
                                                 return <li onClick={() => {
                                                     this.props.toggle();
                                                     this.handleSubClick(l, sub);
-                                                }} key={sub.label} className={sub.active ? 'active' : ''}>{sub.label}</li>;
+                                                }} key={sub.label} className={sub.active ? 'active' : ''}>{t(sub.label)} {sub.active}</li>;
                                             })}
                                         </ul>}
                                 </li>;

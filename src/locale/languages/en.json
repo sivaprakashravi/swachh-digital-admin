@@ -31,7 +31,8 @@
          "MANAGESTAFF":"Manage Staff",
          "BUSINESSSETUP": "Business Setup",
          "ACCOUNTPAGE":"My Account",
-         "USERMANAGEMENT":"User Management"
+         "USERMANAGEMENT":"User Management",
+         "BUSINESSETTINGS":"Business Settings"
         
 
 }

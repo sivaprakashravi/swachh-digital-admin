@@ -1,11 +1,12 @@
 import React from 'react';
 import './edit_product.style.scss';
-import register from "../../../services/fetchsvc.service";
+import fetchservices from "../../../services/fetchsvc.service";
 import Radio from '../../../components/radio_button/radio.component';
 import { AiFillPicture, AiFillCamera, AiFillCheckCircle } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import storage from '../../../services/storage-manager.service';
+
 export class EditScreen extends React.Component {
     //static contextType = AuthContext
     fileObj = [];
@@ -38,7 +39,7 @@ export class EditScreen extends React.Component {
     async getCategories() {
         const store = await storage.get('storeUser');
         const { StoreId } = store;
-        const category = await register.get(`api/getCategories/${StoreId}`);
+        const category = await fetchservices.get(`api/getCategories/${StoreId}`);
         this.setState({ categories: category.Category, subCategories: category.SubCategory })
     }
 
@@ -81,14 +82,28 @@ export class EditScreen extends React.Component {
 
             })
             .catch(error => console.log('error', error));
-        // const data = await register.uploadImage('uploadFile',formData);
+        // const data = await fetchservices.uploadImage('uploadFile',formData);
         //    this.setState({imageUrl:data}) 
     };
 
-    removeImage(index) {
+   async removeImage(index) {
+       try {
         const images = this.state.image;
         const removedIndex = images.filter((im, i) => i !== index);
-        this.setState({ image: removedIndex });
+        this.setState({ image: removedIndex }); 
+      const { Imageurl } = this.props.location.state;
+      if(Imageurl){
+          console.log(Imageurl);
+         const name = Imageurl.split(/([!,?,/])/);
+          const imgData = {
+            "FileName" : name[14]
+        }
+          const delImage = await fetchservices.post('api/deleteProdImage',imgData);
+          console.log(delImage);
+      }
+       } catch (error) {
+         console.log(error);
+       }
     };
 
     categoryControls() {

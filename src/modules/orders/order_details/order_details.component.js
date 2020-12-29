@@ -6,8 +6,8 @@ import { FcExport, FcCheckmark, FcCancel, FcShop, FcFeedIn, FcShipped, FcCallbac
 import { GiShoppingCart, } from 'react-icons/gi';
 import { FaPhoneAlt, FaRupeeSign } from 'react-icons/fa';
 import { GrDocumentPdf } from 'react-icons/gr';
-import {MdRemoveShoppingCart} from 'react-icons/md';
-import {FiTruck} from 'react-icons/fi';
+import { MdRemoveShoppingCart } from 'react-icons/md';
+import { FiTruck } from 'react-icons/fi';
 import * as moment from 'moment';
 import { useState } from 'react';
 import jsPDF from 'jspdf';
@@ -16,7 +16,7 @@ import ReactDOM from 'react-dom';
 import Toast from '../../../components/toast/toast.component';
 export const OrderDetails = (props) => {
     const [reason, setReason] = useState('');
-    const [showreject,setShowReject] = useState(false);
+    const [showreject, setShowReject] = useState(false);
     const [products, setProducts] = useState([]);
     const data = props.location.state;
     const { callBack } = props.location;
@@ -44,7 +44,7 @@ export const OrderDetails = (props) => {
     }
     return (
         <div className="order">
-           {/* { 
+            {/* { 
              showreject ?
            <div className="reject-modal">
             <ul>
