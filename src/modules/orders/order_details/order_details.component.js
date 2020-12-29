@@ -138,13 +138,13 @@ export const OrderDetails = (props) => {
                     <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Cancel</label></button></li>
                 </div>
             }
-            {/* {
-                data.OrderStatus === 'Shipped' && */}
+            {
+                data.OrderStatus === 'Shipped' &&
                 <div className="actions">
                     <li><button onClick={() => updateOrder(data.Id, "Delivered", '')}><FcCheckmark size="35px" /><label>Delivered</label></button></li>
                     <li><button onClick={() => modal.style.display = "block"}><FcCancel size="35px" /><label>Reject</label></button></li>
                 </div>
-            {/* } */}
+            }
 
         </div>
     )
