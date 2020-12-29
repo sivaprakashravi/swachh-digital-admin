@@ -260,11 +260,11 @@ export class EditScreen extends React.Component {
                                 <input type="text" value={maxQty || ''} onChange={(e) => { this.handleChange(e, 'maxQty') }} readOnly={readCheck} />
                             </li>
                             <li className="options" onClick={() => this.setState({ active: !this.state.active })}>
-                                <AiFillCheckCircle color={this.state.active ? '#3d91ff' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={this.state.active ? '#0984e3' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>IsActive</label>
                             </li>
                             <li className="options" onClick={() => this.setState({ offerTog: !this.state.offerTog })}>
-                                <AiFillCheckCircle color={this.state.offerTog ? '#3d91ff' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={this.state.offerTog ? '#0984e3' : '#ccc'} size="1.5rem" />
                                 <label>IsOffer</label>
                             </li>
                             <li style={{ display: this.state.offerTog ? "inline" : "none" }}>

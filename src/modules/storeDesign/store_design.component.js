@@ -1,24 +1,26 @@
 import React from 'react';
 import './store_design.style.scss';
-import { MdPhonelinkSetup, MdColorLens } from 'react-icons/md'
+import { MdPhonelinkSetup, MdColorLens, MdCheck } from 'react-icons/md';
 class Storedesign extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            theme: '#0984e3',
             tabs: [{
                 label: 'Page',
                 route: '',
                 icon: <MdPhonelinkSetup size="24px" />,
-                view: this.pageDesign,
-                enabled: true
+                view: () => this.pageDesign(),
+                enabled: false
             },
             {
                 label: 'Theme',
                 route: '',
                 icon: <MdColorLens size="24px" />,
-                view: this.themeDesign,
-                enabled: false
-            }]
+                view: () => this.themeDesign(),
+                enabled: true
+            }],
+            themes: ['#0984e3', '#ff7675', '#6c5ce7', '#fdcb6e', '#00b894', '#00cec9']
         }
     };
 
@@ -50,13 +52,20 @@ class Storedesign extends React.Component {
 
     pageDesign() {
         return (
-            <div>page design</div>
+            <div className="page">page design</div>
         )
     }
 
     themeDesign() {
         return (
-            <div>theme design</div>
+            <div className="theme">
+                <h6>Select a theme for your store</h6>
+                <ul>
+                    {this.state.themes.map(t => {
+                        return <li onClick={() => this.setState({theme: t})} key={t} style={{background: t}}>{this.state.theme === t ? <MdCheck fill="#fff" size="25px"/> : null}</li>
+                    })}
+                </ul>
+            </div>
         )
     }
 
@@ -70,6 +79,10 @@ class Storedesign extends React.Component {
             <div className="store-design">
                 {this.tab()}
                 {this.design()}
+                <div className="actions">
+                    <button className="secondary">Cancel</button>
+                    <button className="primary">Save</button>
+                </div>
             </div>
         )
     }

@@ -5,7 +5,7 @@ import { VscLoading } from "react-icons/vsc";
 class Loader extends Component {
     static defaultProps = {
         size: '22px',
-        color: '#3d91ff'
+        color: '#0984e3'
     };
     render() {
         return (

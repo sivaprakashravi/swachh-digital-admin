@@ -101,21 +101,21 @@ export class OrderEditScreen extends React.Component {
                     </li>
                     <div className="option-view">
                    {status === 'New' && <li className="options" >
-                                <AiFillCheckCircle color={this.state.placed ? '#3d91ff' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={this.state.placed ? '#0984e3' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>New</label>
                             </li>}
                    {(status === 'New' || status === 'Accept') && <li className="options" onClick={() => this.setState({ accept: !this.state.accept,status:(this.state.accept ? null : 'Accept')})}>
-                                <AiFillCheckCircle color={(this.state.accept || status === 'Accept') ? '#3d91ff' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={(this.state.accept || status === 'Accept') ? '#0984e3' : '#ccc'} size="1.5rem" />
                                 <label style={{ marginBottom: 10 }}>Accept</label>
                             </li>}
                            { (status === 'Accept' || status === 'Shipped' || status=== 'New')
                                     &&
                             <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? null : 'Shipped') })}>
-                                <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#3d91ff' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#0984e3' : '#ccc'} size="1.5rem" />
                                 <label>Shipped</label>
                             </li>}
                            {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li className="options" onClick={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? null :'Delivered') })}>
-                                <AiFillCheckCircle color={(this.state.delivered || status==='Delivered') ? '#3d91ff' : '#ccc'} size="1.5rem" />
+                                <AiFillCheckCircle color={(this.state.delivered || status==='Delivered') ? '#0984e3' : '#ccc'} size="1.5rem" />
                                 <label>Delivered</label>
                             </li>}
                             </div>

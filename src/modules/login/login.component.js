@@ -85,7 +85,7 @@ class Login extends React.Component {
                 </li>
                 <li><span onClick={() => {
                     self.setState({ rememberMe: !self.state.rememberMe })
-                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={self.state.rememberMe ? '#3d91ff' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
+                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={self.state.rememberMe ? '#0984e3' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
                 <li><button className="primary" disabled={!(self.state.username && self.state.password)}
                     onClick={() => self.doLogin()}>Login</button></li>
                 <li className="sign-up">Don't have an account? <label onClick={() => self.props.history.push('register')}>Sign up</label></li>
