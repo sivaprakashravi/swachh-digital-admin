@@ -77,7 +77,7 @@ export class OrderEditScreen extends React.Component {
                         <input type="text" value={id??''}  readOnly={true} />
                     </li>
                     <li>
-                        <label>tracking Link:</label>
+                        <label>Tracking Link:</label>
                         <input type="text" value={link?? ''} onChange={(e) => { this.handleChange(e, 'link') }} />
                     </li>
                     {/* <li>
@@ -112,7 +112,7 @@ export class OrderEditScreen extends React.Component {
                                     &&
                             <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? null : 'Shipped') })}>
                                 <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#3f51b5' : '#ccc'} size="1.5rem" />
-                                <label>shipped</label>
+                                <label>Shipped</label>
                             </li>}
                            {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li className="options" onClick={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? null :'Delivered') })}>
                                 <AiFillCheckCircle color={(this.state.delivered || status==='Delivered') ? '#3f51b5' : '#ccc'} size="1.5rem" />

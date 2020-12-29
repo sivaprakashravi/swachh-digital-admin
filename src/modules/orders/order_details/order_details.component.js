@@ -48,7 +48,7 @@ export const OrderDetails = (props) => {
             <ModalView>
                 <label>Reason for reject</label>
                 <input type="text" onChange={(text) => setReason(text)} />
-                <button className="primary" onClick={() => props.update(props.data.Id, 'Rejected', reason)}>reject</button>
+                <button className="primary" onClick={() => updateOrder(data.Id, "Rejected", reason)}>reject</button>
             </ModalView>
         )
     }
@@ -128,14 +128,14 @@ export const OrderDetails = (props) => {
                 data.OrderStatus === 'New' &&
                 <div className="actions">
                     <li><button onClick={() => updateOrder(data.Id, "Accepted", '')}><FcCheckmark size="35px" /><label>Accept</label></button></li>
-                    <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Reject</label></button></li>
+                    <li><button onClick={() => modal.style.display = "block"}><FcCancel size="35px" /><label>Reject</label></button></li>
                 </div>
             }
             {
                 data.OrderStatus === 'Accepted' &&
                 <div className="actions">
                     <li><button onClick={() => updateOrder(data.Id, "Shipped", '')}><FcShipped size="35px" /><label>Ship</label></button></li>
-                    <li><button onClick={() => updateOrder(data.Id, "Rejected", '')}><FcCancel size="35px" /><label>Cancel</label></button></li>
+                    <li><button onClick={() => modal.style.display = "block"}><FcCancel size="35px" /><label>Cancel</label></button></li>
                 </div>
             }
             {

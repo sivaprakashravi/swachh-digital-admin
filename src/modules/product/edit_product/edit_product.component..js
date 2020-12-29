@@ -248,7 +248,7 @@ export class EditScreen extends React.Component {
                                 <input type="text" value={taxRate || ''} onChange={(e) => { this.handleChange(e, 'taxRate') }} readOnly={readCheck} />
                             </li>
                             <li>
-                                <label>shipping rate:</label>
+                                <label>Shipping rate:</label>
                                 <input type="text" value={shippingRate || ''} onChange={(e) => { this.handleChange(e, 'shippingRate') }} readOnly={readCheck} />
                             </li>
                             <li>
