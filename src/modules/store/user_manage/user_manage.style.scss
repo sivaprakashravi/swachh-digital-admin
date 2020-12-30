@@ -16,5 +16,18 @@
 }
 
 .user-detail{
-  margin: 55px 0 55px;
+  margin: 100px 0 55px;
+  ul {
+    li {
+      display: block;
+      margin: 0 10px 10px 10px;
+      position: relative;
+      label {
+        display: inline-block;
+        vertical-align: super;
+        margin-left: 2px;
+        color: grey;
+      }
+    }
+  }
 }

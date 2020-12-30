@@ -1,6 +1,6 @@
 import React from 'react';
 import './user_manage.style.scss';
-import Subheader from '../../../components/subHeader'
+import Subheader from '../../../components/subHeader/subHeader.component';
 
 const Userdetail =(props)=>{
     return(
@@ -8,19 +8,19 @@ const Userdetail =(props)=>{
             <Subheader header={"User Details"} callBack={props.history.goBack}/>
             <ul>
                 <li>
-                    <label>User name</label>
+                    <label>User name :</label>
                     <input type="text"/>
                 </li>
                 <li>
-                    <label>Role</label>
+                    <label>Role :</label>
                     <input type="text"/>
                 </li>
                 <li>
-                    <label>Phone</label>
+                    <label>Phone :</label>
                     <input type="text"/>
                 </li>
                 <li>
-                    <label>Email</label>
+                    <label>Email :</label>
                     <input type="text"/>
                 </li>
             </ul>
