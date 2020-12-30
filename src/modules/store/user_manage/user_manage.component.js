@@ -25,7 +25,7 @@ export class UserManageScreen extends React.Component {
         return(
             <div className="user-list" key={x.user}>
                 <FcDebt size="25px"/>
-              <label onClick={() => { }} >{x.user}</label><br/>
+              <label onClick={() => this.props.history.push('usersDetail')} >{x.user}</label><br/>
             </div>
         ) 
         })

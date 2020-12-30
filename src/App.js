@@ -16,7 +16,8 @@ import { OrderEditScreen } from "./modules/orders/edit_order/order_edit.componen
 import { BusinessSetupScreen } from './modules/store/businees_setup/businees_setup.component';
 import { MyaccountScreen } from './modules/store/account/my_account.component';
 import { UserManageScreen } from './modules/store/user_manage/user_manage.component';
-import Storedesign from './modules/storeDesign/store_design.component'
+import Storedesign from './modules/storeDesign/store_design.component';
+import UsersDetail from './modules/store/user_manage/user_details.component';
 import { AuthContext } from './modules/utils/auth-context';
 import Loader from './components/loader/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
@@ -51,6 +52,7 @@ function App(e) {
           <Route path="/myAccount" component={MyaccountScreen} />
           <Route path="/userManage" component={UserManageScreen} />
           <Route path="/storeDesign" component={Storedesign} />
+          <Route path="/usersDetail" component={UsersDetail} />
         </Switch>
         {showHeader(e.location.pathname) ? <BottomNav nav={e.history}/> : null}
         {promiseInProgress ? <Loader /> : null}
