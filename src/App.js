@@ -29,6 +29,11 @@ function showHeader(route) {
   return (has && has.length) ? false : true;
 }
 
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady() {
+    console.log(navigator.camera);
+}
+
 function App(e) {
   const { promiseInProgress } = usePromiseTracker();
   return (
