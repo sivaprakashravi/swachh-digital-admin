@@ -1,2 +1,19 @@
-@import "./../../scss/definitions/variables.scss";
+@import "./../../../scss/definitions/variables.scss";
+
+.page{
+    ul{
+        li{
+            margin-top: 10px;
+            label{
+                display: block;
+                color:gray;
+            }
+            textarea{
+                width: 100%;
+                height: 100px;
+                margin-top: 10px;
+            }
+        }
+    }
+}
 

@@ -4,7 +4,8 @@ import SubHead from '../../../components/subHeader/subHeader.component';
 import fetchservices from '../../../services/fetchsvc.service';
 import {AiFillCheckCircle } from "react-icons/ai";
 import ReactDOM from 'react-dom';
-import Toast from '../../../components/toast/toast.component'
+import Toast from '../../../components/toast/toast.component';
+import Radio from '../../../components/radio_button/radio.component';
 export class OrderEditScreen extends React.Component {
     fileObj = [];
     fileArray = [];
@@ -100,23 +101,20 @@ export class OrderEditScreen extends React.Component {
                     <label>Order Status:</label>
                     </li>
                     <div className="option-view">
-                   {status === 'New' && <li className="options" >
-                                <AiFillCheckCircle color={this.state.placed ? '#0984e3' : '#ccc'} size="1.5rem" />
-                                <label style={{ marginBottom: 10 }}>New</label>
+                   {status === 'New' && <li>
+                   <Radio label="New" checked={true} />
                             </li>}
-                   {(status === 'New' || status === 'Accept') && <li className="options" onClick={() => this.setState({ accept: !this.state.accept,status:(this.state.accept ? null : 'Accept')})}>
-                                <AiFillCheckCircle color={(this.state.accept || status === 'Accept') ? '#0984e3' : '#ccc'} size="1.5rem" />
-                                <label style={{ marginBottom: 10 }}>Accept</label>
+                   {(status === 'New' || status === 'Accepted') && <li  onClick={() => {}}>
+                   <Radio label="Accepted" checked={this.state.accept} onChange={() => this.setState({ accept: !this.state.accept,status:(this.state.accept ? null : 'Accepted')})}/>
                             </li>}
                            { (status === 'Accept' || status === 'Shipped' || status=== 'New')
                                     &&
-                            <li className="options" onClick={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? null : 'Shipped') })}>
-                                <AiFillCheckCircle color={(this.state.shipped || status === 'Shipped') ? '#0984e3' : '#ccc'} size="1.5rem" />
-                                <label>Shipped</label>
+                            <li>
+                                <Radio label="Shipped" checked={(this.state.shipped || status === 'Shipped') ? true : false} onChange={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? this.state.status : 'Shipped') })} />
+                              
                             </li>}
-                           {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li className="options" onClick={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? null :'Delivered') })}>
-                                <AiFillCheckCircle color={(this.state.delivered || status==='Delivered') ? '#0984e3' : '#ccc'} size="1.5rem" />
-                                <label>Delivered</label>
+                           {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li  >
+                           <Radio label="Delivered" checked={(this.state.delivered || status=== 'Delivered')? true : false} onChange={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? this.state.status : 'Delivered')})}/>   
                             </li>}
                             </div>
                     <li>
