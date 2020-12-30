@@ -1,6 +1,7 @@
 import React from 'react';
 import './store_design.style.scss';
 import { MdPhonelinkSetup, MdColorLens, MdCheck } from 'react-icons/md';
+import Pagescreen from './page/page.component'
 class Storedesign extends React.Component {
     constructor(props) {
         super(props);
@@ -52,7 +53,7 @@ class Storedesign extends React.Component {
 
     pageDesign() {
         return (
-            <div className="page">page design</div>
+            <Pagescreen/>
         )
     }
 

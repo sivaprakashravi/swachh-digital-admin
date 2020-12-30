@@ -57,7 +57,7 @@ function App(e) {
           <Route path="/userManage" component={UserManageScreen} />
           <Route path="/storeDesign" component={Storedesign} />
         </Switch>
-        {showHeader(e.location.pathname) ? <BottomNav /> : null}
+        {showHeader(e.location.pathname) ? <BottomNav nav={e.history}/> : null}
         {promiseInProgress ? <Loader /> : null}
         </LocalProvider>
       </AuthContext.Provider>
