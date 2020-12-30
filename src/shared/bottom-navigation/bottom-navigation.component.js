@@ -7,7 +7,7 @@ class BottomNav extends React.Component {
         this.state = {
             list: [{
                 label: 'Home',
-                route: '/',
+                route: 'dashboard',
                 icon: <FcHome size="22px" />,
                 active: true
             }, {
@@ -16,15 +16,15 @@ class BottomNav extends React.Component {
                 icon: <FcList size="22px" />
             }, {
                 label: 'Store Services',
-                route: '/',
+                route: 'businessSetup',
                 icon: <FcServices size="22px" />
             }, {
                 label: 'Orders',
-                route: '/',
+                route: 'orderlist',
                 icon: <FcPaid size="22px" />
             }, {
                 label: 'Offers',
-                route: '/',
+                route: 'productlist',
                 icon: <FcLike size="22px" />
             }]
         };
@@ -36,7 +36,7 @@ class BottomNav extends React.Component {
                 <ul>
                     {
                         this.state.list.map((l, i) => {
-                            return <li key={l.icon + i}>{l.icon}</li>
+                            return <li key={l.icon + i} onClick={() => this.props.nav.push(l.route)}>{l.icon}</li>
                         })
                     }
                 </ul>
