@@ -13,6 +13,7 @@
     padding: 5px 10px;
     svg {
       margin-top: 5px;
+      fill: $white;
     }
     label {
       display: inline-block;
@@ -23,6 +24,17 @@
     }
     &:last-child {
       margin-left: 4px;
+    }
+    &.full {
+      margin: 0 0 15px 0;
+      background: none;
+      color: $primary;
+      svg {
+        fill: $primary;
+      }
+      label {
+        color: $primary;
+      }
     }
     input {
       opacity: 0;

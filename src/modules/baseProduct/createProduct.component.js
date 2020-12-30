@@ -155,24 +155,54 @@ class CreateProduct extends React.Component {
     uploadImage() {
         return (
             <div>
-                <div className="image-container">
-                    {this.state.image && this.state.image.length ?
-                        this.state.image.map((image, i) => {
-                            return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                {this.state.image && this.state.image.length ? <div className="image-container">
+                    {this.state.image.map((image, i) => {
+                        return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                        </div>
+                    })}
+                </div> :
+                    <div>
+                        <div className={(navigator && navigator.camera) ? 'image-placeholder' : 'image-placeholder full'}>
+                            <input type="file" multiple={false} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
+                            <AiFillPicture size="24px" />
+                            <label>Select Images</label>
+                        </div>
+                        {
+                            (navigator && navigator.camera) &&
+                            <div className="camera-placeholder" onClick={() => this.capture()}>
+                                <AiFillCamera size="24px" />
+                                <label>Capture Image</label>
                             </div>
-                        }) : null}
-                </div>
-                <div className="image-placeholder">
-                    <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
-                    <AiFillPicture size="24px" color="#fff" />
-                    <label>Select Images</label>
-                </div>
-                <div className="camera-placeholder">
-                    <AiFillCamera size="24px" color="#fff" />
-                    <label>Capture Image</label>
-                </div>
+                        }
+                    </div>}
+
             </div>
         )
+    }
+
+    capture() {
+        const self = this;
+        console.log(self + 'camera opened');
+        var cameraCallback = function (imageData) {
+            console.log('captured');
+            fetch("data:image/jpeg;base64," + imageData)
+                .then(res => res.blob())
+                .then(blob => {
+                    self.fileArray = [URL.createObjectURL(blob)];
+                    self.setState({ image: self.fileArray });
+                });
+        }
+
+        var cameraError = function (imageData) {
+            console.log('error');
+            var image = document.getElementById('myImage');
+            image.src = "data:image/jpeg;base64," + imageData;
+        }
+        navigator.camera.getPicture(cameraCallback, cameraError, {
+            quality: 20,
+            saveToPhotoAlbum: true,
+            destinationType: 0
+        });
     }
 
     productNameControls(optionItems) {
@@ -220,7 +250,7 @@ class CreateProduct extends React.Component {
         );
         return (
             <div className="create-product">
-            <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Add Product</label></div>
+                <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Add Product</label></div>
                 {this.controls(optionItems)}
             </div>
         )
