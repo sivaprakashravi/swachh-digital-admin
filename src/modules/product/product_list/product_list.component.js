@@ -22,7 +22,9 @@ export class ProductListScreen extends React.Component {
         try {
             const store = storage.get('storeUser');
             const { StoreId } = store;
-            const data = await fetchservices.get(`api/getProducts/${StoreId}`);
+            const {state} = this.props.location;
+            const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`) 
+            const data = await fetchservices.get(baseApi);
             this.setState({ list: data });
         } catch (error) {
             console.log(error)
@@ -88,10 +90,11 @@ export class ProductListScreen extends React.Component {
                 <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />
             )
         }) : this.noList();
+        const {state} = this.props.location;
         return (
             <div className="products">
                 {this.state.list && this.state.list.length ? <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
-                    {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>Products List</label>}
+                    {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>{state === 'OFFERS' ? 'Oeders List' : 'Products List'}</label>}
                     {this.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => this.setState({ isSearch: false, searchText: '' })} /> : <BsSearch className="search" size="22px" onClick={() => this.setState({ isSearch: true, searchText: '' })} />}
                 </div> : null}
                 {list}
