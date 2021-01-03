@@ -1,12 +1,18 @@
 import React from 'react';
 import './store_design.style.scss';
 import { MdPhonelinkSetup, MdColorLens, MdCheck } from 'react-icons/md';
-import Pagescreen from './page/page.component'
+import fetchServices from '../../services/fetchsvc.service';
+import storage from '../../services/storage-manager.service';
+import ReactDOM from 'react-dom';
+import Toast from '../../components/toast/toast.component';
 class Storedesign extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             theme: '#0984e3',
+            mobile:'',
+            tandc:'',
+            data:{},
             tabs: [{
                 label: 'Page',
                 route: '',
@@ -24,6 +30,68 @@ class Storedesign extends React.Component {
             themes: ['#0984e3', '#ff7675', '#6c5ce7', '#fdcb6e', '#00b894', '#00cec9']
         }
     };
+
+componentDidMount(){
+   this.getStoredesign();
+}
+
+
+async getStoredesign(){
+try {
+    const store = await storage.get('storeUser');
+    const { StoreId } = store;
+    const dataApi = await fetchServices.get(`api/getStoreDesign/${StoreId}`);
+    this.setState({data:dataApi});
+    this.setState({mobile:dataApi?.ContactUs,tandc:dataApi?.PrivacyPolicy,DocId:dataApi.DocId,theme:dataApi?.StoreTheme})
+} catch (error) {
+   console.log(error); 
+}
+}
+
+   async addStoredesign(){
+     try {
+        const user = storage.get('userToken');
+        const { localId } = user;
+        const store = await storage.get('storeUser');
+        const { StoreId } = store;
+         const data = {
+            "StoreId" : StoreId,
+            "StoreTheme" : this.state.theme,
+            "StorePolicy" : this.state.tandc,
+            "ContactUs" : this.state.mobile,
+            "CreatedBy" : localId,
+            "ModifiedBy" : localId
+         }
+        const dataApi = await fetchServices.post('api/addStoreDesign',data);
+        ReactDOM.render(<Toast message={dataApi} />, document.getElementById('dom'));
+     } catch (error) {
+        console.log(error); 
+     }
+}
+
+async editStoredesign(){
+    try {
+        const {theme,DocId,tandc,mobile} = this.state;
+        const user = storage.get('userToken');
+        const { localId } = user;
+        const editData={
+            "DocId" : DocId,
+            "StoreTheme" :theme,
+            "StorePolicy" :tandc,
+            "ContactUs" :mobile,
+            "ModifiedBy" : localId
+        }
+        const dataApi = await fetchServices.post('api/editStoreDesign',editData);
+        console.log(dataApi)
+        ReactDOM.render(<Toast message={dataApi} />, document.getElementById('dom'));
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+handleChange(event, stateVariable) {
+    this.setState({ [stateVariable]: event.target.value });
+}
 
     tab() {
         const tabs = this.state.tabs.length;
@@ -51,9 +119,31 @@ class Storedesign extends React.Component {
         )
     }
 
+// renderPagescreen(){
+//     const {data} =  this.state;
+//     return(
+//         data.length ? data.map((x,index)=> this.pageDesign(x,index)) : this.pageDesign()
+//     )
+// }
+
     pageDesign() {
         return (
-            <Pagescreen/>
+            <div className="page" >
+            <ul>
+            <li>
+             <label>Mobile :</label>
+             <input type="text" value={this.state.mobile} maxLength={10} onChange={(e)=>this.handleChange(e, 'mobile')}/>
+            </li>
+            {/* <li>
+            <label>Email :</label>
+             <input type="text" onChange={(e)=>this.handleChange(e, 'email')}/> 
+            </li> */}
+            <li>
+                <label>Terms & Conditions :</label>
+            <textarea onChange={(e)=>this.handleChange(e, 'tandc')} value={this.state.tandc}/>
+            </li>
+            </ul>
+        </div> 
         )
     }
 
@@ -76,13 +166,14 @@ class Storedesign extends React.Component {
     }
 
     render() {
+        const {data} =  this.state;
         return (
             <div className="store-design">
                 {this.tab()}
                 {this.design()}
                 <div className="actions">
                     <button className="secondary">Cancel</button>
-                    <button className="primary">Save</button>
+                    <button className="primary"  onClick={()=>data ? this.editStoredesign() : this.addStoredesign()}>Save</button>
                 </div>
             </div>
         )
