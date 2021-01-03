@@ -52,7 +52,7 @@ export class ProductListScreen extends React.Component {
     }
 
     async editProduct(values) {
-        console.log("values", values)
+        console.log("values", values.shippingRate)
         try {
             const store = storage.get('storeUser');
             const userId = storage.get('userToken');
@@ -67,8 +67,9 @@ export class ProductListScreen extends React.Component {
                 "IsOffer": false,
                 "ProductCode": "",
                 "ProductName": values.name,
-                "ProductDesc": "",
+                "ProdDesc": values.description,
                 "RetailPrice": values.price,
+                "DeliveryChrgs" : values.shippingRate,
                 "Offer_Price": 0, "StoreId": StoreId, "ModifiedBy": localId
             }
             const editApi = await fetchservices.post('api/updateProduct', list);
@@ -86,6 +87,7 @@ export class ProductListScreen extends React.Component {
     }
     render() {
         let list = this.state.list && this.state.list.length ? this.state.list.map((x, index) => {
+            console.log(x)
             return (
                 <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />
             )

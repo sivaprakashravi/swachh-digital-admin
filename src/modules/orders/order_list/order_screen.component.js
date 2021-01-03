@@ -33,6 +33,7 @@ export class OrderScreen extends React.Component {
     }
 
     async listFromApi(values) {
+        console.log(values)
         const store = storage.get('storeUser');
         const { StoreId } = store;
         const data = {

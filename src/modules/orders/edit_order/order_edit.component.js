@@ -107,13 +107,13 @@ export class OrderEditScreen extends React.Component {
                    {(status === 'New' || status === 'Accepted') && <li  onClick={() => {}}>
                    <Radio label="Accepted" checked={this.state.accept} onChange={() => this.setState({ accept: !this.state.accept,status:(this.state.accept ? null : 'Accepted')})}/>
                             </li>}
-                           { (status === 'Accept' || status === 'Shipped' || status=== 'New')
+                           { (status === 'Accepted' || status === 'Shipped' || status=== 'New')
                                     &&
                             <li>
                                 <Radio label="Shipped" checked={(this.state.shipped || status === 'Shipped') ? true : false} onChange={() => this.setState({ shipped: !this.state.shipped,status:(this.state.shipped ? this.state.status : 'Shipped') })} />
                               
                             </li>}
-                           {(status === 'Accept' || status === 'Shipped' || status=== 'Delivered') && <li  >
+                           {(status === 'Accepted' || status === 'Shipped' || status=== 'Delivered') && <li  >
                            <Radio label="Delivered" checked={(this.state.delivered || status=== 'Delivered')? true : false} onChange={() => this.setState({ delivered: !this.state.delivered,status:(this.state.delivered ? this.state.status : 'Delivered')})}/>   
                             </li>}
                             </div>

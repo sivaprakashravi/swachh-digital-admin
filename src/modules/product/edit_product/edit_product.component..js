@@ -289,7 +289,7 @@ export class EditScreen extends React.Component {
         let offerToint = parseInt(offer);
 
         const data = {
-            name, price, categoryName, offerToint, description, DocId, active, fileUrl, offerTog
+            name, price, categoryName, offerToint, description, DocId, active, fileUrl, offerTog,shippingRate
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;
