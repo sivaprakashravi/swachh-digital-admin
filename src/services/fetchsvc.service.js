@@ -68,10 +68,7 @@ const post = (url, data, qParams) => {
       .then((res) => res.json())
       .then(dataApi => {
         if (dataApi.error) {
-          console.log('err', dataApi.error)
-          //reject(new Error(dataApi.message))
         } else {
-          console.log(dataApi)
           resolve(dataApi);
         }
       })
