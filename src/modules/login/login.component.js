@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BsCheckBox, BsEyeSlash, BsEye } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
-import { FaFacebook } from 'react-icons/fa';
+import { FaDailymotion, FaFacebook } from 'react-icons/fa';
 import { AuthContext } from '../utils/auth-context';
 import './login.style.scss';
 import session from '../../services/session-manger.service';
 import Toast from '../../components/toast/toast.component';
 import storage from '../../services/storage-manager.service';
+import constants from '../../services/constant.service';
+import fetchApi from '../../services/fetchsvc.service';
 class Login extends React.Component {
     static contextType = AuthContext;
     constructor(props) {
@@ -15,11 +17,14 @@ class Login extends React.Component {
         this.state = {
             username: 'shanu@gmail.com',
             password: 'shanu4l',
+            email: '',
             // username: '',
             // password: '',
             mobile: '',
             showPassword: false,
+            isForgetCoontrol: false,
             isOTPControl: false,
+            isUser: true,
             rememberMe: false
         };
         session.logout();
@@ -67,6 +72,19 @@ class Login extends React.Component {
         ReactDOM.render(<Toast message="Logged In Successfully!" />, document.getElementById('dom'));
     }
 
+    async resetPassword() {
+        try {
+            const data = {
+                "requestType": "PASSWORD_RESET",
+                "email": this.state.email
+            }
+            const dataApi = await fetchApi.post('sendOobCode', data, { key: constants.key });
+            ReactDOM.render(<Toast message="Sent mail,Please check" />, document.getElementById('dom'));
+            this.setState({ isUser: !this.state.isUser, isForgetCoontrol: !this.state.isForgetCoontrol })
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     userNameControls() {
         const self = this;
@@ -85,7 +103,7 @@ class Login extends React.Component {
                 </li>
                 <li><span onClick={() => {
                     self.setState({ rememberMe: !self.state.rememberMe })
-                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={self.state.rememberMe ? '#0984e3' : null} /><label>Remember Me</label></span><a className="fp" href="http://#">Forgot password?</a></li>
+                }}><BsCheckBox size="18" style={{ verticalAlign: 'top' }} color={self.state.rememberMe ? '#0984e3' : null} /><label>Remember Me</label></span><a className="fp" onClick={() => { this.setState({ isForgetCoontrol: !self.state.isForgetCoontrol, isUser: !self.state.isUser }) }}>Forgot password?</a></li>
                 <li><button className="primary" disabled={!(self.state.username && self.state.password)}
                     onClick={() => self.doLogin()}>Login</button></li>
                 <li className="sign-up">Don't have an account? <label onClick={() => self.props.history.push('register')}>Sign up</label></li>
@@ -106,6 +124,18 @@ class Login extends React.Component {
         )
     }
 
+    forgetControls() {
+        return (
+            <ul>
+                <li className="email">
+                    <label>Email</label>
+                    <input type="text" value={this.state.email} onChange={(e) => { this.handleChange(e, 'email') }} />
+                </li>
+                <li><button className="primary" disabled={!(this.state.email && this.state.email.includes(`@gmail.com`))} onClick={() => this.resetPassword()}>Request Mail</button></li>
+            </ul>
+        )
+    }
+
     enforce_maxlength(event) {
         var t = event.target;
         if (t.hasAttribute('maxlength')) {
@@ -116,7 +146,9 @@ class Login extends React.Component {
     controls() {
         return (
             <div className="controls">
-                {this.state.isOTPControl ? this.otpControls() : this.userNameControls()}
+                {this.state.isUser && this.userNameControls()}
+                {this.state.isOTPControl && this.otpControls()}
+                {this.state.isForgetCoontrol && this.forgetControls()}
                 {this.externalControls()}
                 {this.switchControls()}
             </div>)
@@ -135,7 +167,7 @@ class Login extends React.Component {
         return (
             <div className="otp">
                 <button onClick={() => {
-                    this.setState({ isOTPControl: !this.state.isOTPControl })
+                    this.setState({ isOTPControl: !this.state.isOTPControl, isUser: !this.state.isUser })
                 }}>Login with {this.state.isOTPControl ? 'Username' : 'OTP'}</button>
             </div>
         )

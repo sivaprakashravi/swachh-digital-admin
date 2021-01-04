@@ -20,7 +20,7 @@ export class OrderScreen extends React.Component {
             detailed: false,
             list: [],
             dateSelection: {
-                selection: { range1: defaultRange},
+                selection: { range1: defaultRange },
                 defaults: defaultRange
             }
         }
@@ -33,7 +33,6 @@ export class OrderScreen extends React.Component {
     }
 
     async listFromApi(values) {
-        console.log(values)
         const store = storage.get('storeUser');
         const { StoreId } = store;
         const data = {
@@ -78,7 +77,7 @@ export class OrderScreen extends React.Component {
                 "ToDate": this.state.dateSelection.selection.range1.endDate,
                 "IsCustomDate": true
             });
-        }        
+        }
         this.setState({ filter: false });
     }
     noList() {

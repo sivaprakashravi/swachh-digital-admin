@@ -109,6 +109,17 @@ h1 {
             text-indent: 32px;
           }
         }
+        &.email {
+          &::after {
+            position: absolute;
+            top: 26px;
+            left: 0;
+            color: $lbl-grey;
+          }
+          input {
+            text-indent: 2px;
+          }
+        }
         .eye {
           position: absolute;
           top: 24px;

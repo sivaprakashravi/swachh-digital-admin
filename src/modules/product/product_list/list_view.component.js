@@ -6,7 +6,7 @@ import { BsImages } from 'react-icons/bs';
 export const Listview = (props) => {
   const { data, edit } = props;
   const menu = (data) => {
-    return (<VMenu data={data} >
+    return (<VMenu data={data} menuRef="">
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'edit' })}>Edit</li>
       <li onClick={() => props.delete(data.DocId)}>Delete</li>
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'move' })}>Move</li>

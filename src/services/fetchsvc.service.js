@@ -45,7 +45,7 @@ const get = (url, options = {}) => {
 };
 
 const post = (url, data, qParams) => {
-  if (url && url === 'signInWithPassword') {
+  if (url && (url === 'signInWithPassword' || url === 'sendOobCode')) {
     url = constants.host + url;
   } else {
     url = constants.api + url;
@@ -59,6 +59,7 @@ const post = (url, data, qParams) => {
   if (idToken) {
     headers.Authorization = `Bearer ${idToken}`
   }
+  console.log(data)
   const serviceOptions = {};
   serviceOptions.method = 'POST';
   serviceOptions.body = JSON.stringify(data);

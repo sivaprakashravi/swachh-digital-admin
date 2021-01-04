@@ -16,7 +16,6 @@ export class EditScreen extends React.Component {
         this.state = {
             categories: [],
             subCategories: [],
-            image: [],
             file: null,
             active: true,
             offerTog: false,
@@ -44,12 +43,14 @@ export class EditScreen extends React.Component {
     }
 
     componentDidMount() {
-        const { ProductName, RetailPrice, Category, ProductDesc, Offer_Price, Imageurl } = this.props.location.state;
+        const { ProductName, RetailPrice, Category, ProdDesc, Offer_Price, Imageurl, DeliveryChrgs } = this.props.location.state;
         const { type } = this.props.location
-        this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProductDesc, offer: Offer_Price })
-        Imageurl && this.setState(prevState => ({
-            image: [...prevState.image, Imageurl]
-        }))
+        this.setState({ name: ProductName, price: RetailPrice, categoryName: Category, description: ProdDesc, offer: Offer_Price, shippingRate: DeliveryChrgs })
+        {
+            Imageurl && this.setState({
+                image: [Imageurl]
+            })
+        }
         this.getCategories()
     }
 
@@ -86,25 +87,51 @@ export class EditScreen extends React.Component {
         //    this.setState({imageUrl:data}) 
     };
 
-   async removeImage(index) {
-       try {
-        const images = this.state.image;
-        const removedIndex = images.filter((im, i) => i !== index);
-        this.setState({ image: removedIndex }); 
-      const { Imageurl } = this.props.location.state;
-      if(Imageurl){
-          console.log(Imageurl);
-         const name = Imageurl.split(/([!,?,/])/);
-          const imgData = {
-            "FileName" : name[14]
+    async removeImage(index) {
+        try {
+            const images = this.state.image;
+            const removedIndex = images.filter((im, i) => i !== index);
+            this.setState({ image: removedIndex });
+            const { Imageurl } = this.props.location.state;
+            if (Imageurl) {
+                console.log(Imageurl);
+                const name = Imageurl.split(/([!,?,/])/);
+                const imgData = {
+                    "FileName": name[14]
+                }
+                const delImage = await fetchservices.post('api/deleteProdImage', imgData);
+                console.log(delImage);
+            }
+        } catch (error) {
+            console.log(error);
         }
-          const delImage = await fetchservices.post('api/deleteProdImage',imgData);
-          console.log(delImage);
-      }
-       } catch (error) {
-         console.log(error);
-       }
     };
+
+    capture() {
+        const self = this;
+        console.log(self + 'camera opened');
+        var cameraCallback = function (imageData) {
+            console.log('captured');
+            fetch("data:image/jpeg;base64," + imageData)
+                .then(res => res.blob())
+                .then(blob => {
+                    self.fileArray = [URL.createObjectURL(blob)];
+                    self.setState({ image: self.fileArray });
+                });
+        }
+
+        var cameraError = function (imageData) {
+            console.log('error');
+            var image = document.getElementById('myImage');
+            image.src = "data:image/jpeg;base64," + imageData;
+        }
+        navigator.camera.getPicture(cameraCallback, cameraError, {
+            quality: 20,
+            saveToPhotoAlbum: true,
+            destinationType: 0
+        });
+    }
+
 
     categoryControls() {
         return (
@@ -138,24 +165,28 @@ export class EditScreen extends React.Component {
     uploadImage() {
         return (
             <div>
-                <div className="image-container">
-                    {this.state.image && this.state.image.length ?
-                        this.state.image.map((image, i) => {
-                            return <div key={'img-box' + i} className="uploaded-image" style={{ backgroundImage: `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                {this.state.image && this.state.image.length ? <div className="image-container">
+                    {this.state.image.map((image, i) => {
+                        return <div key={'img-box' + i} className="uploaded-image" style={{ 'background-image': `url(${image})` }}><IoMdClose size="30px" onClick={() => this.removeImage(i)} className="remove" color="#fff" />
+                        </div>
+                    })}
+                </div> :
+                    <div>
+                        <div className={(navigator && navigator.camera) ? 'image-placeholder' : 'image-placeholder full'}>
+                            <input type="file" multiple={false} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
+                            <AiFillPicture size="24px" />
+                            <label>Select Images</label>
+                        </div>
+                        {
+                            (navigator && navigator.camera) &&
+                            <div className="camera-placeholder" onClick={() => this.capture()}>
+                                <AiFillCamera size="24px" />
+                                <label>Capture Image</label>
                             </div>
-                        }) : null}
-                </div>
-                <div className="image-placeholder">
-                    <input type="file" multiple={true} accept="image/*" onChange={(e) => this.uploadMultipleFiles(e)} />
-                    <AiFillPicture size="24px" color="#fff" />
-                    <label>Select Images</label>
-                </div>
-                <div className="camera-placeholder">
-                    <AiFillCamera size="24px" color="#fff" />
-                    <label>Capture Image</label>
-                </div>
-            </div>
+                        }
+                    </div>}
 
+            </div>
         )
     }
 
@@ -289,7 +320,7 @@ export class EditScreen extends React.Component {
         let offerToint = parseInt(offer);
 
         const data = {
-            name, price, categoryName, offerToint, description, DocId, active, fileUrl, offerTog,shippingRate
+            name, price, categoryName, offerToint, description, DocId, active, fileUrl, offerTog, shippingRate
         }
         let catList = this.state.categories;
         let subList = this.state.subCategories;

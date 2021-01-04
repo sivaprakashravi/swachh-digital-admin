@@ -22,9 +22,9 @@ export class ProductListScreen extends React.Component {
         try {
             const store = storage.get('storeUser');
             const { StoreId } = store;
-            const {state} = this.props.location;
-            const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`) 
-            const data = await fetchservices.get(baseApi);
+            const { state } = this.props.location;
+            //const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`) 
+            const data = await fetchservices.get(`api/getProducts/${StoreId}`);
             this.setState({ list: data });
         } catch (error) {
             console.log(error)
@@ -36,23 +36,18 @@ export class ProductListScreen extends React.Component {
 
     async deleteProduct(id) {
         try {
-            const store = storage.get('storeUser');
-            const userId = storage.get('userToken');
-            const { email, localId, idToken } = userId;
-            const { StoreId } = store;
-            const list = JSON.stringify({
+            const list = {
                 "DocId": id
-            })
+            }
             const deleteApi = await fetchservices.post('api/deleteProduct', list);
-            ReactDOM.render(<Toast message="Deleted Product" />, document.getElementById('dom'));
-            this.getProducts()
+            ReactDOM.render(<Toast message={deleteApi.msg} />, document.getElementById('dom'));
         } catch (error) {
-
+            console.log(error);
         }
     }
 
     async editProduct(values) {
-        console.log("values", values.shippingRate)
+        console.log("values", values)
         try {
             const store = storage.get('storeUser');
             const userId = storage.get('userToken');
@@ -65,11 +60,10 @@ export class ProductListScreen extends React.Component {
                 "ImageUrl": values.fileUrl,
                 "IsActive": values.active,
                 "IsOffer": false,
-                "ProductCode": "",
                 "ProductName": values.name,
-                "ProdDesc": values.description,
+                "ProductDesc": values.description,
                 "RetailPrice": values.price,
-                "DeliveryChrgs" : values.shippingRate,
+                "DeliveryChrgs": values.shippingRate,
                 "Offer_Price": 0, "StoreId": StoreId, "ModifiedBy": localId
             }
             const editApi = await fetchservices.post('api/updateProduct', list);
@@ -87,12 +81,11 @@ export class ProductListScreen extends React.Component {
     }
     render() {
         let list = this.state.list && this.state.list.length ? this.state.list.map((x, index) => {
-            console.log(x)
             return (
                 <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />
             )
         }) : this.noList();
-        const {state} = this.props.location;
+        const { state } = this.props.location;
         return (
             <div className="products">
                 {this.state.list && this.state.list.length ? <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />

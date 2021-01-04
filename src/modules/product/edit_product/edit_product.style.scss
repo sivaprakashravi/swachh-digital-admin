@@ -15,6 +15,7 @@
     width: 50%;
     label {
       margin: 0 0 0 5px;
+      
     }
     svg {
       vertical-align: sub;
@@ -44,6 +45,7 @@
     padding: 5px 10px;
     svg {
       margin-top: 5px;
+      fill: $white;
     }
     label {
       display: inline-block;
@@ -54,6 +56,17 @@
     }
     &:last-child {
       margin-left: 4px;
+    }
+    &.full {
+      margin: 0 0 15px 0;
+      background: none;
+      color: $primary;
+      svg {
+        fill: $primary;
+      }
+      label {
+        color: $primary;
+      }
     }
     input {
       opacity: 0;
@@ -97,6 +110,12 @@
         display: block;
         margin-bottom: 10px;
         position: relative;
+        label{
+          color:gray;
+          display: inline-block;
+          vertical-align: super;
+          margin-left: 3px;
+        }
         button {
           padding: 12px;
       margin-right: 10px;
@@ -115,6 +134,7 @@
             display: inline-block;
             vertical-align: super;
             margin-left: 3px;
+            color:gray;
           }
         }
         a.fp {

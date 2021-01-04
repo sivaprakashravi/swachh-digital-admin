@@ -21,7 +21,7 @@ import UsersDetail from './modules/store/user_manage/user_details.component';
 import { AuthContext } from './modules/utils/auth-context';
 import Loader from './components/loader/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
-import {LocalProvider} from './locale'
+import { LocalProvider } from './locale'
 function showHeader(route) {
   const noAuth = ['', 'login', 'register'];
   const has = noAuth.filter(auth => {
@@ -32,7 +32,7 @@ function showHeader(route) {
 
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-    console.log(navigator.camera);
+  console.log(navigator.camera);
 }
 
 function App(e) {
@@ -41,26 +41,26 @@ function App(e) {
     <main>
       <AuthContext.Provider>
         <LocalProvider locale={'en'}>
-        {showHeader(e.location.pathname) ? <Header /> : null}
-        <Switch>
-          <Route path="/" component={Login} exact />
-          <Route path="/register" component={Register} />
-          <Route path="/dashboard" component={Dashboard} /> v
-          <Route path="/productlist" component={ProductListScreen} />
-          <Route path="/orderDetails" component={OrderDetails} />
-          <Route path="/orderlist" component={OrderScreen} />
-          <Route path="/editScreen" component={EditScreen} />
-          <Route path="/storeRegister" component={StoreRegister} />
-          <Route path="/createProduct" component={CreateProduct} />
-          <Route path="/orderEdit" component={OrderEditScreen} />
-          <Route path="/businessSetup" component={BusinessSetupScreen} />
-          <Route path="/myAccount" component={MyaccountScreen} />
-          <Route path="/userManage" component={UserManageScreen} />
-          <Route path="/storeDesign" component={Storedesign} />
-          <Route path="/usersDetail" component={UsersDetail} />
-        </Switch>
-        {showHeader(e.location.pathname) ? <BottomNav nav={e.history}/> : null}
-        {promiseInProgress ? <Loader /> : null}
+          {showHeader(e.location.pathname) ? <Header /> : null}
+          <Switch>
+            <Route path="/" component={Login} exact />
+            <Route path="/register" component={Register} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/productlist" component={ProductListScreen} />
+            <Route path="/orderDetails" component={OrderDetails} />
+            <Route path="/orderlist" component={OrderScreen} />
+            <Route path="/editScreen" component={EditScreen} />
+            <Route path="/storeRegister" component={StoreRegister} />
+            <Route path="/createProduct" component={CreateProduct} />
+            <Route path="/orderEdit" component={OrderEditScreen} />
+            <Route path="/businessSetup" component={BusinessSetupScreen} />
+            <Route path="/myAccount" component={MyaccountScreen} />
+            <Route path="/userManage" component={UserManageScreen} />
+            <Route path="/storeDesign" component={Storedesign} />
+            <Route path="/usersDetail" component={UsersDetail} />
+          </Switch>
+          {showHeader(e.location.pathname) ? <BottomNav nav={e.history} /> : null}
+          {promiseInProgress ? <Loader /> : null}
         </LocalProvider>
       </AuthContext.Provider>
     </main>
