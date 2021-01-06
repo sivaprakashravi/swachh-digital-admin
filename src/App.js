@@ -23,7 +23,7 @@ import Loader from './components/loader/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
 import { LocalProvider } from './locale'
 function showHeader(route) {
-  const noAuth = ['', 'login', 'register'];
+  const noAuth = ['', 'login', 'register','storeRegister'];
   const has = noAuth.filter(auth => {
     return route === `/${auth}`;
   });

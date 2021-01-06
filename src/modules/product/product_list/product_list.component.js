@@ -16,6 +16,7 @@ export class ProductListScreen extends React.Component {
             isSearch: false,
             searchText: ''
         }
+        this.getProducts = this.getProducts.bind(this);
     }
 
     async getProducts() {
@@ -23,8 +24,8 @@ export class ProductListScreen extends React.Component {
             const store = storage.get('storeUser');
             const { StoreId } = store;
             const { state } = this.props.location;
-            //const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`) 
-            const data = await fetchservices.get(`api/getProducts/${StoreId}`);
+            const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`) 
+            const data = await fetchservices.get(baseApi);
             this.setState({ list: data });
         } catch (error) {
             console.log(error)

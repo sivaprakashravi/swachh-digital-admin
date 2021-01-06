@@ -17,16 +17,17 @@ function objToQueryString(obj) {
 
 const get = (url, options = {}) => {
   const { idToken } = authToken();
-  const headers = {};
+  const headers = {'Content-Type': 'application/json',
+  'Accept': 'application/json'};
   if (idToken) {
     headers.Authorization = `Bearer ${idToken}`
   }
   const serviceOptions = {};
   serviceOptions.method = 'GET';
-  serviceOptions.options = options;
-  if (idToken) {
+  serviceOptions.options = options;  
     serviceOptions.headers = headers;
-  }
+  
+  console.log(constants.api + url, serviceOptions)
   return new Promise((resolve, reject) => {
     trackPromise(fetch(constants.api + url, serviceOptions)
       .then(res => res.json())
@@ -38,14 +39,14 @@ const get = (url, options = {}) => {
         }
       })
       .catch(error => {
-        console.log(error);
+        console.log("catech",error);
         reject(error);
       }));
   });
 };
 
 const post = (url, data, qParams) => {
-  if (url && (url === 'signInWithPassword' || url === 'sendOobCode')) {
+  if (url && (url === 'signInWithPassword' || url === 'sendOobCode' || url === 'signUp')) {
     url = constants.host + url;
   } else {
     url = constants.api + url;
@@ -59,7 +60,6 @@ const post = (url, data, qParams) => {
   if (idToken) {
     headers.Authorization = `Bearer ${idToken}`
   }
-  console.log(data)
   const serviceOptions = {};
   serviceOptions.method = 'POST';
   serviceOptions.body = JSON.stringify(data);
@@ -69,11 +69,14 @@ const post = (url, data, qParams) => {
       .then((res) => res.json())
       .then(dataApi => {
         if (dataApi.error) {
+          console.log(dataApi);
+          reject(dataApi);
         } else {
           resolve(dataApi);
         }
       })
       .catch(error => {
+        console.log(error)
         reject(error);
       }));
   });

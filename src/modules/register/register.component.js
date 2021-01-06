@@ -3,6 +3,9 @@ import register from "../../services/fetchsvc.service";
 import {GrStatusInfo} from 'react-icons/gr';
 import './register.style.scss';
 import storage from '../../services/storage-manager.service';
+import constants from '../../services/constant.service';
+import Toast from '../../components/toast/toast.component';
+import ReactDOM from 'react-dom';
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -39,12 +42,14 @@ class Register extends React.Component {
                 "password": this.state.password,
                 "returnSecureToken": true
             }
-            const dataApi = await register.post('signUp', data);
+            const dataApi = await register.post('signUp', data,{ key: constants.key });
+            ReactDOM.render(<Toast message={"Signned Up Successfully"} />, document.getElementById('dom'));
             const { idToken, email, localId } = dataApi;
-            storage.put('userToken', JSON.stringify({ idToken, email, localId }));
+            storage.put('userToken', { idToken, email, localId });
             this.props.history.push('storeRegister');
         } catch (error) {
-            console.log("signup error", error)
+            console.log("signup error", error);
+            ReactDOM.render(<Toast message={error.error.message} />, document.getElementById('dom'));
         }
     }
 

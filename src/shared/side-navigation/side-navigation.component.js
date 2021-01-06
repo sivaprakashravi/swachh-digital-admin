@@ -110,8 +110,8 @@ class SideNav extends React.Component {
         this.setState({ list });
     }
 
-    logout() {
-        session.logout();
+   async logout() {
+       await session.logout();
         this.props.history.push('');
     }
 

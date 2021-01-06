@@ -9,14 +9,17 @@ class Header extends React.Component {
         super(props);
         this.state = {
             showNav: false,
-            activeNav: {}
+            activeNav: {},
+            StoreName:'Store'
         };
     }
 
    componentDidMount(){
     const store = storage.get('storeUser');
-    const { StoreName } = store;
-    this.setState({ StoreName });
+    if(store){
+        const { StoreName } = store;
+        this.setState({ StoreName });
+    }
    }
 
     toggleNav(self) {
