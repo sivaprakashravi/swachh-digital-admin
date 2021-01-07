@@ -5,10 +5,15 @@ import { BiRupee } from 'react-icons/bi';
 import { BsImages } from 'react-icons/bs';
 export const Listview = (props) => {
   const { data, edit } = props;
+  const onDelete =async ()=>{
+   await props.delete(data.DocId);
+   props.getPro();
+  }
+  
   const menu = (data) => {
-    return (<VMenu data={data} menuRef="">
+    return (<VMenu data={data} >
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'edit' })}>Edit</li>
-      <li onClick={() => props.delete(data.DocId)}>Delete</li>
+      <li onClick={() => onDelete()}>Delete</li>
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'move' })}>Move</li>
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'copy' })}>Copy</li>
       <li onClick={() => props.nav.push({ pathname: 'editScreen', state: data, callBack: edit, type: 'subcategory' })}>Add subcategory</li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../register.style.scss';
+import './store_register.style.scss';
 import register from '../../../services/fetchsvc.service';
 import storage from '../../../services/storage-manager.service';
 import Toast from '../../../components/toast/toast.component';
@@ -109,12 +109,15 @@ class StoreRegister extends React.Component {
 
     render() {
         return (
-            <div className="greet">
-                <h3>Enter Store Details :</h3>
+      
+                
+            <div className="store-register">
+            <h3 className="header">Enter Store Details :</h3>
             <div className="register">
                 {this.controls()}
             </div>
             </div>
+           
         )
     }
 }

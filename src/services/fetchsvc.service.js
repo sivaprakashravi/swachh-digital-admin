@@ -46,6 +46,7 @@ const get = (url, options = {}) => {
 };
 
 const post = (url, data, qParams) => {
+  console.log(data)
   if (url && (url === 'signInWithPassword' || url === 'sendOobCode' || url === 'signUp')) {
     url = constants.host + url;
   } else {

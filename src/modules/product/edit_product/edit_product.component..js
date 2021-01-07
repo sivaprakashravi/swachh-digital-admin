@@ -157,7 +157,15 @@ export class EditScreen extends React.Component {
         )
     };
 
-
+async editControl(data){
+    try {
+        const { state, callBack } = this.props.location;
+        await callBack(data);
+        this.props.history.goBack();
+    } catch (error) {
+        
+    }
+}
 
     handleChange(event, stateVariable) {
         this.setState({ [stateVariable]: event.target.value });
@@ -345,7 +353,7 @@ export class EditScreen extends React.Component {
                         this.uploadImage()}
                     <div className="input">
                         <ul>
-                            <li><button className="primary" onClick={() => callBack(data)}>Save</button></li>
+                            <li><button className="primary" onClick={() => this.editControl(data)}>Save</button></li>
                         </ul>
                     </div></div>
             </div>

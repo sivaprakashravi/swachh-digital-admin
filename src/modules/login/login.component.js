@@ -128,7 +128,7 @@ class Login extends React.Component {
         return (
             <ul>
                 <li className="email">
-                    <label>Email</label>
+                    <label>Email :</label>
                     <input type="text" value={this.state.email} onChange={(e) => { this.handleChange(e, 'email') }} />
                 </li>
                 <li><button className="primary" disabled={!(this.state.email && this.state.email.includes(`@gmail.com`))} onClick={() => this.resetPassword()}>Request Mail</button></li>

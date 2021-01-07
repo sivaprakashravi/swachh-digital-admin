@@ -31,9 +31,9 @@ const VMenu = props => {
         };
     }, [menuRef]);
     return (
-        <div className={isOpen ? "v-menu show" : "v-menu"} ref={menuRef}>
+        <div className={isOpen ? "v-menu show" : "v-menu"} ref={menuRef} >
             <FaEllipsisV onClick={() => onOpen()} />
-            <ul className="menu-dropdown" >
+            <ul className="menu-dropdown" onClick={()=>setOpen(false)}>
                 {props.children}
             </ul>
         </div>

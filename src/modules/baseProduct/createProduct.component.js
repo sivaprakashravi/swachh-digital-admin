@@ -8,6 +8,7 @@ import { AiFillPicture, AiFillCamera } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import storage from '../../services/storage-manager.service';
+import { trackPromise } from 'react-promise-tracker';
 class CreateProduct extends React.Component {
     fileObj = [];
     fileArray = []
@@ -15,7 +16,7 @@ class CreateProduct extends React.Component {
         super(props);
         this.state = {
             imgs: [],
-            imageUrl: null,
+            imageUrl: {},
             file: null,
             image: null,
             categories: [],
@@ -44,20 +45,20 @@ class CreateProduct extends React.Component {
         console.log("image", this.state.image)
     }
 
-    async CreateProductControl() {
-        const { imageUrl, productName, price, categoryName } = this.state
-        await this.setState({ id: productName.substring(0, 3) + this.randomString(3, '0123456789') });
-        const store = storage.get('storeUser');
-        const dataId = storage.get('userToken');
-        const { email, localId, idToken } = dataId;
-        const { StoreId } = store;
-        const { ImageUrl } = this.state.imageUrl;
+    async CreateProductControl() { 
         try {
+            const { imageUrl, productName, price, categoryName } = this.state;
+            await this.setState({ id: productName.substring(0, 3) + this.randomString(3, '0123456789') });
+            const store = storage.get('storeUser');
+            const dataId = storage.get('userToken');
+            const { email, localId, idToken } = dataId;
+            const { StoreId } = store;
+            const {ImageUrl} = this.state.imageUrl;
             const data = {
                 "Brands": "",
                 "Category": categoryName,
                 "SubCategory": "",
-                "ImageUrl": ImageUrl,
+                "ImageUrl":`${ImageUrl}`,
                 "IsActive": true,
                 "IsOffer": false,
                 "ProductCode": this.state.id,
@@ -131,13 +132,14 @@ class CreateProduct extends React.Component {
             redirect: 'follow'
         };
 
-        fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
+        trackPromise(fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
             .then(response => response.text())
-            .then(result => {
-                this.setState({ imageUrl: result });
+            .then(async result => {
+                console.log(result);
+               await this.setState({ imageUrl: JSON.parse(result) });
                 this.CreateProductControl();
             })
-            .catch(error => console.log('error', error));
+            .catch(error => console.log('error', error)));
         // const data = await register.uploadImage('uploadFile',formData);
         //    this.setState({imageUrl:data}) 
     }

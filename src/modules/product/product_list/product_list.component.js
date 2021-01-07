@@ -83,7 +83,7 @@ export class ProductListScreen extends React.Component {
     render() {
         let list = this.state.list && this.state.list.length ? this.state.list.map((x, index) => {
             return (
-                <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} />
+                <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} getPro={this.getProducts}/>
             )
         }) : this.noList();
         const { state } = this.props.location;
