@@ -48,7 +48,7 @@ class StoreRegister extends React.Component {
             const len = Object.keys(checkId).length;
             if (len < 1) {
                 const dataApi = await register.post('api/createStore', data, idToken);
-                ReactDOM.render(<Toast message={"Store Created Successfully"} />, document.getElementById('dom'));
+                ReactDOM.render(<Toast message={"congratulations,Your store is successfully created please add Your product now"} />, document.getElementById('dom'));
                 await storage.put('storeUser', dataApi);
                 this.props.history.push('createProduct');
             } else {

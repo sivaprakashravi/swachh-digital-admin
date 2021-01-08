@@ -1,6 +1,26 @@
 @import "./../../scss/definitions/variables.scss";
 .create-product {
   margin: 100px 0 55px;
+  .actions {
+    margin-left: 10px;
+    button {
+      font-size: 0.8rem;
+      padding: 5px;
+      border-radius: 5px;
+      color: #fff;
+      margin-right: 5px;
+      &.accept {
+        background: #4caf50;
+        float: left;
+        width: 20%;
+      }
+      &.reject {
+        background: #eca202;
+        float: right;
+        width: 20%;
+      }
+    }
+  }
   .image-placeholder,
   .camera-placeholder {
     position: relative;
@@ -81,3 +101,4 @@
     }
   }
 }
+

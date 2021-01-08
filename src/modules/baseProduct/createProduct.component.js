@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import storage from '../../services/storage-manager.service';
 import { trackPromise } from 'react-promise-tracker';
+import ModalScreen from '../../components/modal/modal.component'
 class CreateProduct extends React.Component {
     fileObj = [];
     fileArray = []
@@ -81,13 +82,30 @@ class CreateProduct extends React.Component {
             if (len === 0) {
                 const create = await register.post('api/createProduct', data);
                 ReactDOM.render(<Toast message={create.message} />, document.getElementById('dom'));
-                this.props.history.push('productlist')
+                   if(this.state.categories.length < 1){
+                    let modal = document.getElementById("myModal");
+                    modal.style.display = "block";
+                   }else{
+                    this.props.history.push('productlist')
+                   }
             } else {
                 this.CreateProductControl();
             }
         } catch (error) {
             console.log("create product error", error)
         }
+    }
+
+    renderModal(){
+        return(
+            <ModalScreen>
+                <div className="actions">
+                    <text>New product successfully added to your store.Would you like to add more products.</text><br/>
+                    <button className="accept" onClick={()=> this.props.history.push('createProduct')}>Yes</button>
+                    <button className="reject" onClick={()=> this.props.history.push('dashboard')}>No</button>
+                </div>
+            </ModalScreen>
+        )
     }
 
     //generate random value
@@ -232,7 +250,7 @@ class CreateProduct extends React.Component {
                     </li>
                     {this.uploadImage()}
                 </ul>
-                <button disabled={!(this.state.productName && this.state.price && this.state.categoryName && this.state.image)} onClick={() => this.uploadControl()} className="primary">Add Product</button>
+                <button disabled={!(this.state.productName && this.state.price && this.state.categoryName && this.state.image)} onClick={() => this.CreateProductControl()} className="primary">Add Product</button>
             </div>
         )
     }
@@ -253,6 +271,7 @@ class CreateProduct extends React.Component {
         return (
             <div className="create-product">
                 <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" /><label>Add Product</label></div>
+               {this.renderModal()}
                 {this.controls(optionItems)}
             </div>
         )

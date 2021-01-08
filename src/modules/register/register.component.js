@@ -43,7 +43,7 @@ class Register extends React.Component {
                 "returnSecureToken": true
             }
             const dataApi = await register.post('signUp', data,{ key: constants.key });
-            ReactDOM.render(<Toast message={"Signned Up Successfully"} />, document.getElementById('dom'));
+            ReactDOM.render(<Toast message={"congratulations,your account is successfully created please create your store now"} />, document.getElementById('dom'));
             const { idToken, email, localId } = dataApi;
             storage.put('userToken', { idToken, email, localId });
             this.props.history.push('storeRegister');
