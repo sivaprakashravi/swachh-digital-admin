@@ -1,7 +1,8 @@
 import fetchApi from './fetchsvc.service';
 import constants from './constant.service';
 import storage from './storage-manager.service';
-
+import ReactDOM from 'react-dom';
+import Toast from './../components/toast/toast.component';
 var login = async (values, self) => {
     try {
         const data = {
@@ -19,9 +20,8 @@ var login = async (values, self) => {
         const store = await fetchApi.post('api/getStoreInfo', user);
         storage.put('storeUser', store);
         self.handleClick('dashboard');
-    } catch (error) {
-        console.log('login', error)
-        alert(error)
+    } catch ({error}) {
+        ReactDOM.render(<Toast message={error.message} background="red" color="white" />, document.getElementById('dom'));
     }
 };
 

@@ -48,8 +48,7 @@ class Register extends React.Component {
             storage.put('userToken', { idToken, email, localId });
             this.props.history.push('storeRegister');
         } catch (error) {
-            console.log("signup error", error);
-            ReactDOM.render(<Toast message={error.error.message} />, document.getElementById('dom'));
+            ReactDOM.render(<Toast message={error.error.message} background="red" color="#fff" />, document.getElementById('dom'));
         }
     }
 
