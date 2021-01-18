@@ -69,7 +69,6 @@ class Login extends React.Component {
         const { username, password } = self.state;
         await session.login({ username, password }, self);
         self.rememberHandler();
-        ReactDOM.render(<Toast message="Logged In Successfully!" />, document.getElementById('dom'));
     }
 
     async resetPassword() {
@@ -149,7 +148,7 @@ class Login extends React.Component {
                 {this.state.isUser && this.userNameControls()}
                 {this.state.isOTPControl && this.otpControls()}
                 {this.state.isForgetCoontrol && this.forgetControls()}
-                {this.externalControls()}
+                {/* {this.externalControls()} */}
                 {this.switchControls()}
             </div>)
     }
