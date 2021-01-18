@@ -25,7 +25,7 @@ class Toast extends Component {
         const self = this;
         if (!this.props.action) {
             window.setTimeout(() => {
-                // self.close();
+                self.close();
             }, self.props.timeout * 1000);
         }
         return (
