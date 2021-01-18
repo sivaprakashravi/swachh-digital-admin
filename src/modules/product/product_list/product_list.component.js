@@ -6,8 +6,9 @@ import { BsSearch } from 'react-icons/bs';
 import { IoMdClose } from "react-icons/io";
 import Toast from '../../../components/toast/toast.component';
 import ReactDOM from 'react-dom';
-
 import storage from '../../../services/storage-manager.service';
+import './product_list.style.scss';
+
 export class ProductListScreen extends React.Component {
     constructor(props) {
         super(props);

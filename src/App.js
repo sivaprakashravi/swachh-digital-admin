@@ -6,7 +6,7 @@ import Dashboard from './modules/dashboard/dashboard.component';
 import Header from './shared/header/header.component';
 import BottomNav from './shared/bottom-navigation/bottom-navigation.component';
 import { ProductListScreen } from './modules/product/product_list/product_list.component';
-import { EditScreen } from './modules/product/edit_product/edit_product.component.'
+import { EditScreen } from './modules/product/edit_product/edit_product.component.';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import StoreRegister from './modules/register/store/store_register.component';
 import CreateProduct from './modules/baseProduct/createProduct.component';
@@ -18,10 +18,11 @@ import { MyaccountScreen } from './modules/store/account/my_account.component';
 import { UserManageScreen } from './modules/store/user_manage/user_manage.component';
 import Storedesign from './modules/storeDesign/store_design.component';
 import UsersDetail from './modules/store/user_manage/user_details.component';
+// import {CustomerScreen} from './modules/customers/customers.component';
 import { AuthContext } from './modules/utils/auth-context';
 import Loader from './components/loader/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
-import { LocalProvider } from './locale'
+import { LocalProvider } from './locale';
 function showHeader(route) {
   const noAuth = ['', 'login', 'register','storeRegister'];
   const has = noAuth.filter(auth => {
@@ -57,6 +58,7 @@ function App(e) {
             <Route path="/myAccount" component={MyaccountScreen} />
             <Route path="/userManage" component={UserManageScreen} />
             <Route path="/storeDesign" component={Storedesign} />
+            {/* <Route path="/customerScreen" component={CustomerScreen} /> */}
             <Route path="/usersDetail" component={UsersDetail} />
           </Switch>
           {showHeader(e.location.pathname) ? <BottomNav nav={e.history} /> : null}
