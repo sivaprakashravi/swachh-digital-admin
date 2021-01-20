@@ -18,7 +18,8 @@ import { MyaccountScreen } from './modules/store/account/my_account.component';
 import { UserManageScreen } from './modules/store/user_manage/user_manage.component';
 import Storedesign from './modules/storeDesign/store_design.component';
 import UsersDetail from './modules/store/user_manage/user_details.component';
-// import {CustomerScreen} from './modules/customers/customers.component';
+ import {CustomerScreen} from './modules/customers/customers.component';
+ import { ReportScreen } from "./modules/reports/report.component";
 import { AuthContext } from './modules/utils/auth-context';
 import Loader from './components/loader/loader.component';
 import { usePromiseTracker } from "react-promise-tracker";
@@ -58,7 +59,8 @@ function App(e) {
             <Route path="/myAccount" component={MyaccountScreen} />
             <Route path="/userManage" component={UserManageScreen} />
             <Route path="/storeDesign" component={Storedesign} />
-            {/* <Route path="/customerScreen" component={CustomerScreen} /> */}
+            <Route path="/customerScreen" component={CustomerScreen} />
+            <Route path="/reportScreen" component={ReportScreen} />
             <Route path="/usersDetail" component={UsersDetail} />
           </Switch>
           {showHeader(e.location.pathname) ? <BottomNav nav={e.history} /> : null}
