@@ -6,6 +6,8 @@ import { BsSearch } from 'react-icons/bs';
 import { IoMdClose } from "react-icons/io";
 import Toast from '../../../components/toast/toast.component';
 import ReactDOM from 'react-dom';
+import * as _ from 'lodash';
+
 import storage from '../../../services/storage-manager.service';
 import './product_list.style.scss';
 
@@ -15,7 +17,8 @@ export class ProductListScreen extends React.Component {
         this.state = {
             list: [],
             isSearch: false,
-            searchText: ''
+            searchText: '',
+            data: []
         }
         this.getProducts = this.getProducts.bind(this);
     }
@@ -25,9 +28,9 @@ export class ProductListScreen extends React.Component {
             const store = storage.get('storeUser');
             const { StoreId } = store;
             const { state } = this.props.location;
-            const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`) 
+            const baseApi = (state === 'OFFERS' ? `api/getOffers/${StoreId}` : `api/getProducts/${StoreId}`)
             const data = await fetchservices.get(baseApi);
-            this.setState({ list: data });
+            this.setState({ list: data, data });
         } catch (error) {
             console.log(error)
         }
@@ -76,24 +79,44 @@ export class ProductListScreen extends React.Component {
         }
     }
 
+    handleChange(event, stateVariable) {
+        this.setState({ [stateVariable]: event.target.value });
+    }
+
+    doSearch() {
+        const txt = this.state.searchText;
+        if(txt && txt.length >= 3) {
+            const filtered = _.filter(this.state.data, d => (_.includes(d.ProdDesc, txt) || _.includes(d.ProductName, txt) || _.includes(d.Category, txt)));
+            this.setState({list: filtered});
+        } else {            
+            this.setState({list: this.state.data});
+        }
+    }
+
     noList() {
         return (<div className="no-list"><label>No Products Found</label><button className="primary" onClick={() => {
             this.props.history.push('CreateProduct');
         }}>Add a Product</button></div>)
     }
     render() {
-        let list = this.state.list && this.state.list.length ? this.state.list.map((x, index) => {
+        const self = this;
+        let list = self.state.list && self.state.list.length ? self.state.list.map((x, index) => {
             return (
-                <Listview data={x} key={index} nav={this.props.history} edit={this.editProduct} delete={this.deleteProduct} getPro={this.getProducts}/>
+                <Listview data={x} key={index} nav={self.props.history} edit={self.editProduct} delete={self.deleteProduct} getPro={self.getProducts} />
             )
-        }) : this.noList();
-        const { state } = this.props.location;
+        }) : self.noList();
+        const { state } = self.props.location;
         return (
             <div className="products">
-                {this.state.list && this.state.list.length ? <div className="sub-header"><RiArrowGoBackLine onClick={this.props.history.goBack} className="icon" size="22px" />
-                    {this.state.isSearch ? <input type="text" value={this.state.searchText} placeholder="Search..." /> : <label>{state === 'OFFERS' ? 'Oeders List' : 'Products List'}</label>}
-                    {this.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => this.setState({ isSearch: false, searchText: '' })} /> : <BsSearch className="search" size="22px" onClick={() => this.setState({ isSearch: true, searchText: '' })} />}
-                </div> : null}
+                <div className="sub-header"><RiArrowGoBackLine onClick={self.props.history.goBack} className="icon" size="22px" />
+                    {self.state.isSearch ?
+                        <input type="text" value={self.state.searchText} placeholder="Search..." onChange={(e) => self.handleChange(e, 'searchText')} onKeyUp={() => self.doSearch()} /> : <label>{state === 'OFFERS' ? 'Oeders List' : 'Products List'}</label>}
+                    {self.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => {
+                        self.setState({ isSearch: false, searchText: '' }, () => {
+                            self.doSearch();
+                        });
+                    }} /> : <BsSearch className="search" size="22px" onClick={() => self.setState({ isSearch: true, searchText: '' })} />}
+                </div>
                 {list}
             </div>
         )
