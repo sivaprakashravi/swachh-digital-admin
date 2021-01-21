@@ -10,9 +10,9 @@ export const Listview = (props) => {
       <div className="tile">
         {data.Imageurl ? <div className="image-box" style={{ backgroundImage: `url(${data.Imageurl})` }}></div> : <div className="image-box"><BsImages size="25px" className="placeholder" /></div>}
         <div className="elements">
-          <div>Name: {data.name}</div>
-          <div>email: {data.email}</div>
-          <div >Phone: {data.number}</div>
+          <div>Name: {data.CustomerName}</div>
+          <div>email: {data.CustomerEmail}</div>
+          <div >Phone: {data.CustomerPhone}</div>
         </div>
       </div>
     )

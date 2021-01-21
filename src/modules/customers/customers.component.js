@@ -4,21 +4,14 @@ import { RiArrowGoBackLine } from 'react-icons/ri';
 import { BsSearch } from 'react-icons/bs';
 import { IoMdClose } from "react-icons/io";
 import './customers.styles.scss';
+import storage from "../../services/storage-manager.service";
+import fetchservices from "../../services/fetchsvc.service";
 export class CustomerScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             list: [
-                {
-                    name:'sai',
-                    email:'sai@gmail.com',
-                    number:7981193171
-                },
-                {
-                    name:'shanu',
-                    email:'shanu@gmail.com',
-                    number:8790900737
-                }
+                
             ],
             isSearch: false,
             searchText: ''
@@ -27,6 +20,19 @@ export class CustomerScreen extends React.Component {
     }
 
     
+    async listFromApi() {
+        const store = storage.get('storeUser');
+        const { StoreId } = store;
+        const listdata = await fetchservices.get(`api/getCustomerDetails/${StoreId}`);
+        this.setState({
+            list: listdata
+        })
+    }
+
+componentDidMount(){
+    this.listFromApi();
+}
+
     noList() {
         return (<div className="no-list"><label>You don't have customers right now</label></div>)
     }
