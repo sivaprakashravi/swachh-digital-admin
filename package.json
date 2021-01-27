@@ -2,6 +2,7 @@
   "name": "swachh-digital-admin",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "cra-template": "1.0.3",
     "crypto-js": "^4.0.0",
@@ -39,6 +40,7 @@
       "last 1 safari version"
     ]
   },
+  "preinstall": "rm -r node_modules",
   "postinstall": "npm rebuild node-sass && npm install --unsafe-perm -f node-sass",
   "devDependencies": {
     "date-fns": "^2.16.1",
@@ -49,6 +51,7 @@
     "re-carousel": "^2.4.0",
     "react-date-range": "^1.1.3",
     "react-icons": "^3.11.0",
-    "react-promise-tracker": "^2.1.0"
+    "react-promise-tracker": "^2.1.0",
+    "sass": "^1.32.5"
   }
 }
