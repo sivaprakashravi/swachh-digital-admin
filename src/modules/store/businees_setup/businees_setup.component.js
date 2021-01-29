@@ -27,7 +27,6 @@ export class BusinessSetupScreen extends React.Component {
         const store = storage.get('storeUser');
         const { StoreId } = store
         const dataAPi = await fetchService.get(`api/getStoreDetails/${StoreId}`);
-        console.log("dataP", dataAPi);
         const { DocId, StoreAddress, StoreName, PhoneNbr, Pincode, GST, TagLine } = await dataAPi;
         this.setState({ DocId, StoreAddress, StoreName, PhoneNbr, Pincode, GST, TagLine })
     };

@@ -43,7 +43,6 @@ class CreateProduct extends React.Component {
 
     componentDidMount() {
         this.getCategories();
-        console.log("image", this.state.image)
     }
 
     async CreateProductControl() { 
@@ -129,13 +128,14 @@ class CreateProduct extends React.Component {
         )
     }
     async uploadMultipleFiles(e) {
+        const self = this;
         try {
-            this.setState({ file: e.target.files[0] });
-            await this.fileObj.push(e.target.files)
-            for (let i = 0; i < this.fileObj[0].length; i++) {
-                this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+            self.setState({ file: e.target.files[0] });
+            await self.fileObj.push(e.target.files)
+            for (let i = 0; i < self.fileObj[0].length; i++) {
+                self.fileArray = [URL.createObjectURL(self.fileObj[0][i])];
             }
-            await this.setState({ image: this.fileArray });
+            await self.setState({ image: self.fileArray });
         } catch (error) {
             console.log("image error", error)
         }
@@ -153,7 +153,6 @@ class CreateProduct extends React.Component {
         trackPromise(fetch("https://us-central1-retailstores-28e08.cloudfunctions.net/uploadFile", requestOptions)
             .then(response => response.text())
             .then(async result => {
-                console.log(result);
                await this.setState({ imageUrl: JSON.parse(result) });
                 this.CreateProductControl();
             })
@@ -202,12 +201,12 @@ class CreateProduct extends React.Component {
 
     capture() {
         const self = this;
-        console.log(self + 'camera opened');
         var cameraCallback = function (imageData) {
-            console.log('captured');
             fetch("data:image/jpeg;base64," + imageData)
                 .then(res => res.blob())
-                .then(blob => {
+                .then(async(blob) => {
+                    self.setState({ file: blob });
+                    await self.fileObj.push(blob)
                     self.fileArray = [URL.createObjectURL(blob)];
                     self.setState({ image: self.fileArray });
                 });
@@ -250,7 +249,7 @@ class CreateProduct extends React.Component {
                     </li>
                     {this.uploadImage()}
                 </ul>
-                <button disabled={!(this.state.productName && this.state.price && this.state.categoryName && this.state.image)} onClick={() => this.CreateProductControl()} className="primary">Add Product</button>
+                <button disabled={!(this.state.productName && this.state.price && this.state.categoryName && this.state.image)} onClick={() => this.uploadControl()} className="primary">Add Product</button>
             </div>
         )
     }

@@ -17,17 +17,17 @@ function objToQueryString(obj) {
 
 const get = (url, options = {}) => {
   const { idToken } = authToken();
-  const headers = {'Content-Type': 'application/json',
-  'Accept': 'application/json'};
+  const headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  };
   if (idToken) {
     headers.Authorization = `Bearer ${idToken}`
   }
   const serviceOptions = {};
   serviceOptions.method = 'GET';
-  serviceOptions.options = options;  
-    serviceOptions.headers = headers;
-  
-  console.log(constants.api + url, serviceOptions)
+  serviceOptions.options = options;
+  serviceOptions.headers = headers;
   return new Promise((resolve, reject) => {
     trackPromise(fetch(constants.api + url, serviceOptions)
       .then(res => res.json())
@@ -39,7 +39,7 @@ const get = (url, options = {}) => {
         }
       })
       .catch(error => {
-        console.log("catech",error);
+        console.log("catech", error);
         reject(error);
       }));
   });
@@ -70,7 +70,6 @@ const post = (url, data, qParams) => {
       .then((res) => res.json())
       .then(dataApi => {
         if (dataApi.error) {
-          console.log(dataApi);
           reject(dataApi);
         } else {
           resolve(dataApi);
@@ -84,7 +83,6 @@ const post = (url, data, qParams) => {
 };
 
 const uploadImage = (url, data) => {
-  console.log(url, data)
   try {
     return new Promise((resolve, reject) => {
       const contentType = 'application/json';

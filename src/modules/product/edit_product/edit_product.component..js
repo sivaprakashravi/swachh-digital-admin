@@ -94,13 +94,11 @@ export class EditScreen extends React.Component {
             this.setState({ image: removedIndex });
             const { Imageurl } = this.props.location.state;
             if (Imageurl) {
-                console.log(Imageurl);
                 const name = Imageurl.split(/([!,?,/])/);
                 const imgData = {
                     "FileName": name[14]
                 }
-                const delImage = await fetchservices.post('api/deleteProdImage', imgData);
-                console.log(delImage);
+                await fetchservices.post('api/deleteProdImage', imgData);
             }
         } catch (error) {
             console.log(error);
@@ -109,9 +107,7 @@ export class EditScreen extends React.Component {
 
     capture() {
         const self = this;
-        console.log(self + 'camera opened');
         var cameraCallback = function (imageData) {
-            console.log('captured');
             fetch("data:image/jpeg;base64," + imageData)
                 .then(res => res.blob())
                 .then(blob => {

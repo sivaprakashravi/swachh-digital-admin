@@ -20,7 +20,6 @@ export const Listview = (props) => {
     </VMenu>)
   }
   const tile = (data) => {
-    console.log("data",data)
 
     return (
       <div className="tile">
