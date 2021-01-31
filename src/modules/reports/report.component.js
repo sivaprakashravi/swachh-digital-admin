@@ -81,7 +81,7 @@ export class ReportScreen extends React.Component {
         this.setState({ filter: false });
     }
     noList() {
-        return (<div className="no-list"><label>{t('NOORDERS')}</label></div>)
+        return (<div className="no-list"><label>No Reports</label></div>)
     }
     render() {
         const self = this;
@@ -116,11 +116,13 @@ export class ReportScreen extends React.Component {
                     {self.state.recent ?
                         <div>
                             <select onChange={(e) => this.handleChange(e, 'period')}>
+                                <option>Date</option>
                                 <option>Today</option>
                                 <option>This week</option>
                                 <option>This month</option>
                             </select>
                             <select>
+                                <option>Status</option>
                                 <option>New</option>
                                 <option>Accepted</option>
                                 <option>Rejected</option>

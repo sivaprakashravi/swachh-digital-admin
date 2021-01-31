@@ -10,15 +10,15 @@ class PageScreen extends React.Component{
           <div className="page">
               <ul>
               <li>
-               <label>Mobile :</label>
+               <label>Mobile </label>
                <input type="text" maxLength={10} onChange={(e)=>this.handleChange(e, 'mobile')}/>
               </li>
               <li>
-              <label>Email :</label>
+              <label>Email </label>
                <input type="text" onChange={(e)=>this.handleChange(e, 'email')}/> 
               </li>
               <li>
-                  <label>Terms & Conditions :</label>
+                  <label>Terms & Conditions </label>
               <textarea onChange={(e)=>this.handleChange(e, 't&c')}/>
               </li>
               </ul>

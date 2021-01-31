@@ -29,26 +29,21 @@ class SideNav extends React.Component {
                 label: 'ORDERS',
                 route: 'orderlist'
             }, {
-                label: 'MANAGESTAFF',
-                route: ''
-            }, {
                 label: 'STORESETUP',
                 route: '',
                 subMenu: [{
-                    label: 'BUSINESSSETUP',
+                    label: 'Store Details',
                     route: 'businessSetup'
                 },
                 {
                     label: 'ACCOUNTPAGE',
                     route: 'myAccount'
                 },
-                {
-                    label: 'USERMANAGEMENT',
-                    route: 'userManage'
-                }]
+                ]
+            
             }, {
-                label: 'BUSINESSETTINGS',
-                route: ''
+                label: 'STOREDESIGN',
+                route: 'storeDesign'
             }]
         };
     }

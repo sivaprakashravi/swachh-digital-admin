@@ -94,9 +94,11 @@ export class ProductListScreen extends React.Component {
     }
 
     noList() {
-        return (<div className="no-list"><label>No Products Found</label><button className="primary" onClick={() => {
+        const { state } = this.props.location;
+        return (<div className="no-list"><label>{ state === 'OFFERS' ? 'No Offers Found' :'No Products Found'}</label>
+       {state != 'OFFERS' && <button className="primary" onClick={() => {
             this.props.history.push('CreateProduct');
-        }}>Add a Product</button></div>)
+        }}>Add a Product</button>}</div>)
     }
     render() {
         const self = this;
@@ -110,7 +112,7 @@ export class ProductListScreen extends React.Component {
             <div className="products">
                 <div className="sub-header"><RiArrowGoBackLine onClick={self.props.history.goBack} className="icon" size="22px" />
                     {self.state.isSearch ?
-                        <input type="text" value={self.state.searchText} placeholder="Search..." onChange={(e) => self.handleChange(e, 'searchText')} onKeyUp={() => self.doSearch()} /> : <label>{state === 'OFFERS' ? 'Oeders List' : 'Products List'}</label>}
+                        <input type="text" value={self.state.searchText} placeholder="Search..." onChange={(e) => self.handleChange(e, 'searchText')} onKeyUp={() => self.doSearch()} /> : <label>{state === 'OFFERS' ? 'Offers' : 'Products List'}</label>}
                     {self.state.isSearch ? <IoMdClose className="search" size="22px" onClick={() => {
                         self.setState({ isSearch: false, searchText: '' }, () => {
                             self.doSearch();

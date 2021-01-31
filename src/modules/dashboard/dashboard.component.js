@@ -21,8 +21,8 @@ class Dashboard extends React.Component {
                 route: 'productlist',
                 icon: <FcLike size="35px" />
             }, {
-                label: 'ACCESSMANAGEMENT',
-                route: '',
+                label: 'PRODUCTLIST',
+                route: 'productlist',
                 icon: <FcKey size="35px" />
             }, {
                 label: 'ORDERS',
@@ -45,7 +45,7 @@ class Dashboard extends React.Component {
                 route: 'storeDesign',
                 icon: <FcIdea size="35px" />
             }, {
-                label: 'MORESERVICES',
+                label: 'ADD CATEGORY',
                 route: '',
                 icon: <FcMultipleInputs size="35px" />
             }]
@@ -103,12 +103,26 @@ class Dashboard extends React.Component {
         )
     }
 
+    shareLink(){
+        const { StoreLink } = this.state
+        if (navigator.share) {
+            navigator.share({
+                    title: 'Store Link',
+                    text:StoreLink,
+                    url: `https://wa.me/${7981193171}`,
+                })
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+        } else {
+            console.log("Web Share API is not supported in your browser.")
+        }
+    }
     render() {
         const { StoreLink } = this.state
         return (
             <div className="dashboard">
                 {this.banner()}
-                <div className="store-url"><label>{StoreLink}</label> <FaShareAlt size="24px" style={{ float: 'right' }} /></div>
+                <div className="store-url"><label>{StoreLink}</label> <FaShareAlt size="24px" style={{ float: 'right' }} onClick={()=>this.shareLink()}/></div>
                 {this.notify()}
                 {this.services()}
             </div>

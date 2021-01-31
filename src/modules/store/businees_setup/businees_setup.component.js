@@ -5,7 +5,7 @@ import fetchService from '../../../services/fetchsvc.service';
 import storage from '../../../services/storage-manager.service';
 import { RiArrowGoBackLine } from 'react-icons/ri';
 import Toast from '../../../components/toast/toast.component';
-
+import session from '../../../services/session-manger.service';
 export class BusinessSetupScreen extends React.Component {
     constructor(props) {
         super(props);
@@ -52,11 +52,19 @@ export class BusinessSetupScreen extends React.Component {
                 "ModifiedBy": localId
             };
             const dataAPi = await fetchService.post('api/editStoreInfo', data);
-            ReactDOM.render(<Toast message="Update Store Details!" />, document.getElementById('dom'));
+           await ReactDOM.render(<Toast message="Update Store Details!" />, document.getElementById('dom'));
+          await alert("Please log off and try again to reflect the store name in your app");
+           await this.logout();
         } catch (error) {
             console.log(error);
         }
     }
+
+    async logout() {
+        await session.logout();
+         this.props.history.push('');
+     }
+
     inputController() {
         const { StoreName, TagLine, PhoneNbr, StoreAddress, GST, Pincode } = this.state
         return (
@@ -64,7 +72,7 @@ export class BusinessSetupScreen extends React.Component {
                 <ul>
                     <li>
                         <label>Store Name:</label>
-                        <input type="text" value={StoreName} onChange={(e) => { this.handleChange(e, 'StoreName') }} />
+                        <input type="text" value={StoreName} maxLength={20} onChange={(e) => { this.handleChange(e, 'StoreName') }} />
                     </li>
                     <li>
                         <label>Tag Line:</label>

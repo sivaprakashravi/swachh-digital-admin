@@ -28,7 +28,7 @@ class CreateProduct extends React.Component {
     handleChange = e => {
         const { name, value } = e.target;
         this.setState({
-            [name]: value
+            [name]: value.toUpperCase()
         });
     };
 
@@ -230,12 +230,15 @@ class CreateProduct extends React.Component {
             <div className="input">
                 <ul>
                     <li>
-                        <label>{this.state.isNewCategory ? 'Category Name' : 'Select from Category'}:</label>
+                        <label>{this.state.isNewCategory ? 'Category Name' : optionItems ? 'Select from Category' : null}:</label>
                         {
                             !this.state.isNewCategory ?
+
+                            optionItems ?
                                 <select id="item" name="categoryName" onChange={this.handleChange} className="dropDown">
                                     {optionItems}
-                                </select>
+                                </select> :
+                                null
                                 :
                                 <input type="text" value={this.state.categoryName} name="categoryName" onChange={this.handleChange} />
                         }

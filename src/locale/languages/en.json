@@ -1,5 +1,5 @@
 {  
-        "HIUSERNAME":"hi,{name}",
+        "HIUSERNAME":"{name}",
         "VIEWALL":"View All",
         "INVOICE":"Invoice",
         "ITEMFOR":"Item for",

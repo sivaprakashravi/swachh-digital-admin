@@ -84,7 +84,7 @@ class StoreRegister extends React.Component {
             <ul>
                 <li>
                     <label>Store Name :</label>
-                    <input type="text" value={this.state.storename} onChange={(e) => { this.handleChange(e, 'storename') }} />
+                    <input type="text" value={this.state.storename} maxLength={20} onChange={(e) => { this.handleChange(e, 'storename') }} />
                 </li>
                 <li>
                     <label>Address :</label>
@@ -112,7 +112,7 @@ class StoreRegister extends React.Component {
       
                 
             <div className="store-register">
-            <h3 className="header">Enter Store Details :</h3>
+            <h3 className="header">Enter Store Details </h3>
             <div className="register">
                 {this.controls()}
             </div>

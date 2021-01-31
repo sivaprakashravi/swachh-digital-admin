@@ -121,7 +121,7 @@ export const OrderDetails = (props) => {
                 </div>
             </div>
             <div className="sum-download">
-                {(data.OrderStatus === 'Shipped' || data.OrderStatus === 'Delivered') && <div className="download" onClick={download}><GrDocumentPdf size="20px" /> Download</div>}
+                {(data.OrderStatus === 'Shipped' || data.OrderStatus === 'Delivered') && <div className="download" onClick={()=>download()}><GrDocumentPdf size="20px" onClick={download}/> Download</div>}
                 <div className="by">{products.length} Item for <FaRupeeSign /> {data.TotalAmount}</div>
             </div>
             {

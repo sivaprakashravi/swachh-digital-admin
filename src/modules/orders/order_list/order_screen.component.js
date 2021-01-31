@@ -9,7 +9,7 @@ import { DateRange } from 'react-date-range';
 import moment from 'moment';
 import { RiFilterLine, RiArrowGoBackLine } from 'react-icons/ri';
 import storage from '../../../services/storage-manager.service';
-import t from '../../../locale/translate'
+import t from '../../../locale/translate';
 export class OrderScreen extends React.Component {
     constructor(props) {
         const defaultRange = { startDate: new Date(), endDate: new Date() };
@@ -81,6 +81,7 @@ export class OrderScreen extends React.Component {
         this.setState({ filter: false });
     }
     noList() {
+        
         return (<div className="no-list"><label>{t('NOORDERS')}</label></div>)
     }
     render() {
