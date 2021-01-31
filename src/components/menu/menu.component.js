@@ -11,7 +11,6 @@ const VMenu = props => {
         setOpen(!isOpen);
     };
     const onSelect = name => {
-        console.log(props);
         if (typeof props.onSelect != "undefined") {
             let obj = { actiontype: name, data: props.data };
             props.onSelect(obj);

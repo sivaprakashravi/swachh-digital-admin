@@ -20,6 +20,7 @@ export const Listview = (props) => {
     </VMenu>)
   }
   const tile = (data) => {
+
     return (
       <div className="tile">
         {data.Imageurl ? <div className="image-box" style={{ backgroundImage: `url(${data.Imageurl})` }}></div> : <div className="image-box"><BsImages size="25px" className="placeholder" /></div>}

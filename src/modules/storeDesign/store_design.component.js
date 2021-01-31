@@ -82,7 +82,6 @@ async editStoredesign(){
             "ModifiedBy" : localId
         }
         const dataApi = await fetchServices.post('api/editStoreDesign',editData);
-        console.log(dataApi)
         ReactDOM.render(<Toast message={dataApi} />, document.getElementById('dom'));
     } catch (error) {
         console.log(error)

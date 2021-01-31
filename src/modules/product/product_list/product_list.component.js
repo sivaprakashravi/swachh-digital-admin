@@ -52,7 +52,6 @@ export class ProductListScreen extends React.Component {
     }
 
     async editProduct(values) {
-        console.log("values", values)
         try {
             const store = storage.get('storeUser');
             const userId = storage.get('userToken');
