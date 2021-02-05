@@ -4,7 +4,7 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { BiEdit } from 'react-icons/bi';
 import { FcExternal, FcShop, FcCancel, FcShipped, FcHome } from 'react-icons/fc'
 import t from '../../../locale/translate';
-import ModalView from '../../../components/modal/modal.component'
+import ModalView from '../../../components/modal/modal.component';
 export const OrderList = (props) => {
     const [reason, setReason] = React.useState('');
     const renderModal = () => {
